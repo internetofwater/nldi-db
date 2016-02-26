@@ -1,0 +1,11 @@
+# Creates the PostGIS container for NLDI. Set the environment SKIP_LIQUIBASE to
+# a non-empty value to skip running liquibase when container starts. 
+
+liquibase:
+    build: ./src/main/resources/docker
+#    ports:
+#        - "5432:5432"
+#    environment:
+#        - POSTGRES_USER=nldi
+#        - POSTGRES_PASSWORD=nldi
+#   - SKIP_LIQUIBASE=true

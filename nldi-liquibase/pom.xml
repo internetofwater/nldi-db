@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>gov.usgs.cida.dsas</groupId>
+		<artifactId>dsas-web</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>dsas-liquibase</artifactId>
+	<packaging>jar</packaging>
+
+	<name>DSASWeb Liquibase Changesets</name>
+
+	<properties>
+		<dsas.liquibase.version>3.4.2</dsas.liquibase.version>
+		<dsas.db.schema>public</dsas.db.schema>
+		<dsas.db.driver>org.postgresql.Driver</dsas.db.driver>
+		<dsas.db.driver.version>9.4-1203-jdbc42</dsas.db.driver.version>
+		<!-- For goals to run these properties must be set in settings.xml
+		<cch.dsas.liquibase.driver></cch.dsas.liquibase.driver>
+		<cch.dsas.liquibase.url></cch.dsas.liquibase.url>
+		<cch.dsas.liquibase.username></cch.dsas.liquibase.username>
+		<cch.dsas.liquibase.password></cch.dsas.liquibase.password>
+		-->
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${dsas.liquibase.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${dsas.db.driver.version}</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<!--
+			This profile runs Liquibase on the associated Docker PostGIS instance 
+			that is created by running Docker Compose on the docker-compose.yml file
+			in this same directory. The database will be connected to a persistent 
+			Docker volume container.
+			
+			Docker on Linux:
+			$ mvn liquibase:update -P docker -Ddsas.liquibase.hostname=127.0.0.1
+			
+			Docker using Docker-Machine (Windows/MacOS):
+			$ mvn liquibase:update -P docker -Ddsas.liquibase.hostname=$(docker-machine ip <machine name>)
+			
+			Example (if the machine name for docker-machine was "dev") :
+			$ mvn liquibase:update -P docker -Ddsas.liquibase.hostname=$(docker-machine ip dev)
+			--> 
+			<id>docker</id>
+			<properties>
+				<dsas.db.name>dsas</dsas.db.name>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<version>${dsas.liquibase.version}</version>
+						<configuration>
+							<password>dsas</password>
+							<username>dsas</username>
+							<driver>${dsas.db.driver}</driver>
+							<url>jdbc:postgresql://${dsas.liquibase.hostname}:5432/${dsas.db.name}</url>
+							<changeLogFile>src/main/resources/liquibase/changeLog.xml</changeLogFile>
+							<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+							<schemas>${dsas.db.schema}</schemas>
+							<contexts>default</contexts>
+							<verbose>true</verbose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>${dsas.db.driver.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${dsas.liquibase.version}</version>
+				<configuration>
+					<password>${cch.dsas.liquibase.password}</password>
+					<username>${cch.dsas.liquibase.username}</username>
+					<driver>${dsas.db.driver}</driver>
+					<url>${cch.dsas.liquibase.url}</url>
+					<changeLogFile>src/main/resources/liquibase/changeLog.xml</changeLogFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					<schemas>${dsas.db.schema}</schemas>
+					<contexts>default</contexts>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
