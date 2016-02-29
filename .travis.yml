@@ -1,0 +1,12 @@
+language: bash
+
+services:
+  - docker
+
+install:
+  - docker-compose up -d
+
+script:
+  - docker-compose ps | grep -q NLDI_Database_Volume
+  - docker-compose ps | grep -q NLDI_Database
+  - docker-compose ps | grep -q NLDI_Liquibase
