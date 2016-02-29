@@ -25,6 +25,7 @@ nldi_liquibase:
     service: liquibase
   volumes_from:
     - nldi_db_vol_container
+  command: /bin/echo "Run the NLDI liquibase"
   links:
     - nldi_db
   environment:
