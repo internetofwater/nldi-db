@@ -1,35 +1,34 @@
 # Database Component 
 # Set the environment SKIP_LIQUIBASE to a non-empty value to skip running 
-# liquibase when container starts. 
-nldi_db_vol_container:
-  image: alpine
-  volumes:
-    - /var/lib/postgresql
-  command: /bin/echo "Data only container for NLDI PostGRES"
-  labels:
-    - "gov.usgs.owi.nldi.container.volume=true"
-  container_name: NLDI_Database_Volume
-nldi_db:
-  build: .
-  volumes_from: 
-    - nldi_db_vol_container
-  ports:
-    - "5432:5432"
-  environment:
-    - POSTGRES_USER=nldi
-    - POSTGRES_PASSWORD=nldi
-  container_name: NLDI_Database
-nldi_liquibase:
-  extends:
-    file: ./nldi-liquibase/docker-compose.yml
-    service: liquibase
-  volumes_from:
-    - nldi_db_vol_container
-  command: /bin/echo "Run the NLDI liquibase"
-  links:
-    - nldi_db
-  environment:
-    - POSTGRES_USER=nldi
-    - POSTGRES_PASSWORD=nldi
-  container_name: NLDI_Liquibase
-  
+# liquibase when container starts.
+version: '2'
+services:
+  nldi_db_vol_container:
+    image: alpine
+    volumes:
+      - /var/lib/postgresql
+    command: /bin/echo "Data only container for NLDI PostGRES"
+    labels:
+      - "gov.usgs.owi.nldi.container.volume=true"
+    container_name: NLDI_Database_Volume
+  nldi_db:
+    build:
+      context: .
+    volumes_from: 
+      - nldi_db_vol_container
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=nldi
+      - POSTGRES_PASSWORD=nldi
+    container_name: NLDI_Database
+  nldi_liquibase:
+    extends:
+      file: ./nldi-liquibase/docker-compose.yml
+      service: liquibase
+    links:
+      - nldi_db
+    environment:
+      - POSTGRES_USER=nldi
+      - POSTGRES_PASSWORD=nldi
+    container_name: NLDI_Liquibase

@@ -6,7 +6,7 @@
 if [ -z "$SKIP_LIQUIBASE" ]; then
         echo "Running Liquibase..."
         cat ${LIQUIBASE_HOME}/liquibase.properties
-		$LIQUIBASE_HOME/liquibase --defaultsFile=${LIQUIBASE_HOME}/liquibase.properties --changeLogFile=${LIQUIBASE_HOME}/nldi/changeLog.xml update
+		$LIQUIBASE_HOME/liquibase --defaultsFile=${LIQUIBASE_HOME}/liquibase.properties --changeLogFile=${LIQUIBASE_HOME}/nldi/changeLog.xml update > $LIQUIBASE_HOME/liquibase.log
 else
         echo "Skipping Liquibase"
 fi

@@ -26,4 +26,4 @@ RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.4.2-bin.tar.gz -C $LIQUIBASE_HOME/
 #RUN chmod 755 $LIQUIBASE_HOME/download-liquibase.sh \
 #    && sleep 1 \
 #	&& $LIQUIBASE_HOME/download-liquibase.sh
-RUN $LIQUIBASE_HOME/run_liquibase.sh
+#RUN $LIQUIBASE_HOME/run_liquibase.sh
