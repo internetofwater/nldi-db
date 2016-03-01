@@ -1,5 +1,10 @@
 # Creates the liquibase container for NLDI. Set the environment SKIP_LIQUIBASE to
 # a non-empty value to skip running liquibase when container starts. 
-
-liquibase:
+##comments are for version 2...
+##version: '2'
+##services:
+  liquibase:
+##    build:
+##      context: ./src/main/resources/docker
     build: ./src/main/resources/docker
+    command: /bin/bash /opt/liquibase/run_liquibase.sh
