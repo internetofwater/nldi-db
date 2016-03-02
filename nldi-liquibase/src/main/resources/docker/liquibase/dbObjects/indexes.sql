@@ -231,3 +231,171 @@ create index tmp_navigation_working_17i on nhdplus_navigation.tmp_navigation_wor
 --changeset drsteini:create_index.nhdplus_navigation.tmp_navigation_working_26i
 create index tmp_navigation_working_26i on nhdplus_navigation.tmp_navigation_working (selected);      
 --rollback drop index nhdplus_navigation.tmp_navigation_working_26i
+
+--changeset drsteini:create_index.nhdplus.i398fromcomid
+create index i398fromcomid on nhdplus.megadiv_np21 using btree (fromcomid) with (fillfactor=75);
+--rollback drop index nhdplus.i398fromcomid
+
+--changeset drsteini:create_index.nhdplus.i444nhdplus_regi_1
+create index i444nhdplus_regi_1 on nhdplus.megadiv_np21 using btree (nhdplus_region) with (fillfactor=75);
+--rollback drop index nhdplus.i444nhdplus_regi_1
+
+--changeset drsteini:create_index.nhdplus.i664tocomid
+create index i664tocomid on nhdplus.megadiv_np21 using btree (tocomid) with (fillfactor=75);
+--rollback drop index nhdplus.i664tocomid
+
+--changeset drsteini:create_index.nhdplus.r34_sde_rowid_uk
+create unique index r34_sde_rowid_uk on nhdplus.megadiv_np21 using btree (objectid) with (fillfactor=60);
+--rollback drop index nhdplus.r34_sde_rowid_uk
+
+--changeset drsteini:create_index.nhdplus.a162_ix1
+create index a162_ix1 on nhdplus.nhdflowline_np21 using gist (shape);
+--rollback drop index nhdplus.a162_ix1
+
+--changeset drsteini:create_index.nhdplus.i160catchment_fe
+create index i160catchment_fe on nhdplus.nhdflowline_np21 using btree (catchment_featureid) with (fillfactor=75);
+--rollback drop index nhdplus.i160catchment_fe
+
+--changeset drsteini:create_index.nhdplus.i206streamorder
+create index i206streamorder on nhdplus.nhdflowline_np21 using btree (streamorder) with (fillfactor=75);
+--rollback drop index nhdplus.i206streamorder
+
+--changeset drsteini:create_index.nhdplus.i270nhdplus_regi
+create index i270nhdplus_regi on nhdplus.nhdflowline_np21 using btree (nhdplus_region) with (fillfactor=75);
+--rollback drop index nhdplus.i270nhdplus_regi
+
+--changeset drsteini:create_index.nhdplus.i301gnis_id
+create index i301gnis_id on nhdplus.nhdflowline_np21 using btree (gnis_id) with (fillfactor=75);
+--rollback drop index nhdplus.i301gnis_id
+
+--changeset drsteini:create_index.nhdplus.i387wbarea_fcode
+create index i387wbarea_fcode on nhdplus.nhdflowline_np21 using btree (wbarea_fcode) with (fillfactor=75);
+--rollback drop index nhdplus.i387wbarea_fcode
+
+--changeset drsteini:create_index.nhdplus.i468reachcode
+create index i468reachcode on nhdplus.nhdflowline_np21 using btree (reachcode) with (fillfactor=75);
+--rollback drop index nhdplus.i468reachcode
+
+--changeset drsteini:create_index.nhdplus.i51streamlevel
+create index i51streamlevel on nhdplus.nhdflowline_np21 using btree (streamlevel) with (fillfactor=75);
+--rollback drop index nhdplus.i51streamlevel
+
+--changeset drsteini:create_index.nhdplus.i540wbarea_ftype
+create index i540wbarea_ftype on nhdplus.nhdflowline_np21 using btree (wbarea_ftype) with (fillfactor=75);
+--rollback drop index nhdplus.i540wbarea_ftype
+
+--changeset drsteini:create_index.nhdplus.i576permanent_id
+create unique index i576permanent_id on nhdplus.nhdflowline_np21 using btree (permanent_identifier) with (fillfactor=75);
+--rollback drop index nhdplus.i576permanent_id
+
+--changeset drsteini:create_index.nhdplus.i603wbd_huc12
+create index i603wbd_huc12 on nhdplus.nhdflowline_np21 using btree (wbd_huc12) with (fillfactor=75);
+--rollback drop index nhdplus.i603wbd_huc12
+
+--changeset drsteini:create_index.nhdplus.i605nhdplus_comi
+create unique index i605nhdplus_comi on nhdplus.nhdflowline_np21 using btree (nhdplus_comid) with (fillfactor=75);
+--rollback drop index nhdplus.i605nhdplus_comi
+
+--changeset drsteini:create_index.nhdplus.i655gnis_name
+create index i655gnis_name on nhdplus.nhdflowline_np21 using btree (gnis_name) with (fillfactor=75);
+--rollback drop index nhdplus.i655gnis_name
+
+--changeset drsteini:create_index.nhdplus.i757wbarea_nhdpl
+create index i757wbarea_nhdpl on nhdplus.nhdflowline_np21 using btree (wbarea_nhdplus_comid) with (fillfactor=75);
+--rollback drop index nhdplus.i757wbarea_nhdpl
+
+--changeset drsteini:create_index.nhdplus.i814hydroseq
+create index i814hydroseq on nhdplus.nhdflowline_np21 using btree (hydroseq) with (fillfactor=75);
+--rollback drop index nhdplus.i814hydroseq
+
+--changeset drsteini:create_index.nhdplus.i818wbarea_perma
+create index i818wbarea_perma on nhdplus.nhdflowline_np21 using btree (wbarea_permanent_identifier) with (fillfactor=75);
+--rollback drop index nhdplus.i818wbarea_perma
+
+--changeset drsteini:create_index.nhdplus.i82ftype
+create index i82ftype on nhdplus.nhdflowline_np21 using btree (ftype) with (fillfactor=75);
+--rollback drop index nhdplus.i82ftype
+
+--changeset drsteini:create_index.nhdplus.i835fcode
+create index i835fcode on nhdplus.nhdflowline_np21 using btree (fcode) with (fillfactor=75);
+--rollback drop index nhdplus.i835fcode
+
+--changeset drsteini:create_index.nhdplus.i871navigable
+create index i871navigable on nhdplus.nhdflowline_np21 using btree (navigable) with (fillfactor=75);
+--rollback drop index nhdplus.i871navigable
+
+--changeset drsteini:create_index.nhdplus.r368_sde_rowid_uk
+create unique index r368_sde_rowid_uk on nhdplus.nhdflowline_np21 using btree (objectid) with (fillfactor=60);
+--rollback drop index nhdplus.r368_sde_rowid_uk
+
+--changeset drsteini:create_index.nhdplus.i52dncomid
+create index i52dncomid on nhdplus.nhdplusconnect_np21 using btree (dncomid) with (fillfactor=75);
+--rollback drop index nhdplus.i52dncomid
+
+--changeset drsteini:create_index.nhdplus.i841upcomid
+create index i841upcomid on nhdplus.nhdplusconnect_np21 using btree (upcomid) with (fillfactor=75);
+--rollback drop index nhdplus.i841upcomid
+
+--changeset drsteini:create_index.nhdplus.r325_sde_rowid_uk
+create unique index r325_sde_rowid_uk on nhdplus.nhdplusconnect_np21 using btree (objectid) with (fillfactor=60);
+--rollback drop index nhdplus.r325_sde_rowid_uk
+
+--changeset drsteini:create_index.nhdplus.i177terminalpath
+create index i177terminalpath on nhdplus.plusflowlinevaa_np21 using btree (terminalpathid) with (fillfactor=75);
+--rollback drop index nhdplus.i177terminalpath
+
+--changeset drsteini:create_index.nhdplus.i325comid
+create unique index i325comid on nhdplus.plusflowlinevaa_np21 using btree (comid) with (fillfactor=75);
+--rollback drop index nhdplus.i325comid
+
+--changeset drsteini:create_index.nhdplus.i349reachcode
+create index i349reachcode on nhdplus.plusflowlinevaa_np21 using btree (reachcode) with (fillfactor=75);
+--rollback drop index nhdplus.i349reachcode
+
+--changeset drsteini:create_index.nhdplus.i427fcode
+create index i427fcode on nhdplus.plusflowlinevaa_np21 using btree (fcode) with (fillfactor=75);
+--rollback drop index nhdplus.i427fcode
+
+--changeset drsteini:create_index.nhdplus.
+create index i442hydroseq on nhdplus.plusflowlinevaa_np21 using btree (hydroseq) with (fillfactor=75);
+--rollback drop index nhdplus.
+
+--changeset drsteini:create_index.nhdplus.i509nhdplus_regi
+create index i509nhdplus_regi on nhdplus.plusflowlinevaa_np21 using btree (nhdplus_region) with (fillfactor=75);
+--rollback drop index nhdplus.i509nhdplus_regi
+
+--changeset drsteini:create_index.nhdplus.i638streamorder
+create index i638streamorder on nhdplus.plusflowlinevaa_np21 using btree (streamorder) with (fillfactor=75);
+--rollback drop index nhdplus.i638streamorder
+
+--changeset drsteini:create_index.nhdplus.i648levelpathid
+create index i648levelpathid on nhdplus.plusflowlinevaa_np21 using btree (levelpathid) with (fillfactor=75);
+--rollback drop index nhdplus.i648levelpathid
+
+--changeset drsteini:create_index.nhdplus.i910permanent_id
+create unique index i910permanent_id on nhdplus.plusflowlinevaa_np21 using btree (permanent_identifier) with (fillfactor=75);
+--rollback drop index nhdplus.i910permanent_id
+
+--changeset drsteini:create_index.nhdplus.i954streamlevel
+create index i954streamlevel on nhdplus.plusflowlinevaa_np21 using btree (streamlevel) with (fillfactor=75);
+--rollback drop index nhdplus.i954streamlevel
+
+--changeset drsteini:create_index.nhdplus.r45_sde_rowid_uk
+create unique index r45_sde_rowid_uk on nhdplus.plusflowlinevaa_np21 using btree (objectid) with (fillfactor=60);
+--rollback drop index nhdplus.r45_sde_rowid_uk
+
+--changeset drsteini:create_index.nhdplus.i12fromcomid
+create index i12fromcomid on nhdplus.plusflow_np21 using btree (fromcomid) with (fillfactor=75);
+--rollback drop index nhdplus.i12fromcomid
+
+--changeset drsteini:create_index.nhdplus.i556nhdplus_regi
+create index i556nhdplus_regi on nhdplus.plusflow_np21 using btree (nhdplus_region) with (fillfactor=75);
+--rollback drop index nhdplus.i556nhdplus_regi
+
+--changeset drsteini:create_index.nhdplus.i973tocomid
+create index i973tocomid on nhdplus.plusflow_np21 using btree (tocomid) with (fillfactor=75);
+--rollback drop index nhdplus.i973tocomid
+
+--changeset drsteini:create_index.nhdplus.r43_sde_rowid_uk
+create unique index r43_sde_rowid_uk on nhdplus.plusflow_np21 using btree (objectid) with (fillfactor=60);
+--rollback drop index nhdplus.r43_sde_rowid_uk
