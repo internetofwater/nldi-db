@@ -12,7 +12,7 @@
 
     <include file="schema.sql" relativeToChangelogFile="true"/>
 <!--     <include file="sequences.sql" relativeToChangelogFile="true"/> -->
-<!--     <include file="tables.sql" relativeToChangelogFile="true"/> -->
+    <include file="tables.sql" relativeToChangelogFile="true"/>
 <!--     <include file="views.xml" relativeToChangelogFile="true"/> -->
 
 <!--     <include file="indexes.sql" relativeToChangelogFile="true"/> -->
