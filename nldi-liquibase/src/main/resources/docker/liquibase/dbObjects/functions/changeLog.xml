@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"> 
+
+    <preConditions>
+        <dbms type="postgresql" />
+        <runningAs username="nldi" />
+    </preConditions>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.query_single_flowline">
+        <createProcedure path="query_single_flowline.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.query_single_flowline
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.included_distance">
+        <createProcedure path="included_distance.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.included_distance
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.temp_table_exists">
+        <createProcedure path="temp_table_exists.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.temp_table_exists
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.start_path_length">
+        <createProcedure path="start_path_length.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.start_path_length
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.measure_at_distance">
+        <createProcedure path="measure_at_distance.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.measure_at_distance
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.divergences">
+        <createProcedure path="divergences.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.divergences
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.create_temp_tables">
+        <createProcedure path="create_temp_tables.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.create_temp_tables
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.reference_calculations">
+        <createProcedure path="reference_calculations.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.reference_calculations
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.prepare_working_table">
+        <createProcedure path="prepare_working_table.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.prepare_working_table
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_upmain">
+        <createProcedure path="navigate_upmain.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate_upmain
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_uptrib">
+        <createProcedure path="navigate_uptrib.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate_uptrib
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_dnmain">
+        <createProcedure path="navigate_dnmain.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate_dnmain
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_dndiv">
+        <createProcedure path="navigate_dndiv.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate_dndiv
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_vpu_core">
+        <createProcedure path="navigate_vpu_core.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate_vpu_core
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.irc_up_processing">
+        <createProcedure path="irc_up_processing.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.irc_up_processing
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.irc_down_processing">
+        <createProcedure path="irc_down_processing.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.irc_down_processing
+        </rollback>
+    </changeSet>
+
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate">
+        <createProcedure path="navigate.sql" relativeToChangelogFile="true" />
+        <rollback>
+            drop function if exists nhdplus_navigation.navigate
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
