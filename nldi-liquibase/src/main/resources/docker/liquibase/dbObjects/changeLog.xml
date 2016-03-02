@@ -14,9 +14,7 @@
 <!--     <include file="sequences.sql" relativeToChangelogFile="true"/> -->
     <include file="tables.sql" relativeToChangelogFile="true"/>
     <include file="geometryColumns.sql" relativeToChangelogFile="true"/>
-<!--     <include file="views.xml" relativeToChangelogFile="true"/> -->
-
-<!--     <include file="indexes.sql" relativeToChangelogFile="true"/> -->
+    <include file="indexes.sql" relativeToChangelogFile="true"/>
 <!--     <include file="ri.sql" relativeToChangelogFile="true"/> -->
 
 <!--     <include file="functions/changeLog.xml" relativeToChangelogFile="true"/> -->
