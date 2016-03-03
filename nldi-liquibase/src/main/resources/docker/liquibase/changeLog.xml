@@ -12,7 +12,7 @@
 
     <include file="dbSetup.sql" relativeToChangelogFile="true"/>
 
-<!--     <include file="dbObjects/changeLog.xml" relativeToChangelogFile="true"/> -->
+    <include file="dbObjects/changeLog.xml" relativeToChangelogFile="true"/>
     
 <!--     <include file="data/changeLog.xml" relativeToChangelogFile="true"/> -->
 
