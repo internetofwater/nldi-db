@@ -21,13 +21,3 @@
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
     container_name: NLDI_Database
-  nldi_liquibase:
-    extends:
-      file: ./nldi-liquibase/docker-compose.yml
-      service: liquibase
-    links:
-      - nldi_db
-    environment:
-      - POSTGRES_USER=nldi
-      - POSTGRES_PASSWORD=nldi
-    container_name: NLDI_Liquibase
