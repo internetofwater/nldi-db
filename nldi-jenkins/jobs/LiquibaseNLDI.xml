@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Run Liquibase scripts for the nldi schemas.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>liquibaseCommand</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>update</string>
+              <string>updateTestingRollback</string>
+              <string>clearCheckSums</string>
+              <string>changelogSync</string>
+              <string>changelogSyncSQL</string>
+              <string>status --verbose</string>
+              <string>rollbackCount</string>
+              <string>dropAll</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>dburl</name>
+          <description>Database to upgrade</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>jdbc:postgresql://NLDI_Database:5432/nldi</string>
+              <string>jdbc:postgresql://172.17.0.4:5432/nldi</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>rollbackCount</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.3">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/dsteinich/nldi-db.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>java -jar ${liquibaseHome}/liquibase.jar --url=${dburl} --username=nldi --password=nldi --classpath=${liquibaseHome}/lib/postgresql-9.4-1204.jdbc42.jar --driver=org.postgresql.Driver --changeLogFile=${WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/changeLog.xml --contexts=${db},${ctx}  ${liquibaseCommand} ${rollbackCount}</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+      <varPasswordPairs>
+        <varPasswordPair var="nldi" password="fqavbdouJKEp+0QRpJLhjOmSs8SzyAhjA4LkTd4TQ7s="/>
+      </varPasswordPairs>
+    </com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+  </buildWrappers>
+</project>
