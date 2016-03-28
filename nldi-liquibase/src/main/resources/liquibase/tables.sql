@@ -474,3 +474,16 @@ create table nhdplus.plusflow_np21
 ,nhdplus_version				character varying(6) not null
 );
 --rollback drop table nhdplus.plusflow_np21;
+
+--changeset drsteini:create.nldi_data.crawler
+create table nldi_data.crawler
+(nldi_crawler_id				integer not null
+,source_name					character varying(500) not null
+,source_uri						character varying(256) not null
+,feature_id						character varying(500) not null
+,feature_name					character varying(500) not null
+,feature_uri_prefix				character varying(256) not null
+,constraint crawler_pk
+  primary key (nldi_crawler_id)
+);
+--rollback drop table nldi_data.crawler;
