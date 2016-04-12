@@ -475,15 +475,57 @@ create table nhdplus.plusflow_np21
 );
 --rollback drop table nhdplus.plusflow_np21;
 
---changeset drsteini:create.nldi_data.crawler
-create table nldi_data.crawler
-(nldi_crawler_id				integer not null
+--changeset drsteini:create.nhdplus.catchmentsp
+create table nhdplus.catchmentsp
+(ogc_fid						serial not null
+,the_geom						geometry(MultiPolygon,4269)
+,gridcode						integer
+,featureid						integer
+,sourcefc						character varying
+,areasqkm						double precision
+,shape_length					double precision
+,shape_area						double precision
+,constraint catchmentsp_pkey
+  primary key (ogc_fid)
+);
+--rollback drop table nhdplus.catchmentsp;
+
+--changeset drsteini:create.nldi_data.crawler_source
+create table nldi_data.crawler_source
+(crawler_source_id				integer not null
 ,source_name					character varying(500) not null
+,source_suffix					character varying(10) not null
 ,source_uri						character varying(256) not null
 ,feature_id						character varying(500) not null
 ,feature_name					character varying(500) not null
 ,feature_uri_prefix				character varying(256) not null
-,constraint crawler_pk
-  primary key (nldi_crawler_id)
+,constraint crawler_source_pk
+  primary key (crawler_source_id)
 );
---rollback drop table nldi_data.crawler;
+--rollback drop table nldi_data.crawler_source;
+
+--changeset drsteini:create.nldi_data.feature
+create table nldi_data.feature
+(crawler_source_id				integer not null
+,identifier						character varying(500)
+,name							character varying(500)
+,uri							character varying(256)
+,location						geometry(point,4269)
+,comid							integer
+);
+--rollback drop table nldi_data.feature;
+
+--changeset drsteini:create.nldi_data.feature_wqp
+create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
+--rollback drop table nldi_data.feature_wqp;
+
+--changeset drsteini:create.nldi_data.feature_wqp_temp
+create table nldi_data.feature_wqp_temp
+(crawler_source_id				integer not null
+,identifier						character varying(500)
+,name							character varying(500)
+,uri							character varying(256)
+,location						geometry(point,4269)
+,comid							integer
+);
+--rollback drop table nldi_data.feature_wqp_temp;
