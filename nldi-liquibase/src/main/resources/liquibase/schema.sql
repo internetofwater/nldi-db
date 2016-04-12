@@ -41,3 +41,9 @@ create schema nhdplus_delineation authorization nhdplus_delineation;
 grant all on schema nhdplus_delineation to nhdplus_delineation;
 grant usage on schema nhdplus_delineation to public;
 --rollback drop schema if exists nhdplus_delineation cascade;
+
+--changeset drsteini:create_schema_nldi_data
+create schema nldi_data authorization nldi_data;
+grant all on schema nldi_data to nldi_data;
+grant usage on schema nldi_data to public;
+--rollback drop schema if exists nldi_data cascade;

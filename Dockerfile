@@ -1,4 +1,4 @@
-FROM postgres:9.5
+FROM postgres:9.5.2
 
 MAINTAINER David Steinich <drsteini@usgs.gov>
 
@@ -7,7 +7,7 @@ MAINTAINER David Steinich <drsteini@usgs.gov>
 ############################################
 
 ENV POSTGIS_MAJOR 2.2
-ENV POSTGIS_VERSION 2.2.1+dfsg-2.pgdg80+1
+ENV POSTGIS_VERSION 2.2.2+dfsg-1.pgdg80+1
 
 RUN apt-get update \
       && apt-get install -y --no-install-recommends \
@@ -31,8 +31,9 @@ RUN apt-get update \
 ############################################
 
 ENV LIQUIBASE_HOME /opt/liquibase
-ENV POSTGRES /usr/lib/postgresql/9.4/bin/postgres
-ENV CONF  /etc/postgresql/9.4/main/postgresql.conf
+ENV JENKINS_WORKSPACE /var/jenkins_home/jobs/LiquibaseNLDI/workspace
+#ENV POSTGRES /usr/lib/postgresql/9.4/bin/postgres
+#ENV CONF  /etc/postgresql/9.4/main/postgresql.conf
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 
 ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.tar.gz $LIQUIBASE_HOME/
@@ -50,8 +51,7 @@ COPY ./dbInit/a_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/liquibase.properties $LIQUIBASE_HOME/
 
-COPY ./nldi-liquibase/src/main/resources/liquibase $LIQUIBASE_HOME/nldi/
-
+COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 
 ############################################
 # Grab File to Load the CI Database Data
