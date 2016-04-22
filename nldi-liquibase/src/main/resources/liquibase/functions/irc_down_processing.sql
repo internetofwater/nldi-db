@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.irc_down_processing(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_stop_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, p_start_comid integer, p_start_permanent_identifier character varying, p_start_measure numeric, p_stop_comid integer, p_stop_permanent_identifier character varying, p_stop_measure numeric, p_start_inc_dist numeric, p_add_flowline_attributes character varying, p_add_flowline_geometry character varying, p_session_id character varying) RETURNS integer
+CREATE OR REPLACE FUNCTION nhdplus_navigation.irc_down_processing(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_stop_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, p_start_comid integer, p_start_permanent_identifier character varying, p_start_measure numeric, p_stop_comid integer, p_stop_permanent_identifier character varying, p_stop_measure numeric, p_start_inc_dist numeric, p_add_flowline_attributes character varying, p_add_flowline_geometry character varying, p_session_id character varying) RETURNS integer
     LANGUAGE plpgsql
     AS $$ 
 DECLARE

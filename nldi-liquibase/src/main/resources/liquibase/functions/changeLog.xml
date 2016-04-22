@@ -122,10 +122,10 @@
         </rollback>
     </changeSet>
 
-    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate">
-        <createProcedure path="navigate.sql" relativeToChangelogFile="true" />
+    <changeSet author="drsteini" id="create.nhdplus_navigation.navigate_cached">
+        <createProcedure path="navigate_cached.sql" relativeToChangelogFile="true" />
         <rollback>
-            drop function if exists nhdplus_navigation.navigate
+            drop function if exists nhdplus_navigation.navigate_cached
         </rollback>
     </changeSet>
 

@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.navigate(pnavigationtype character varying, pstartcomid integer, pstartpermanentidentifier character varying, pstartreachcode character varying, pstartmeasure numeric, pstopcomid integer, pstoppermanentidentifier character varying, pstopreachcode character varying, pstopmeasure numeric, pmaxdistancekm numeric, pmaxflowtimehour numeric, pdebug character varying DEFAULT 'FALSE'::character varying, paddflowlineattributes character varying DEFAULT 'FALSE'::character varying, paddflowlinegeometry character varying DEFAULT 'FALSE'::character varying, OUT poutstartcomid integer, OUT poutstartmeasure numeric, OUT poutstopcomid integer, OUT poutstopmeasure numeric, OUT preturncode numeric, OUT pstatusmessage character varying, INOUT psessionid character varying DEFAULT NULL::character varying) RETURNS record
+CREATE OR REPLACE FUNCTION nhdplus_navigation.navigate_cached(pnavigationtype character varying, pstartcomid integer, pstartpermanentidentifier character varying, pstartreachcode character varying, pstartmeasure numeric, pstopcomid integer, pstoppermanentidentifier character varying, pstopreachcode character varying, pstopmeasure numeric, pmaxdistancekm numeric, pmaxflowtimehour numeric, pdebug character varying DEFAULT 'FALSE'::character varying, paddflowlineattributes character varying DEFAULT 'FALSE'::character varying, paddflowlinegeometry character varying DEFAULT 'FALSE'::character varying, OUT poutstartcomid integer, OUT poutstartmeasure numeric, OUT poutstopcomid integer, OUT poutstopmeasure numeric, OUT preturncode numeric, OUT pstatusmessage character varying, INOUT psessionid character varying DEFAULT NULL::character varying) RETURNS record
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -80,13 +80,21 @@ BEGIN
       pSessionID := '{' || uuid_generate_v1() || '}';
 
       INSERT INTO
-      nhdplus_navigation.tmp_navigation_status(
+      nhdplus_navigation.navigation_cache_status(
           objectid
          ,session_id
+         ,navigation_mode
+         ,start_comid
+         ,max_distance
+         ,stop_comid
          ,session_datestamp
       ) VALUES (
           nextval('nhdplus_navigation.tmp_navigation_status_seq')
          ,pSessionID
+         ,str_nav_type
+         ,pstartcomid
+         ,pMaxDistanceKm
+         ,pstopcomid
          ,(abstime(('now'::text)::timestamp(6) with time zone))
       );
 
@@ -326,7 +334,7 @@ BEGIN
    -- Step 80
    -- Exit with zero
    -----------------------------------------------------------------------------
-   UPDATE nhdplus_navigation.tmp_navigation_status a
+   UPDATE nhdplus_navigation.navigation_cache_status a
    SET
     return_code    = pReturnCode
    ,status_message = pStatusMessage
@@ -337,4 +345,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.navigate(pnavigationtype character varying, pstartcomid integer, pstartpermanentidentifier character varying, pstartreachcode character varying, pstartmeasure numeric, pstopcomid integer, pstoppermanentidentifier character varying, pstopreachcode character varying, pstopmeasure numeric, pmaxdistancekm numeric, pmaxflowtimehour numeric, pdebug character varying, paddflowlineattributes character varying, paddflowlinegeometry character varying, OUT poutstartcomid integer, OUT poutstartmeasure numeric, OUT poutstopcomid integer, OUT poutstopmeasure numeric, OUT preturncode numeric, OUT pstatusmessage character varying, INOUT psessionid character varying) OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.navigate_cached(pnavigationtype character varying, pstartcomid integer, pstartpermanentidentifier character varying, pstartreachcode character varying, pstartmeasure numeric, pstopcomid integer, pstoppermanentidentifier character varying, pstopreachcode character varying, pstopmeasure numeric, pmaxdistancekm numeric, pmaxflowtimehour numeric, pdebug character varying, paddflowlineattributes character varying, paddflowlinegeometry character varying, OUT poutstartcomid integer, OUT poutstartmeasure numeric, OUT poutstopcomid integer, OUT poutstopmeasure numeric, OUT preturncode numeric, OUT pstatusmessage character varying, INOUT psessionid character varying) OWNER TO nhdplus_navigation;

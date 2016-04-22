@@ -1,6 +1,8 @@
 --liquibase formatted sql
 
 --changeset drsteini:create.nhdplus_navigation.flowline_rec
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_type where typname = 'flowline_rec'
 create type nhdplus_navigation.flowline_rec as
 (permanent_identifier			character varying(40)
 ,nhdplus_comid					integer
@@ -28,6 +30,8 @@ alter type nhdplus_navigation.flowline_rec owner to nhdplus_navigation;
 --rollback drop type if exists nhdplus_navigation.flowline_rec;
 
 --changeset drsteini:create.nhdplus_navigation.listdivs_rec
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_type where typname = 'listdivs_rec'
 create type nhdplus_navigation.listdivs_rec as
 (permanent_identifier			character varying(40)
 ,nhdplus_comid					integer
@@ -50,6 +54,8 @@ alter type nhdplus_navigation.listdivs_rec owner to nhdplus_navigation;
 --rollback drop type if exists nhdplus_navigation.listdivs_rec;
 
 --changeset drsteini:create.nhdplus_navigation.type_recdivs
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_type where typname = 'type_recdivs'
 create type nhdplus_navigation.type_recdivs as
 (permanent_identifier			character varying(40)
 ,nhdplus_comid					integer
@@ -81,6 +87,8 @@ alter type nhdplus_navigation.type_recdivs owner to nhdplus_navigation;
 --rollback drop type if exists nhdplus_navigation.type_recdivs;
 
 --changeset drsteini:create.nhdplus_navigation.typ_rec_mega_divergences
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_type where typname = 'typ_rec_mega_divergences'
 create type nhdplus_navigation.typ_rec_mega_divergences as
 (fromcomid						integer
 ,comid							integer
@@ -90,6 +98,8 @@ alter type nhdplus_navigation.typ_rec_mega_divergences owner to nhdplus_navigati
 --rollback drop type if exists nhdplus_navigation.typ_rec_mega_divergences;
 
 --changeset drsteini:create.nhdplus_navigation.typ_connections
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_type where typname = 'typ_connections'
 create type nhdplus_navigation.typ_connections as
 (upcomid						integer
 ,dncomid						integer

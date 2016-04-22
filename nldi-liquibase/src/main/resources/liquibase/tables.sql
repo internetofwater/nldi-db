@@ -1,6 +1,27 @@
 --liquibase formatted sql
 
+--changeset drsteini:create_nhdplus_navigation.navigation_cache_status
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'navigation_cache_status' and c.relkind = 'r'
+create unlogged table nhdplus_navigation.navigation_cache_status
+(objectid						integer not null
+,session_id						character varying(40) not null
+,navigation_mode				character varying(2) not null
+,start_comid					integer
+,max_distance					integer
+,stop_comid						integer
+,return_code					integer
+,status_message					character varying(255)
+,session_datestamp				timestamp without time zone
+,constraint navigation_cache_status_pk
+  primary key (session_id)
+);
+alter table nhdplus_navigation.navigation_cache_status owner to nhdplus_navigation;
+--rollback drop table nhdplus_navigation.navigation_cache_status;
+
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dd
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_dd' and c.relkind = 'r'
 create table nhdplus_navigation.prep_connections_dd
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -41,6 +62,8 @@ alter table nhdplus_navigation.prep_connections_dd owner to nhdplus_navigation;
 --rollback drop table nhdplus_navigation.prep_connections_dd;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dm
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_dm' and c.relkind = 'r'
 create table nhdplus_navigation.prep_connections_dm
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -81,6 +104,8 @@ alter table nhdplus_navigation.prep_connections_dm owner to nhdplus_navigation;
 --rollback  drop table nhdplus_navigation.prep_connections_dm;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_um
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_um' and c.relkind = 'r'
 create table nhdplus_navigation.prep_connections_um
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -121,6 +146,8 @@ alter table nhdplus_navigation.prep_connections_um owner to nhdplus_navigation;
 --rollback drop table nhdplus_navigation.prep_connections_um;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_ut
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_ut' and c.relkind = 'r'
 create table nhdplus_navigation.prep_connections_ut
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -160,82 +187,10 @@ create table nhdplus_navigation.prep_connections_ut
 alter table nhdplus_navigation.prep_connections_ut owner to nhdplus_navigation;  
 --rollback drop table nhdplus_navigation.prep_connections_ut;
 
---changeset drsteini:create_nhdplus_navigation.tmp_navigation_connections
-create table nhdplus_navigation.tmp_navigation_connections
-(start_permanent_identifier		varchar(40)
-,permanent_identifier			varchar(40)
-,start_nhdplus_comid			integer
-,nhdplus_comid					integer
-,reachcode						varchar(14)
-,fmeasure						numeric
-,tmeasure						numeric
-,totaldist						numeric
-,totaltime						numeric
-,hydroseq						integer
-,levelpathid					integer
-,terminalpathid					integer
-,uphydroseq						integer
-,dnhydroseq						integer
-,pathlength						numeric
-,lengthkm						numeric
-,length_measure_ratio			numeric
-,pathtime						numeric
-,travtime						numeric
-,time_measure_ratio				numeric
-,ofmeasure						numeric
-,otmeasure						numeric
-,nhdplus_region					varchar(3)
-,nhdplus_version				varchar(6)
-,reachsmdate					date
-,ftype							integer
-,fcode							integer
-,gnis_id						varchar(10)
-,wbarea_permanent_identifier	varchar(40)
-,wbarea_nhdplus_comid			integer
-,wbd_huc12						varchar(12)
-,catchment_featureid			integer
-);
---rollback drop table nhdplus_navigation.tmp_navigation_connections;
-  
---changeset drsteini:create_nhdplus_navigation.tmp_navigation_connections_dd
-create table nhdplus_navigation.tmp_navigation_connections_dd
-(start_permanent_identifier		varchar(40)
-,permanent_identifier			varchar(40)
-,start_nhdplus_comid			integer
-,nhdplus_comid					integer
-,reachcode						varchar(14)
-,fmeasure						numeric
-,tmeasure						numeric
-,totaldist						numeric
-,totaltime						numeric
-,hydroseq						integer
-,levelpathid					integer
-,terminalpathid			  		integer
-,uphydroseq				  		integer
-,dnhydroseq				  		integer
-,pathlength				  		numeric
-,lengthkm						numeric
-,length_measure_ratio			numeric
-,pathtime						numeric
-,travtime						numeric
-,time_measure_ratio			  	numeric
-,ofmeasure						numeric
-,otmeasure						numeric
-,processed						numeric(11)
-,nhdplus_region			  		varchar(3)
-,nhdplus_version			 	varchar(6)
-,reachsmdate				 	date
-,ftype							numeric(3)
-,fcode							numeric(5)
-,gnis_id					 	varchar(10)
-,wbarea_permanent_identifier 	varchar(40)
-,wbarea_nhdplus_comid			integer
-,wbd_huc12						varchar(12)
-,catchment_featureid		 	integer
-);
---rollback drop table nhdplus_navigation.tmp_navigation_connections_dd;
 
 --changeset drsteini:create_nhdplus_navigation.tmp_navigation_results
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'tmp_navigation_results' and c.relkind = 'r'
 create unlogged table nhdplus_navigation.tmp_navigation_results
 (objectid						integer not null
 ,session_id						character varying(40) not null
@@ -279,63 +234,9 @@ create unlogged table nhdplus_navigation.tmp_navigation_results
 alter table nhdplus_navigation.tmp_navigation_results owner to nhdplus_navigation;
 --rollback drop table nhdplus_navigation.tmp_navigation_results;
 
---changeset drsteini:create_nhdplus_navigation.tmp_navigation_status
-create unlogged table nhdplus_navigation.tmp_navigation_status
-(objectid						integer not null
-,session_id						character varying(40) not null
-,return_code					integer
-,status_message					character varying(255)
-,session_datestamp				timestamp without time zone
-,constraint tmp_navigation_status_pk
-  primary key (session_id)
-);
-alter table nhdplus_navigation.tmp_navigation_status owner to nhdplus_navigation;
---rollback drop table nhdplus_navigation.tmp_navigation_status;
-  
---changeset drsteini:create_nhdplus_navigation.tmp_navigation_uptrib
-create table nhdplus_navigation.tmp_navigation_uptrib
-(fromlevelpathid			 integer
-,minhs						integer
-);
---rollback drop table nhdplus_navigation.tmp_navigation_uptrib;
-
---changeset drsteini:create_nhdplus_navigation.tmp_navigation_working
-create table nhdplus_navigation.tmp_navigation_working
-(start_permanent_identifier		varchar(40)
-,permanent_identifier			varchar(40)
-,start_nhdplus_comid			integer
-,nhdplus_comid					integer
-,reachcode						varchar(14)
-,fmeasure						numeric
-,tmeasure						numeric
-,totaldist						numeric
-,totaltime						numeric
-,hydroseq						integer
-,levelpathid					integer
-,terminalpathid					integer
-,uphydroseq						integer
-,uplevelpathid					integer
-,dnhydroseq						integer
-,dnlevelpathid					integer
-,dnminorhyd						integer
-,divergence						integer
-,dndraincount					integer
-,pathlength						numeric
-,lengthkm						numeric
-,length_measure_ratio			numeric
-,pathtime						numeric
-,travtime						numeric
-,time_measure_ratio				numeric
-,ofmeasure						numeric
-,otmeasure						numeric
-,selected						integer
-,nhdplus_region					varchar(3)
-,nhdplus_version				varchar(6)
-,reachsmdate					date
-);
---rollback drop table nhdplus_navigation.tmp_navigation_working;
-
 --changeset drsteini:create.nhdplus.megadiv_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'megadiv_np21' and c.relkind = 'r'
 create table nhdplus.megadiv_np21 
 (objectid						integer not null
 ,fromcomid						integer not null
@@ -346,6 +247,8 @@ create table nhdplus.megadiv_np21
 --rollback drop table nhdplus.megadiv_np21;
 
 --changeset drsteini:create.nhdplus.nhdflowline_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'nhdflowline_np21' and c.relkind = 'r'
 create table nhdplus.nhdflowline_np21 
 (objectid						integer not null
 ,permanent_identifier			character varying(40) not null
@@ -388,6 +291,8 @@ create table nhdplus.nhdflowline_np21
 --rollback drop table nhdplus.nhdflowline_np21;
 
 --changeset drsteini:create.nhdplus.nhdplusconnect_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'nhdplusconnect_np21' and c.relkind = 'r'
 create table nhdplus.nhdplusconnect_np21 
 (objectid						integer not null
 ,drainageid						character varying(2)
@@ -405,6 +310,8 @@ create table nhdplus.nhdplusconnect_np21
 --rollback drop table nhdplus.nhdplusconnect_np21;
 
 --changeset drsteini:create.nhdplus.plusflowlinevaa_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflowlinevaa_np21' and c.relkind = 'r'
 create table nhdplus.plusflowlinevaa_np21 
 (objectid						integer not null
 ,comid							integer not null
@@ -455,6 +362,8 @@ create table nhdplus.plusflowlinevaa_np21
 --rollback drop table nhdplus.plusflowlinevaa_np21;
 
 --changeset drsteini:create.nhdplus.plusflow_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflow_np21' and c.relkind = 'r'
 create table nhdplus.plusflow_np21 
 (objectid						integer not null
 ,fromcomid						integer not null
@@ -476,6 +385,8 @@ create table nhdplus.plusflow_np21
 --rollback drop table nhdplus.plusflow_np21;
 
 --changeset drsteini:create.nhdplus.catchmentsp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'catchmentsp' and c.relkind = 'r'
 create table nhdplus.catchmentsp
 (ogc_fid						serial not null
 ,the_geom						geometry(MultiPolygon,4269)
@@ -491,6 +402,8 @@ create table nhdplus.catchmentsp
 --rollback drop table nhdplus.catchmentsp;
 
 --changeset drsteini:create.nldi_data.crawler_source
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'crawler_source' and c.relkind = 'r'
 create table nldi_data.crawler_source
 (crawler_source_id				integer not null
 ,source_name					character varying(500) not null
@@ -498,13 +411,15 @@ create table nldi_data.crawler_source
 ,source_uri						character varying(256) not null
 ,feature_id						character varying(500) not null
 ,feature_name					character varying(500) not null
-,feature_uri_prefix				character varying(256) not null
+,feature_uri					character varying(256) not null
 ,constraint crawler_source_pk
   primary key (crawler_source_id)
 );
 --rollback drop table nldi_data.crawler_source;
 
 --changeset drsteini:create.nldi_data.feature
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature' and c.relkind = 'r'
 create table nldi_data.feature
 (crawler_source_id				integer not null
 ,identifier						character varying(500)
@@ -516,10 +431,14 @@ create table nldi_data.feature
 --rollback drop table nldi_data.feature;
 
 --changeset drsteini:create.nldi_data.feature_wqp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature_wqp' and c.relkind = 'r'
 create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
 --rollback drop table nldi_data.feature_wqp;
 
 --changeset drsteini:create.nldi_data.feature_wqp_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature_wqp_temp' and c.relkind = 'r'
 create table nldi_data.feature_wqp_temp
 (crawler_source_id				integer not null
 ,identifier						character varying(500)

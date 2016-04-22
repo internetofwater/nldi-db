@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.navigate_uptrib(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, INOUT p_stop_condition_met numeric) RETURNS numeric
+CREATE OR REPLACE FUNCTION nhdplus_navigation.navigate_uptrib(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, INOUT p_stop_condition_met numeric) RETURNS numeric
     LANGUAGE plpgsql
     AS $$ 
 DECLARE

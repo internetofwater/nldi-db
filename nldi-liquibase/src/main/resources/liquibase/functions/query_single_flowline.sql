@@ -1,4 +1,4 @@
-CREATE FUNCTION nhdplus_navigation.query_single_flowline(p_navigation_type character varying, p_comid integer, p_permanent_identifier character varying, p_hydrosequence numeric, p_reachcode character varying, p_measure numeric, p_check_intent character varying, OUT p_output nhdplus_navigation.flowline_rec, OUT p_check_comid integer, OUT p_check_permanent_identifier character varying, OUT p_check_measure numeric, OUT p_return_code numeric, OUT p_status_message character varying) RETURNS record
+CREATE OR REPLACE FUNCTION nhdplus_navigation.query_single_flowline(p_navigation_type character varying, p_comid integer, p_permanent_identifier character varying, p_hydrosequence numeric, p_reachcode character varying, p_measure numeric, p_check_intent character varying, OUT p_output nhdplus_navigation.flowline_rec, OUT p_check_comid integer, OUT p_check_permanent_identifier character varying, OUT p_check_measure numeric, OUT p_return_code numeric, OUT p_status_message character varying) RETURNS record
     LANGUAGE plpgsql
     AS $$ 
 DECLARE
