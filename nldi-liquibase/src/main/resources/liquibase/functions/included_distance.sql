@@ -1,4 +1,4 @@
-CREATE FUNCTION nhdplus_navigation.included_distance(p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_measure numeric, p_half character varying) RETURNS numeric
+CREATE OR REPLACE FUNCTION nhdplus_navigation.included_distance(p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_measure numeric, p_half character varying) RETURNS numeric
     LANGUAGE plpgsql
     AS $$ 
 DECLARE

@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.divergences(INOUT p_list_divs nhdplus_navigation.listdivs_rec[], INOUT p_divergence_count numeric) RETURNS record
+CREATE OR REPLACE FUNCTION nhdplus_navigation.divergences(INOUT p_list_divs nhdplus_navigation.listdivs_rec[], INOUT p_divergence_count numeric) RETURNS record
     LANGUAGE plpgsql
     AS $$ 
 DECLARE

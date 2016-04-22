@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.create_temp_tables() RETURNS integer
+CREATE OR REPLACE FUNCTION nhdplus_navigation.create_temp_tables() RETURNS integer
     LANGUAGE plpgsql
     AS $$
 DECLARE

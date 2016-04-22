@@ -1,5 +1,5 @@
 
-CREATE FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) RETURNS boolean
+CREATE OR REPLACE FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) RETURNS boolean
     LANGUAGE plpgsql
     AS $$
 DECLARE
