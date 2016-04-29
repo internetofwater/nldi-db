@@ -2,7 +2,7 @@
 
 --changeset drsteini:create_nhdplus_navigation.navigation_cache_status
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'navigation_cache_status' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'navigation_cache_status'
 create unlogged table nhdplus_navigation.navigation_cache_status
 (objectid						integer not null
 ,session_id						character varying(40) not null
@@ -21,7 +21,7 @@ alter table nhdplus_navigation.navigation_cache_status owner to nhdplus_navigati
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dd
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_dd' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'prep_connections_dd'
 create table nhdplus_navigation.prep_connections_dd
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -63,7 +63,7 @@ alter table nhdplus_navigation.prep_connections_dd owner to nhdplus_navigation;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dm
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_dm' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'prep_connections_dm'
 create table nhdplus_navigation.prep_connections_dm
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -105,7 +105,7 @@ alter table nhdplus_navigation.prep_connections_dm owner to nhdplus_navigation;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_um
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_um' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'prep_connections_um'
 create table nhdplus_navigation.prep_connections_um
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -147,7 +147,7 @@ alter table nhdplus_navigation.prep_connections_um owner to nhdplus_navigation;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_ut
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'prep_connections_ut' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'prep_connections_ut'
 create table nhdplus_navigation.prep_connections_ut
 (objectid						integer not null
 ,snapshot_date					date not null
@@ -190,7 +190,7 @@ alter table nhdplus_navigation.prep_connections_ut owner to nhdplus_navigation;
 
 --changeset drsteini:create_nhdplus_navigation.tmp_navigation_results
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus_navigation' and c.relname = 'tmp_navigation_results' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus_navigation' and table_name = 'tmp_navigation_results'
 create unlogged table nhdplus_navigation.tmp_navigation_results
 (objectid						integer not null
 ,session_id						character varying(40) not null
@@ -236,7 +236,7 @@ alter table nhdplus_navigation.tmp_navigation_results owner to nhdplus_navigatio
 
 --changeset drsteini:create.nhdplus.megadiv_np21
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'megadiv_np21' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'megadiv_np21'
 create table nhdplus.megadiv_np21 
 (objectid						integer not null
 ,fromcomid						integer not null
@@ -248,7 +248,7 @@ create table nhdplus.megadiv_np21
 
 --changeset drsteini:create.nhdplus.nhdflowline_np21
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'nhdflowline_np21' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'nhdflowline_np21'
 create table nhdplus.nhdflowline_np21 
 (objectid						integer not null
 ,permanent_identifier			character varying(40) not null
@@ -292,7 +292,7 @@ create table nhdplus.nhdflowline_np21
 
 --changeset drsteini:create.nhdplus.nhdplusconnect_np21
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'nhdplusconnect_np21' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'nhdplusconnect_np21'
 create table nhdplus.nhdplusconnect_np21 
 (objectid						integer not null
 ,drainageid						character varying(2)
@@ -311,7 +311,7 @@ create table nhdplus.nhdplusconnect_np21
 
 --changeset drsteini:create.nhdplus.plusflowlinevaa_np21
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflowlinevaa_np21' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'plusflowlinevaa_np21'
 create table nhdplus.plusflowlinevaa_np21 
 (objectid						integer not null
 ,comid							integer not null
@@ -363,7 +363,7 @@ create table nhdplus.plusflowlinevaa_np21
 
 --changeset drsteini:create.nhdplus.plusflow_np21
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflow_np21' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'plusflow_np21'
 create table nhdplus.plusflow_np21 
 (objectid						integer not null
 ,fromcomid						integer not null
@@ -386,7 +386,7 @@ create table nhdplus.plusflow_np21
 
 --changeset drsteini:create.nhdplus.catchmentsp
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'catchmentsp' and c.relkind = 'r'
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nhdplus' and table_name = 'catchmentsp'
 create table nhdplus.catchmentsp
 (ogc_fid						serial not null
 ,the_geom						geometry(MultiPolygon,4269)
@@ -400,51 +400,3 @@ create table nhdplus.catchmentsp
   primary key (ogc_fid)
 );
 --rollback drop table nhdplus.catchmentsp;
-
---changeset drsteini:create.nldi_data.crawler_source
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'crawler_source' and c.relkind = 'r'
-create table nldi_data.crawler_source
-(crawler_source_id				integer not null
-,source_name					character varying(500) not null
-,source_suffix					character varying(10) not null
-,source_uri						character varying(256) not null
-,feature_id						character varying(500) not null
-,feature_name					character varying(500) not null
-,feature_uri					character varying(256) not null
-,constraint crawler_source_pk
-  primary key (crawler_source_id)
-);
---rollback drop table nldi_data.crawler_source;
-
---changeset drsteini:create.nldi_data.feature
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature' and c.relkind = 'r'
-create table nldi_data.feature
-(crawler_source_id				integer not null
-,identifier						character varying(500)
-,name							character varying(500)
-,uri							character varying(256)
-,location						geometry(point,4269)
-,comid							integer
-);
---rollback drop table nldi_data.feature;
-
---changeset drsteini:create.nldi_data.feature_wqp
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature_wqp' and c.relkind = 'r'
-create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
---rollback drop table nldi_data.feature_wqp;
-
---changeset drsteini:create.nldi_data.feature_wqp_temp
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nldi_data' and c.relname = 'feature_wqp_temp' and c.relkind = 'r'
-create table nldi_data.feature_wqp_temp
-(crawler_source_id				integer not null
-,identifier						character varying(500)
-,name							character varying(500)
-,uri							character varying(256)
-,location						geometry(point,4269)
-,comid							integer
-);
---rollback drop table nldi_data.feature_wqp_temp;
