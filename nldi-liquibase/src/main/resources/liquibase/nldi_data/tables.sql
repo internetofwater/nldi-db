@@ -99,7 +99,7 @@ create table nldi_data.feature_nwis ( ) inherits (nldi_data.feature);
 --changeset drsteini:create.nldi_data.sqlinjection_test
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;'
-create table nldi_data."feature; select * from pg_class;" inherits (nldi_data.feature);
+create table nldi_data."feature; select * from pg_class;" ( ) inherits (nldi_data.feature);
 --rollback drop table nldi_data."feature; select * from pg_class;";
 
 
