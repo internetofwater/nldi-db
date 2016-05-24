@@ -1,6 +1,5 @@
-##comments are for version 2...
-##version: '2'
-##services:
+version: '2'
+services:
   nldi_db_vol_container:
     image: alpine
     volumes:
@@ -10,9 +9,8 @@
       - "gov.usgs.owi.nldi.container.volume=true"
     container_name: NLDI_Database_Volume
   nldi_db:
-##    build:
-##      context: .
-    build: .
+    build:
+      context: .
     volumes_from: 
       - nldi_db_vol_container
     ports:
