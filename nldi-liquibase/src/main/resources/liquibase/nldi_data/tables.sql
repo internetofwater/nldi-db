@@ -109,3 +109,17 @@ create table nldi_data."feature; select * from pg_class;" ( ) inherits (nldi_dat
 create table nldi_data."feature; select * from pg_class;_temp" (like nldi_data.feature);
 --rollback drop table nldi_data."feature; select * from pg_class;_temp";
 
+
+--changeset drsteini:create.nldi_data.feature_huc12pp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp'
+create table nldi_data.feature_huc12pp ( ) inherits (nldi_data.feature);
+--rollback drop table nldi_data.feature_huc12pp;
+
+
+--changeset drsteini:create.nldi_data.feature_huc12pp_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp_temp'
+create table nldi_data.feature_huc12pp_temp (like nldi_data.feature);
+--rollback drop table nldi_data.feature_huc12pp_temp;
+
