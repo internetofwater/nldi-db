@@ -60,3 +60,7 @@ COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 COPY ./dbInit/b_load_ci.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/nhdplus_yahara.backup.gz $LIQUIBASE_HOME/
+COPY ./dbInit/crawler_source.backup.gz $LIQUIBASE_HOME/
+COPY ./dbInit/feature_wqp_yahara.backup.gz $LIQUIBASE_HOME/
+COPY ./dbInit/feature_huc12pp_yahara.backup.gz $LIQUIBASE_HOME/
+COPY ./dbInit/feature_np21_nwis_yahara.backup.gz $LIQUIBASE_HOME/
