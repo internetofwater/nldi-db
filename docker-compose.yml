@@ -19,12 +19,26 @@ services:
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
     container_name: NLDI_Database
+  nldi_db_ci:
+    build:
+      context: .
+    volumes_from: 
+      - nldi_db_vol_container
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=nldi
+      - POSTGRES_PASSWORD=nldi
+    container_name: NLDI_Database_CI
   nldi_jenkins:
     build: ./nldi-jenkins
     volumes_from: 
       - nldi_db_vol_container
     links:
       - nldi_db
+      - nldi_db_ci
+    ports:
+      - "8889:8080"
     environment:
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi

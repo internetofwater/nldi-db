@@ -32,8 +32,6 @@ RUN apt-get update \
 
 ENV LIQUIBASE_HOME /opt/liquibase
 ENV JENKINS_WORKSPACE /var/jenkins_home/jobs/LiquibaseNLDI/workspace
-#ENV POSTGRES /usr/lib/postgresql/9.4/bin/postgres
-#ENV CONF  /etc/postgresql/9.4/main/postgresql.conf
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 
 ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.tar.gz $LIQUIBASE_HOME/
