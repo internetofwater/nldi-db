@@ -4,7 +4,7 @@
 
 This repository contains Liquibase scripts for setting up the NLDI PostGIS database.
 
-It also includes Docker Compose scripts to setup a developer environment including the PostGIS database, a subset of the data, and a Jenkins server preconfigured to run the Liquibase scripts.
+It also includes Docker Compose scripts to setup a developer environment including a development PostGIS database, a subset of the data, a Jenkins server preconfigured to run the Liquibase scripts, and a continuous integration PostGIS database.
 
 ##Developer Environment
 
@@ -15,15 +15,19 @@ Helpful commands include:
 * __docker-compose ps__ to list the containers
 * __docker-compose stop__ to stop the containers
 * __docker-compose start__ to start the containers
-* __docker network inspect bridge__ to get the ip addresses of the running containers
+* __docker network inspect nldidb_default__ to get the ip addresses of the running containers
 
-###Database
+###Continuous Integration Database
 
-The PostGIS database will be available on port 5432 of the NLDI_Database container. The default username and password are nldi/nldi.
+The PostGIS database will be available on port 5433. This can be changed in the docker-compose.yml file. The default username and password are nldi/nldi.
+
+###Development Database
+
+The PostGIS database will be available on port 5432. This can be changed in the docker-compose.yml file. The default username and password are nldi/nldi.
 
 ###Jenkins
 
-The Jenkins applications will be available on port 8080 of the NLDI_Jenkins container. For example: http://172.17.0.2:8080/
+The Jenkins applications will be available on port 8889. This can be changed in the docker-compose.yml file.
 
-It contains the job __LiquibaseNLDI__ which will need to be configured to access your local PostGIS database. You may also want to have it pull from your fork of this project.
+It contains the job __LiquibaseNLDI__ to pull and run the current Liquibase scripts from GitHub. For testing, you can change the job's configuration to have it pull from your fork of this project.
 

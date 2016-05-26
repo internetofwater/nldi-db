@@ -9,3 +9,4 @@ icon-shim:2.0.3
 mailer:1.16
 junit:1.11
 matrix-project:1.6
+description-setter:1.10

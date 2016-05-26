@@ -1,6 +1,5 @@
-##comments are for version 2...
-##version: '2'
-##services:
+version: '2'
+services:
   nldi_db_vol_container:
     image: alpine
     volumes:
@@ -10,9 +9,21 @@
       - "gov.usgs.owi.nldi.container.volume=true"
     container_name: NLDI_Database_Volume
   nldi_db:
-##    build:
-##      context: .
-    build: .
+    build:
+      context: .
+    volumes_from: 
+      - nldi_db_vol_container
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=nldi
+      - POSTGRES_PASSWORD=nldi
+    container_name: NLDI_Database
+  nldi_db_demo:
+    depends_on:
+      - nldi_db
+    build:
+      context: ./nldi-demo-db
     volumes_from: 
       - nldi_db_vol_container
     ports:
@@ -20,13 +31,16 @@
     environment:
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
-    container_name: NLDI_Database
+    container_name: NLDI_Database_Demo
   nldi_jenkins:
     build: ./nldi-jenkins
     volumes_from: 
       - nldi_db_vol_container
     links:
       - nldi_db
+      - nldi_db_demo
+    ports:
+      - "8889:8080"
     environment:
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
