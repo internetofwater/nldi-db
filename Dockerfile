@@ -45,20 +45,16 @@ RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.4.2-bin.tar.gz -C $LIQUIBASE_HOME/
 # Grab Files to Configure Database with Liquibase
 ############################################
 
-COPY ./dbInit/a_run_liquibase.sh /docker-entrypoint-initdb.d/
+COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/liquibase.properties $LIQUIBASE_HOME/
 
 COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 
 ############################################
-# Grab File to Load the CI Database Data
+# Grab Files to Load the Network Database Data
 ############################################
 
-COPY ./dbInit/b_load_ci.sh /docker-entrypoint-initdb.d/
+COPY ./dbInit/2_load_network.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/nhdplus_yahara.backup.gz $LIQUIBASE_HOME/
-COPY ./dbInit/crawler_source.backup.gz $LIQUIBASE_HOME/
-COPY ./dbInit/feature_wqp_yahara.backup.gz $LIQUIBASE_HOME/
-COPY ./dbInit/feature_huc12pp_yahara.backup.gz $LIQUIBASE_HOME/
-COPY ./dbInit/feature_np21_nwis_yahara.backup.gz $LIQUIBASE_HOME/

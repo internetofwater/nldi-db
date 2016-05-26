@@ -34,7 +34,7 @@
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>jdbc:postgresql://NLDI_Database:5432/nldi</string>
-              <string>jdbc:postgresql://NLDI_Database_CI:5432/nldi</string>
+              <string>jdbc:postgresql://NLDI_Database_Demo:5432/nldi</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
@@ -70,14 +70,22 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>java -jar ${liquibaseHome}/liquibase.jar --url=${dburl} --username=nldi --password=nldi --classpath=${liquibaseHome}/lib/postgresql-9.4-1204.jdbc42.jar --driver=org.postgresql.Driver --changeLogFile=${WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/changeLog.xml --contexts=${db},${ctx}  ${liquibaseCommand} ${rollbackCount}</command>
+      <command>java -jar ${liquibaseHome}/liquibase.jar --url=${dburl} --username=nldi --password=${nldi} --classpath=${liquibaseHome}/lib/postgresql-9.4-1204.jdbc42.jar --driver=org.postgresql.Driver --changeLogFile=${WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/changeLog.xml --contexts=${db},${ctx}  ${liquibaseCommand} ${rollbackCount}</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.plugins.descriptionsetter.DescriptionSetterPublisher plugin="description-setter@1.10">
+      <regexp></regexp>
+      <regexpForFailed></regexpForFailed>
+      <description>Ran &quot;${liquibaseCommand}&quot; on &quot;${dburl}&quot;</description>
+      <descriptionForFailed>Ran &quot;${liquibaseCommand}&quot; on &quot;${dburl}&quot;</descriptionForFailed>
+      <setForMatrix>false</setForMatrix>
+    </hudson.plugins.descriptionsetter.DescriptionSetterPublisher>
+  </publishers>
   <buildWrappers>
     <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
       <varPasswordPairs>
-        <varPasswordPair var="nldi" password="fqavbdouJKEp+0QRpJLhjOmSs8SzyAhjA4LkTd4TQ7s="/>
+        <varPasswordPair var="nldi" password="YUFRGwXfuIWk1A+IgUVfDXUY4kyng/fRSa+l7/roX+E="/>
       </varPasswordPairs>
     </com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
   </buildWrappers>
