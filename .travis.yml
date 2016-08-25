@@ -1,6 +1,6 @@
 env:
   global:
-    - DOCKER_VERSION: 1.11.1-0~trusty
+    - DOCKER_VERSION: 1.12.1-0~trusty
     - DOCKER_COMPOSE_VERSION: 1.7.1
 
 language: bash
@@ -9,8 +9,9 @@ services:
   - docker
 
 before_install:
-  # list docker-engine versions
+  # list docker-engine and docker-compose versions
   - apt-cache madison docker-engine
+  - apt-cache madison docker-compose
 
   # upgrade docker-engine to specific version
   - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
