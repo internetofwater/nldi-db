@@ -11,7 +11,6 @@ services:
 before_install:
   # list docker-engine and docker-compose versions
   - apt-cache madison docker-engine
-  - apt-cache madison docker-compose
 
   # upgrade docker-engine to specific version
   - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
@@ -22,12 +21,14 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
+  # double check the installed versions
+  - docker version
+  - docker-compose version
+
 install:
   - docker-compose up -d
 
 script:
-  - docker version
-  - docker-compose version
   # Travis appears to only have 16 char container names, so NLDI_Database_Volume gets truncated.
   - docker-compose ps | grep NLDI_Database_Vo
   - docker-compose ps | grep "NLDI_Database\s"
