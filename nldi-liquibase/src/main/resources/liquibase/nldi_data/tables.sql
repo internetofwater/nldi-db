@@ -129,3 +129,19 @@ create table nldi_data.feature_huc12pp ( ) inherits (nldi_data.feature);
 create table nldi_data.feature_huc12pp_temp (like nldi_data.feature);
 --rollback drop table nldi_data.feature_huc12pp_temp;
 
+
+--changeset drsteini:create.nldi_data.web_service_log
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'web_service_log'
+create table nldi_data.web_service_log
+(web_service_log_id				bigserial
+,request_timestamp_utc			timestamp				not null default (now() at time zone 'UTC')
+,request_completed_utc			timestamp
+,referer						character varying(4000)
+,user_agent						character varying(4000)
+,request_uri					character varying(4000)
+,query_string					character varying(4000)
+,http_status_code				integer
+);
+--rollback drop table nldi_data.feature_huc12pp_temp;
+
