@@ -58,6 +58,6 @@ COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 
 COPY ./dbInit/2_load_network.sh /docker-entrypoint-initdb.d/
 
-COPY ./dbInit/nhdplus_yahara.backup.gz $LIQUIBASE_HOME/
+RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/nhdplus_yahara.backup.gz" -o $LIQUIBASE_HOME/nhdplus_yahara.backup.gz
 
-COPY ./dbInit/characteristic_data_yahara.backup.gz $LIQUIBASE_HOME/
+RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/characteristic_data_yahara.backup.gz" -o $LIQUIBASE_HOME/characteristic_data_yahara.backup.gz
