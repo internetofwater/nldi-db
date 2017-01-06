@@ -20,5 +20,6 @@
 	<include file="functions/changeLog.xml" relativeToChangelogFile="true"/>
 
 	<include file="nldi_data/changeLog.xml" relativeToChangelogFile="true"/>
+	<include file="characteristic_data/changeLog.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

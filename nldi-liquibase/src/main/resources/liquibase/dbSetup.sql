@@ -30,6 +30,13 @@ create user nhdplus_delineation with password '${POSTGRES_PASSWORD}';
 create user nldi_data with password '${POSTGRES_PASSWORD}';
 --rollback drop user if exists nldi_data;
 
+
+--changeset ayan:create_user_characteristic_data
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'characteristic_data'
+create user characteristic_data with password '${POSTGRES_PASSWORD}';
+--rollback drop user if exists characteristic_data
+
 --changeset drsteini:create_extension_postgis
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from pg_available_extensions where name='postgis'and installed_version!='';

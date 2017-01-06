@@ -1,4 +1,4 @@
---liquidbase formatted sql
+--liquibase formatted sql
 
 --changeset ayan:create.characteristic_data.characteristic_metadata
 --preconditions onFail:MARK_RAN onError:HALT
@@ -11,7 +11,7 @@ create table characteristic_data.characteristic_metadata
 ,dataset_url                    character varying(4000)
 ,theme_label                    character varying(4000)
 ,chacteristic_type              character varying(4000)
-,constraint characteristic_metadata_pk,
+,constraint characteristic_metadata_pk
     primary key (characteristic_id)
 )
 WITH (OIDS=TRUE);
@@ -56,7 +56,7 @@ create table characteristic_data.local_catchment_characteristics
 ,characteristic_id              character varying(4000)
 ,characteristic_value           numeric(20, 10)
 ,percent_nodata                 smallint
-,constraint local_catchment_characteristics
+,constraint local_catchment_characteristics_pk
     primary key (comid, characteristic_id)
 )
 WITH ( OIDS=TRUE );

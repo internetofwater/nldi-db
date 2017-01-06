@@ -68,3 +68,5 @@ grant usage on schema nldi_data to public;
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from pg_namespace where nspname = 'charadata'
 create schema characteristic_data authorization characteristic_data;
+grant all on schema characteristic_data to characteristic_data;
+grant usage on schema characteristic_data to public;
