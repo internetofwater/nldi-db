@@ -4,13 +4,14 @@
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'characteristic_data' and table_name = 'characteristic_metadata'
 create table characteristic_data.characteristic_metadata
-(characteristic_id              character not null
+(characteristic_id              character varying(500) not null
 ,characteristic_description     character varying(4000)
 ,units                          character varying(4000)
 ,dataset_label                  character varying(4000)
 ,dataset_url                    character varying(4000)
 ,theme_label                    character varying(4000)
-,chacteristic_type              character varying(4000)
+,theme_url                      character varying(4000)
+,characteristic_type            character varying(4000)
 ,constraint characteristic_metadata_pk
     primary key (characteristic_id)
 )

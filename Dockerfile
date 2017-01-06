@@ -59,3 +59,5 @@ COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 COPY ./dbInit/2_load_network.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/nhdplus_yahara.backup.gz $LIQUIBASE_HOME/
+
+COPY ./dbInit/characteristic_data_yahara.backup.gz $LIQUIBASE_HOME/
