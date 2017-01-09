@@ -27,7 +27,7 @@ services:
     volumes_from: 
       - nldi_db_vol_container
     ports:
-      - "5432:5432"
+      - "5434:5432"
     environment:
       - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi

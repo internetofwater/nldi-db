@@ -63,3 +63,10 @@ create schema nldi_data authorization nldi_data;
 grant all on schema nldi_data to nldi_data;
 grant usage on schema nldi_data to public;
 --rollback drop schema if exists nldi_data cascade;
+
+--changeset ayan:create_schema_characteristic_data
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_namespace where nspname = 'charadata'
+create schema characteristic_data authorization characteristic_data;
+grant all on schema characteristic_data to characteristic_data;
+grant usage on schema characteristic_data to public;
