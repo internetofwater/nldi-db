@@ -177,4 +177,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.navigate_uptrib(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, INOUT p_stop_condition_met numeric) OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.navigate_uptrib(p_navigation_type character varying, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, p_start_path_length numeric, p_start_path_time numeric, INOUT p_stop_condition_met numeric) owner to nhdplus;

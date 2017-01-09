@@ -16,8 +16,11 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
+      - POSTGRES_DB=nldi
+      - NLDI_PASSWORD=nldi
+      - NLDI_DATA_PASSWORD=nldi
+      - NLDI_USER_PASSWORD=nldi
     container_name: NLDI_Database
   nldi_db_demo:
     depends_on:
@@ -29,8 +32,11 @@ services:
     ports:
       - "5434:5432"
     environment:
-      - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
+      - POSTGRES_DB=nldi
+      - NLDI_PASSWORD=nldi
+      - NLDI_DATA_PASSWORD=nldi
+      - NLDI_USER_PASSWORD=nldi
     container_name: NLDI_Database_Demo
   nldi_jenkins:
     build: ./nldi-jenkins
@@ -42,6 +48,9 @@ services:
     ports:
       - "8889:8080"
     environment:
-      - POSTGRES_USER=nldi
       - POSTGRES_PASSWORD=nldi
+      - POSTGRES_DB=nldi
+      - NLDI_PASSWORD=nldi
+      - NLDI_DATA_PASSWORD=nldi
+      - NLDI_USER_PASSWORD=nldi
     container_name: NLDI_Jenkins

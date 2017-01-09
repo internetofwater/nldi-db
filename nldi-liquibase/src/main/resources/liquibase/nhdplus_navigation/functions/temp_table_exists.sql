@@ -42,4 +42,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) owner to nhdplus;

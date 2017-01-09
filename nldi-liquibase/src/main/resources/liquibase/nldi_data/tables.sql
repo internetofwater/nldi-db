@@ -11,9 +11,13 @@ create table nldi_data.crawler_source
 ,feature_id						character varying(500) not null
 ,feature_name					character varying(500) not null
 ,feature_uri					character varying(256) not null
+,feature_reach					character varying(500)
+,feature_measure				character varying(500)
+,ingest_type					character varying(5)
 ,constraint crawler_source_pk
   primary key (crawler_source_id)
 );
+alter table nldi_data.crawler_source owner to nldi_data;
 --rollback drop table nldi_data.crawler_source;
 
 --changeset drsteini:create.nldi_data.feature
@@ -26,107 +30,70 @@ create table nldi_data.feature
 ,uri							character varying(256)
 ,location						geometry(point,4269)
 ,comid							integer
+,reachcode						character varying(14)
+,measure						numeric(38,10)
 );
+alter table nldi_data.feature owner to nldi_data;
 --rollback drop table nldi_data.feature;
 
---changeset drsteini:create.nldi_data.feature_wqp
+--changeset drsteini:create.nldi_data.feature_wqp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_wqp'
 create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
+alter table nldi_data.feature_wqp owner to nldi_data;
 --rollback drop table nldi_data.feature_wqp;
 
---changeset drsteini:create.nldi_data.feature_wqp_temp
+--changeset drsteini:create.nldi_data.feature_wqp_temp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_wqp_temp'
-create table nldi_data.feature_wqp_temp
-(crawler_source_id				integer not null
-,identifier						character varying(500)
-,name							character varying(500)
-,uri							character varying(256)
-,location						geometry(point,4269)
-,comid							integer
-);
+create table nldi_data.feature_wqp_temp (like nldi_data.feature);
+alter table nldi_data.feature_wqp_temp owner to nldi_data;
 --rollback drop table nldi_data.feature_wqp_temp;
 
---changeset drsteini:create.nldi_data.feature.reachcode
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'feature' and column_name = 'reachcode'
-alter table nldi_data.feature add reachcode character varying(14);
---rollback alter table nldi_data.feature drop reachcode;
 
---changeset drsteini:create.nldi_data.feature.measure
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'feature' and column_name = 'measure'
-alter table nldi_data.feature add measure numeric(38,10);
---rollback alter table nldi_data.feature drop measure;
-
---changeset drsteini:create.nldi_data.feature_wqp_temp.reachcode
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'feature_wqp_temp' and column_name = 'reachcode'
-alter table nldi_data.feature_wqp_temp add reachcode character varying(14);
---rollback alter table nldi_data.feature_wqp_temp drop reachcode;
-
---changeset drsteini:create.nldi_data.feature_wqp_temp.measure
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'feature_wqp_temp' and column_name = 'measure'
-alter table nldi_data.feature_wqp_temp add measure numeric(38,10);
---rollback alter table nldi_data.feature_wqp_temp drop measure;
-
---changeset drsteini:create.nldi_data.crawler_source.feature_reach
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'crawler_source' and column_name = 'feature_reach'
-alter table nldi_data.crawler_source add feature_reach character varying(500);
---rollback alter table nldi_data.crawler_source drop feature_reach;
-
---changeset drsteini:create.nldi_data.feature.feature_measure
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'crawler_source' and column_name = 'feature_measure'
-alter table nldi_data.crawler_source add feature_measure character varying(500);
---rollback alter table nldi_data.crawler_source drop feature_measure;
-
---changeset drsteini:create.nldi_data.feature.ingest_type
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.columns where table_schema = 'nldi_data' and table_name = 'crawler_source' and column_name = 'ingest_type'
-alter table nldi_data.crawler_source add ingest_type character varying(5);
---rollback alter table nldi_data.crawler_source drop ingest_type;
-
---changeset drsteini:create.nldi_data.feature_np21_nwis
+--changeset drsteini:create.nldi_data.feature_np21_nwis context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis'
 create table nldi_data.feature_np21_nwis ( ) inherits (nldi_data.feature);
+alter table nldi_data.feature_np21_nwis owner to nldi_data;
 --rollback drop table nldi_data.feature_np21_nwis;
 
---changeset drsteini:create.nldi_data.feature_np21_nwis_temp
+--changeset drsteini:create.nldi_data.feature_np21_nwis_temp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis_temp'
 create table nldi_data.feature_np21_nwis_temp (like nldi_data.feature);
+alter table nldi_data.feature_np21_nwis_temp owner to nldi_data;
 --rollback drop table nldi_data.feature_np21_nwis_temp;
 
---changeset drsteini:create.nldi_data.sqlinjection_test
+--changeset drsteini:create.nldi_data.sqlinjection_test context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;'
 create table nldi_data."feature; select * from pg_class;" ( ) inherits (nldi_data.feature);
+alter table nldi_data."feature; select * from pg_class;"  owner to nldi_data;
 --rollback drop table nldi_data."feature; select * from pg_class;";
 
 
---changeset drsteini:create.nldi_data.sqlinjection_test_temp
+--changeset drsteini:create.nldi_data.sqlinjection_test_temp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;_temp'
 create table nldi_data."feature; select * from pg_class;_temp" (like nldi_data.feature);
+alter table nldi_data."feature; select * from pg_class;_temp" owner to nldi_data;
 --rollback drop table nldi_data."feature; select * from pg_class;_temp";
 
 
---changeset drsteini:create.nldi_data.feature_huc12pp
+--changeset drsteini:create.nldi_data.feature_huc12pp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp'
 create table nldi_data.feature_huc12pp ( ) inherits (nldi_data.feature);
+alter table nldi_data.feature_huc12pp owner to nldi_data;
 --rollback drop table nldi_data.feature_huc12pp;
 
 
---changeset drsteini:create.nldi_data.feature_huc12pp_temp
+--changeset drsteini:create.nldi_data.feature_huc12pp_temp context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp_temp'
 create table nldi_data.feature_huc12pp_temp (like nldi_data.feature);
+alter table nldi_data.feature_huc12pp_temp owner to nldi_data;
 --rollback drop table nldi_data.feature_huc12pp_temp;
 
 
@@ -143,5 +110,6 @@ create table nldi_data.web_service_log
 ,query_string					character varying(4000)
 ,http_status_code				integer
 );
---rollback drop table nldi_data.feature_huc12pp_temp;
+alter table nldi_data.web_service_log owner to nldi_data;
+--rollback drop table nldi_data.web_service_log;
 

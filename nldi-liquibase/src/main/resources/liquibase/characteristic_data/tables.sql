@@ -15,6 +15,7 @@ create table characteristic_data.characteristic_metadata
 ,constraint characteristic_metadata_pk
     primary key (characteristic_id)
 );
+alter table characteristic_data.characteristic_metadata owner to nldi_data;
 --rollback drop table characteristic_data.characteristic_metadata
 
 
@@ -29,6 +30,7 @@ create table characteristic_data.divergence_routed_characteristics
 ,constraint divergence_routed_characteristics_pk
     primary key (comid, characteristic_id)
 );
+alter table characteristic_data.divergence_routed_characteristics owner to nldi_data;
 --rollback drop table characteristic_data.divergence_routed_characteristics
 
 
@@ -43,6 +45,7 @@ create table characteristic_data.total_accumulated_characteristics
 ,constraint total_accumulated_characteristics_pk
     primary key (comid, characteristic_id)
 );
+alter table characteristic_data.total_accumulated_characteristics owner to nldi_data;
 --rollback drop table characteristic_data.total_accumulated_characteristics
 
 
@@ -57,4 +60,5 @@ create table characteristic_data.local_catchment_characteristics
 ,constraint local_catchment_characteristics_pk
     primary key (comid, characteristic_id)
 );
---rollback drop table characteristics_data.local_catchment_characteristics
+alter table characteristic_data.local_catchment_characteristics owner to nldi_data;
+--rollback drop table characteristic_data.local_catchment_characteristics

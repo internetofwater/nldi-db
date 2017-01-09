@@ -81,4 +81,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.reference_calculations(p_navigation_type character varying, p_start_measure numeric, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, OUT p_start_path_length numeric, OUT p_start_path_time numeric, OUT p_start_inc_dist numeric, OUT p_start_inc_time numeric) OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.reference_calculations(p_navigation_type character varying, p_start_measure numeric, p_start_flowline nhdplus_navigation.flowline_rec, p_num_max_distance numeric, p_num_max_time numeric, OUT p_start_path_length numeric, OUT p_start_path_time numeric, OUT p_start_inc_dist numeric, OUT p_start_inc_time numeric) owner to nhdplus;
