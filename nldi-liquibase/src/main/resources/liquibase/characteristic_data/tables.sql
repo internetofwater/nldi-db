@@ -14,8 +14,7 @@ create table characteristic_data.characteristic_metadata
 ,characteristic_type            character varying(4000)
 ,constraint characteristic_metadata_pk
     primary key (characteristic_id)
-)
-WITH (OIDS=TRUE);
+);
 --rollback drop table characteristic_data.characteristic_metadata
 
 
@@ -29,8 +28,7 @@ create table characteristic_data.divergence_routed_characteristics
 ,percent_nodata                 smallint
 ,constraint divergence_routed_characteristics_pk
     primary key (comid, characteristic_id)
-)
-WITH ( OIDS=TRUE );
+);
 --rollback drop table characteristic_data.divergence_routed_characteristics
 
 
@@ -44,8 +42,7 @@ create table characteristic_data.total_accumulated_characteristics
 ,percent_nodata                 smallint
 ,constraint total_accumulated_characteristics_pk
     primary key (comid, characteristic_id)
-)
-WITH ( OIDS=TRUE );
+);
 --rollback drop table characteristic_data.total_accumulated_characteristics
 
 
@@ -59,6 +56,5 @@ create table characteristic_data.local_catchment_characteristics
 ,percent_nodata                 smallint
 ,constraint local_catchment_characteristics_pk
     primary key (comid, characteristic_id)
-)
-WITH ( OIDS=TRUE );
+);
 --rollback drop table characteristics_data.local_catchment_characteristics
