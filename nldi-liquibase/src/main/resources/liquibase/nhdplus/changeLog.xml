@@ -5,12 +5,13 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<preConditions>
-		<dbms type="postgresql"/>
-		<runningAs username="nldi"/>
-	</preConditions>
+    <preConditions>
+        <dbms type="postgresql"/>
+        <runningAs username="nldi"/>
+    </preConditions>
 
 	<include file="tables.sql" relativeToChangelogFile="true"/>
+	<include file="indexes.sql" relativeToChangelogFile="true"/>
 	<include file="grants.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

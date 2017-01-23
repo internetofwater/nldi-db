@@ -1,41 +1,18 @@
 --liquibase formatted sql
 
---changeset drsteini:create_user_nhdplus
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'nhdplus'
-create user nhdplus with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists nhdplus;
+--changeset drsteini:alter_databasechangelog_owner_nldi
+alter table public.databasechangelog owner to nldi;
+--rollback alter table public.databasechangelog owner to postgres;
 
---changeset drsteini:create_user_nhdplus_navigation
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'nhdplus_navigation'
-create user nhdplus_navigation with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists nhdplus_navigation;
+--changeset drsteini:alter_databasechangeloglock_owner_nldi
+alter table public.databasechangeloglock owner to nldi;
+--rollback alter table public.databasechangeloglock owner to postgres;
 
---changeset drsteini:create_user_nhdplus_indexing
+--changeset drsteini:create_extension_adminpack
 --preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'nhdplus_indexing'
-create user nhdplus_indexing with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists nhdplus_indexing;
-
---changeset drsteini:create_user_nhdplus_delineation
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'nhdplus_delineation'
-create user nhdplus_delineation with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists nhdplus_delineation;
-
---changeset drsteini:create_user_nldi_data
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'nldi_data'
-create user nldi_data with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists nldi_data;
-
-
---changeset ayan:create_user_characteristic_data
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from pg_user where usename = 'characteristic_data'
-create user characteristic_data with password '${POSTGRES_PASSWORD}';
---rollback drop user if exists characteristic_data
+--precondition-sql-check expectedResult:0 select count(*) from pg_available_extensions where name='adminpack'and installed_version!='';
+create extension adminpack;
+--rollback drop extension adminpack;
 
 --changeset drsteini:create_extension_postgis
 --preconditions onFail:MARK_RAN onError:HALT
@@ -57,55 +34,55 @@ create extension "uuid-ossp";
 
 --changeset drsteini:alter_st_iscoveragetile_search_path-ossp
 alter function st_iscoveragetile(raster,raster,integer,integer) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_iscoveragetile(raster,raster,integer,integer) reset search_path;
+--rollback alter function st_iscoveragetile(raster,raster,integer,integer) reset search_path;
 
 --changeset drsteini:alter_st_bandmetadata_a_search_path
 alter function st_bandmetadata(raster,integer) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_bandmetadata(raster,integer) reset search_path;
+--rollback alter function st_bandmetadata(raster,integer) reset search_path;
 
 --changeset drsteini:alter_st_bandmetadata_b_search_path
 alter function st_bandmetadata(raster,integer[]) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_bandmetadata(raster,integer[]) reset search_path;
+--rollback alter function st_bandmetadata(raster,integer[]) reset search_path;
 
 --changeset drsteini:alter_st_numbands_search_path
 alter function st_numbands(raster) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_numbands(raster) reset search_path;
+--rollback alter function st_numbands(raster) reset search_path;
 
 --changeset drsteini:alter_st_coveredby_a_search_path
 alter function st_coveredby(raster,raster) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_coveredby(raster,raster) reset search_path;
+--rollback alter function st_coveredby(raster,raster) reset search_path;
 
 --changeset drsteini:alter_st_coveredby_b_search_path
 alter function st_coveredby(raster,integer,raster,integer) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_coveredby(raster,integer,raster,integer) reset search_path;
+--rollback alter function st_coveredby(raster,integer,raster,integer) reset search_path;
 
 --changeset drsteini:alter_st_coveredby_c_search_path
 alter function st_coveredby(geometry,geometry) set search_path=pg_catalog,public,postgis;
---rollback alter funtion st_coveredby(geometry,geometry) reset search_path;
+--rollback alter function st_coveredby(geometry,geometry) reset search_path;
 
 --changeset drsteini:alter__raster_constraint_pixel_types_search_path
 alter function _raster_constraint_pixel_types(raster) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _raster_constraint_pixel_types(raster) reset search_path;
+--rollback alter function _raster_constraint_pixel_types(raster) reset search_path;
 
 --changeset drsteini:alter__raster_constraint_nodata_values_search_path
 alter function _raster_constraint_nodata_values(raster) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _raster_constraint_nodata_values(raster) reset search_path;
+--rollback alter function _raster_constraint_nodata_values(raster) reset search_path;
 
 --changeset drsteini:alter__raster_constraint_out_db_search_path
 alter function _raster_constraint_out_db(raster) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _raster_constraint_out_db(raster) reset search_path;
+--rollback alter function _raster_constraint_out_db(raster) reset search_path;
 
 --changeset drsteini:alter__raster_constraint_info_regular_blocking_search_path
 alter function _raster_constraint_info_regular_blocking(name,name,name) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _raster_constraint_info_regular_blocking(name,name,name) reset search_path;
+--rollback alter function _raster_constraint_info_regular_blocking(name,name,name) reset search_path;
 
 --changeset drsteini:alter__st_coveredby_a_search_path
 alter function _st_coveredby(raster,integer,raster,integer) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _st_coveredby(raster,integer,raster,integer) reset search_path;
+--rollback alter function _st_coveredby(raster,integer,raster,integer) reset search_path;
 
 --changeset drsteini:alter__st_coveredby_b_search_path
 alter function _st_coveredby(geometry,geometry) set search_path=pg_catalog,public,postgis;
---rollback alter funtion _st_coveredby(geometry,geometry) reset search_path;
+--rollback alter function _st_coveredby(geometry,geometry) reset search_path;
 
 --changeset drsteini:insert_spatial_ref_sys_5070
 --preconditions onFail:MARK_RAN onError:HALT

@@ -7,10 +7,9 @@
 
 	<preConditions>
 		<dbms type="postgresql"/>
-		<runningAs username="nldi"/>
+		<runningAs username="postgres"/>
 	</preConditions>
 
-	<include file="tables.sql" relativeToChangelogFile="true"/>
-	<include file="grants.sql" relativeToChangelogFile="true"/>
+	<include file="dbSetup.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

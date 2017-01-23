@@ -1,4 +1,4 @@
- FROM postgres:9.5.2
+ FROM postgres:9.6.1
 
 MAINTAINER David Steinich <drsteini@usgs.gov>
 
@@ -37,7 +37,7 @@ ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 
 ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.tar.gz $LIQUIBASE_HOME/
 
-ADD https://jdbc.postgresql.org/download/postgresql-9.4-1204.jdbc42.jar $LIQUIBASE_HOME/lib/
+ADD https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar $LIQUIBASE_HOME/lib/
 
 RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.4.2-bin.tar.gz -C $LIQUIBASE_HOME/
 
@@ -49,6 +49,8 @@ RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.4.2-bin.tar.gz -C $LIQUIBASE_HOME/
 COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/liquibase.properties $LIQUIBASE_HOME/
+
+COPY ./dbInit/liquibasePostgres.properties $LIQUIBASE_HOME/
 
 COPY ./nldi-liquibase $JENKINS_WORKSPACE/nldi-liquibase
 

@@ -250,4 +250,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.create_temp_tables() OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.create_temp_tables() owner to nhdplus;

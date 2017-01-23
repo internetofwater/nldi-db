@@ -26,7 +26,7 @@ create type nhdplus_navigation.flowline_rec as
 ,nhdplus_region					character varying(3)
 ,nhdplus_version				character varying(6)
 );
-alter type nhdplus_navigation.flowline_rec owner to nhdplus_navigation;
+alter type nhdplus_navigation.flowline_rec owner to nhdplus;
 --rollback drop type if exists nhdplus_navigation.flowline_rec;
 
 --changeset drsteini:create.nhdplus_navigation.listdivs_rec
@@ -50,7 +50,7 @@ create type nhdplus_navigation.listdivs_rec as
 ,nhdplus_region					character varying(3)
 ,nhdplus_version				character varying(6)
 );
-alter type nhdplus_navigation.listdivs_rec owner to nhdplus_navigation;
+alter type nhdplus_navigation.listdivs_rec owner to nhdplus;
 --rollback drop type if exists nhdplus_navigation.listdivs_rec;
 
 --changeset drsteini:create.nhdplus_navigation.type_recdivs
@@ -83,7 +83,7 @@ create type nhdplus_navigation.type_recdivs as
 ,totaltime						numeric
 ,nhdplus_region					character varying(3)
 );
-alter type nhdplus_navigation.type_recdivs owner to nhdplus_navigation;
+alter type nhdplus_navigation.type_recdivs owner to nhdplus;
 --rollback drop type if exists nhdplus_navigation.type_recdivs;
 
 --changeset drsteini:create.nhdplus_navigation.typ_rec_mega_divergences
@@ -94,7 +94,7 @@ create type nhdplus_navigation.typ_rec_mega_divergences as
 ,comid							integer
 ,hydroseq						integer
 );
-alter type nhdplus_navigation.typ_rec_mega_divergences owner to nhdplus_navigation;
+alter type nhdplus_navigation.typ_rec_mega_divergences owner to nhdplus;
 --rollback drop type if exists nhdplus_navigation.typ_rec_mega_divergences;
 
 --changeset drsteini:create.nhdplus_navigation.typ_connections
@@ -106,5 +106,5 @@ create type nhdplus_navigation.typ_connections as
 ,upunitid						character varying(8)
 ,dnunitid						character varying(8)
 );
-alter type nhdplus_navigation.typ_connections owner to nhdplus_navigation;
+alter type nhdplus_navigation.typ_connections owner to nhdplus;
 --rollback drop type if exists nhdplus_navigation.typ_connections;

@@ -253,4 +253,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.divergences(INOUT p_list_divs nhdplus_navigation.listdivs_rec[], INOUT p_divergence_count numeric) OWNER TO nhdplus_navigation;
+ALTER FUNCTION nhdplus_navigation.divergences(INOUT p_list_divs nhdplus_navigation.listdivs_rec[], INOUT p_divergence_count numeric) owner to nhdplus;
