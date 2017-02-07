@@ -258,8 +258,20 @@ create unique index r43_sde_rowid_uk on nhdplus.plusflow_np21 using btree (objec
 create index catchmentsp_the_geom_geom_idx on nhdplus.catchmentsp using gist (the_geom);
 --rollback drop index nhdplus.catchmentsp_the_geom_geom_idx;
 
+--changeset drsteini:create_index.nhdplus.catchmentsp_featureid
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'catchmentsp_featureid' and c.relkind = 'i'
+create index catchmentsp_featureid on nhdplus.catchmentsp(featureid);
+--rollback drop index nhdplus.catchmentsp_featureid;
+
 --changeset drsteini:create_index.nhdplus.plusflowlinevaa_np21_dnhydroseq
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflowlinevaa_np21_dnhydroseq' and c.relkind = 'i'
 create index plusflowlinevaa_np21_dnhydroseq on nhdplus.plusflowlinevaa_np21(dnhydroseq);
 --rollback drop index nhdplus.plusflowlinevaa_np21_dnhydroseq;
+
+--changeset drsteini:create_index.nhdplus.plusflowline_vaa_np21_ut
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'nhdplus' and c.relname = 'plusflowlinevaa_np21_ut' and c.relkind = 'i'
+create index plusflowlinevaa_np21_ut on nhdplus.plusflowlinevaa_np21(dnhydroseq, pathlength, comid, hydroseq, startflag);
+--rollback drop index nhdplus.plusflowlinevaa_np21_ut;
