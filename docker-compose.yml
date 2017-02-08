@@ -38,19 +38,3 @@ services:
       - NLDI_DATA_PASSWORD=nldi
       - NLDI_USER_PASSWORD=nldi
     container_name: NLDI_Database_Demo
-  nldi_jenkins:
-    build: ./nldi-jenkins
-    volumes_from: 
-      - nldi_db_vol_container
-    links:
-      - nldi_db
-      - nldi_db_demo
-    ports:
-      - "8889:8080"
-    environment:
-      - POSTGRES_PASSWORD=nldi
-      - POSTGRES_DB=nldi
-      - NLDI_PASSWORD=nldi
-      - NLDI_DATA_PASSWORD=nldi
-      - NLDI_USER_PASSWORD=nldi
-    container_name: NLDI_Jenkins
