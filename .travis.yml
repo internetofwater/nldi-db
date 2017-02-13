@@ -33,4 +33,4 @@ script:
   - docker-compose ps | grep "NLDI_Database_Vo.*Exit 0"
   - docker-compose ps | grep "NLDI_Database\s.*Up"
   - docker-compose ps | grep "NLDI_Database_De.*Up"
-  - docker-compose ps | grep "NLDI_Jenkins.*Up"
+  - docker-compose ps | grep "NLDI_Jenkins_CI.*Up"
