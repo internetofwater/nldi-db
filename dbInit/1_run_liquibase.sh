@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # Restart postgres to make sure we can connect
-gosu postgres pg_ctl -D "$PGDATA" -m fast -o "$LOCALONLY" -w restart
+pg_ctl -D "$PGDATA" -m fast -o "$LOCALONLY" -w restart
 
 # create the nldi project user and database
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
@@ -21,6 +21,5 @@ java -DNLDI_DATA_PASSWORD=$NLDI_DATA_PASSWORD -DNLDI_USER_PASSWORD=$NLDI_USER_PA
 	--defaultsFile=${LIQUIBASE_HOME}/liquibase.properties \
 	--classpath=${LIQUIBASE_HOME}/lib/postgresql-9.4.1212.jar \
 	--changeLogFile=${JENKINS_WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/changeLog.xml \
-	--contexts=ci \
 	update > $LIQUIBASE_HOME/liquibase.log
 
