@@ -8,7 +8,7 @@ MAINTAINER David Steinich <drsteini@usgs.gov>
 
 COPY ./3_load_demo.sh /docker-entrypoint-initdb.d/
 
-RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/crawler_source.backup.gz" -o $LIQUIBASE_HOME/crawler_source.backup.gz
+RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/nldi_data.crawler_source.pgdump.gz" -o $LIQUIBASE_HOME/nldi_data.crawler_source.pgdump.gz
 RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/feature_wqp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_wqp_yahara.backup.gz
 RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/feature_huc12pp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_huc12pp_yahara.backup.gz
 RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/feature_np21_nwis_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_np21_nwis_yahara.backup.gz
