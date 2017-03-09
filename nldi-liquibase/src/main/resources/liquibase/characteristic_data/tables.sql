@@ -62,3 +62,30 @@ create table characteristic_data.local_catchment_characteristics
 );
 alter table characteristic_data.local_catchment_characteristics owner to nldi_data;
 --rollback drop table characteristic_data.local_catchment_characteristics
+
+
+--changeset drsteini:create.characteristic_data.plusflowlinevaa_np21
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'characteristic_data' and table_name = 'plusflowlinevaa_np21'
+create table characteristic_data.plusflowlinevaa_np21
+(comid                          integer not null
+,hydroseq                       numeric(11,0) not null
+,startflag                      smallint
+,dnhydroseq                     numeric(11,0) not null
+,dnminorhyd                     numeric(11,0) not null
+,pathlength                     numeric(11,0)
+);
+alter table characteristic_data.plusflowlinevaa_np21 owner to nldi_data;
+--rollback drop table characteristic_data.plusflowlinevaa_np21
+
+
+--changeset drsteini:create.characteristic_data.catchmentsp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'characteristic_data' and table_name = 'catchmentsp'
+create table characteristic_data.catchmentsp
+(ogc_fid	integer not null
+,featureid	integer
+,the_geom	geometry(MultiPolygon,4269)
+);
+alter table characteristic_data.catchmentsp owner to nldi_data;
+--rollback drop table characteristic_data.catchmentsp
