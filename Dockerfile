@@ -61,4 +61,4 @@ COPY ./dbInit/2_load_network.sh /docker-entrypoint-initdb.d/
 
 RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
 
-RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/characteristic_data_yahara.backup.gz" -o $LIQUIBASE_HOME/characteristic_data_yahara.backup.gz
+RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
