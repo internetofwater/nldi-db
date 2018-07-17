@@ -1,4 +1,4 @@
-FROM nldidb_nldi_db
+FROM nldi-db_nldi_db
 
 MAINTAINER David Steinich <drsteini@usgs.gov>
 
