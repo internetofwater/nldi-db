@@ -9,6 +9,7 @@ services:
       - "gov.usgs.owi.nldi.container.volume=true"
     container_name: NLDI_Database_Volume
   nldi_db:
+    image: nldidb_nldi_db
     build:
       context: .
     volumes_from: 
