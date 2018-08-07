@@ -27,5 +27,5 @@ create role nldi_user with login password '${NLDI_USER_PASSWORD}';
 --rollback drop role if exists nldi_user;
 
 --changeset drsteini:grant.nldi_user.to.nldi_data
-grant nldi_user to postgres;
+grant nldi_user to nldi_data;
 --rollback revoke nldi_user from nldi_data;
