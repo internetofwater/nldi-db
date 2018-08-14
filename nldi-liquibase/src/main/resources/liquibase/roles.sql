@@ -1,5 +1,15 @@
 --liquibase formatted sql
 
+--changeset ayan:create.role.nldi_data
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from pg_roles where rolname = 'nldi'
+create role nldi;
+-- rollback drop role if exists nldi;
+
+--changeset ayan:grant.nldi.to.postgres
+grant nldi to postgres
+--rollback revoke nldi from postgres;
+
 --changeset drsteini:create.role.nhdplus
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from pg_roles where rolname = 'nhdplus'
