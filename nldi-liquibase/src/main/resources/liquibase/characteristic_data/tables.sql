@@ -89,3 +89,27 @@ create table characteristic_data.catchmentsp
 );
 alter table characteristic_data.catchmentsp owner to nldi_data;
 --rollback drop table characteristic_data.catchmentsp
+
+
+--changeset mbucknell:alter.characteristc_data.characteristic_metadata.constraint
+--preconditions onFail:Mark_RAN onError:HALT
+alter table characteristic_data.characteristic_metadata rename constraint characteristic_metadata_pk to characteristic_metadata_pkey;
+--rollback alter table characteristic_data.characteristic_metadata rename constraint characteristic_metadata_pkey to characteristic_metadata_pk
+
+
+--changeset mbucknell:alter.characteristc_data.local_catchment_characteristics.constraint
+--preconditions onFail:Mark_RAN onError:HALT
+alter table characteristic_data.local_catchment_characteristics rename constraint local_catchment_characteristics_pk to local_catchment_characteristics_pkey;
+--rollback alter table characteristic_data.local_catchment_characteristics rename constraint local_catchment_characteristics_pkey to local_catchment_characteristics_pk
+
+
+--changeset mbucknell:alter.characteristc_data.divergence_routed_characteristics.constraint
+--preconditions onFail:Mark_RAN onError:HALT
+alter table characteristic_data.divergence_routed_characteristics rename constraint divergence_routed_characteristics_pk to divergence_routed_characteristics_pkey;
+--rollback alter table characteristic_data.divergence_routed_characteristics rename constraint divergence_routed_characteristics_pkey to divergence_routed_characteristics_pk
+
+
+--changeset mbucknell:alter.characteristc_data.total_accumulated_characteristics.constraint
+--preconditions onFail:Mark_RAN onError:HALT
+alter table characteristic_data.total_accumulated_characteristics rename constraint total_accumulated_characteristics_pk to total_accumulated_characteristics_pkey;
+--rollback alter table characteristic_data.total_accumulated_characteristics rename constraint total_accumulated_characteristics_pkey to total_accumulated_characteristics_pk
