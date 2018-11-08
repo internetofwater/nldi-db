@@ -1,4 +1,4 @@
-FROM mdillon/postgis:9.6-alpine
+FROM mdillon/postgis:10-alpine
 
 MAINTAINER David Steinich <drsteini@usgs.gov>
 
@@ -19,7 +19,6 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN set -x \
     && apk update && apk upgrade \
     && apk add --no-cache bash \
-    && apk add --no-cache curl\
     && apk add --no-cache openjdk8 \
     && [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
@@ -32,11 +31,13 @@ ENV LIQUIBASE_HOME /opt/liquibase
 ENV JENKINS_WORKSPACE /var/jenkins_home/jobs/LiquibaseNLDI/workspace
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 
-ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.tar.gz $LIQUIBASE_HOME/
+ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.6.2/liquibase-3.6.2-bin.tar.gz $LIQUIBASE_HOME/
 
-ADD https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar $LIQUIBASE_HOME/lib/
+ADD http://search.maven.org/remotecontent?filepath=org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar $LIQUIBASE_HOME/lib/slf4j-api.jar
 
-RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.4.2-bin.tar.gz -C $LIQUIBASE_HOME/
+ADD https://jdbc.postgresql.org/download/postgresql-42.2.5.jar $LIQUIBASE_HOME/lib/
+
+RUN tar -xzf $LIQUIBASE_HOME/liquibase-3.6.2-bin.tar.gz -C $LIQUIBASE_HOME/
 
 
 ############################################
@@ -59,6 +60,6 @@ RUN chmod -R 777 $LIQUIBASE_HOME
 
 COPY ./dbInit/2_load_network.sh /docker-entrypoint-initdb.d/
 
-RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
+ADD https://cida.usgs.gov/artifactory/nldi/datasets/nhdplus.yahara.pgdump.gz $LIQUIBASE_HOME/
 
-RUN curl "https://cida.usgs.gov/artifactory/nldi/datasets/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
+ADD https://cida.usgs.gov/artifactory/nldi/datasets/characteristic_data.yahara.pgdump.gz $LIQUIBASE_HOME/
