@@ -12,7 +12,8 @@ services:
     image: nldidb_nldi_db
     build:
       context: .
-    volumes_from: 
+      dockerfile: Dockerfile.base
+    volumes_from:
       - nldi_db_vol_container
     environment:
       - POSTGRES_PASSWORD=nldi
@@ -25,8 +26,9 @@ services:
     depends_on:
       - nldi_db
     build:
-      context: ./nldi-demo-db
-    volumes_from: 
+      context: .
+      dockerfile: Dockerfile.demo
+    volumes_from:
       - nldi_db_vol_container
     ports:
       - "5434:5432"
@@ -41,8 +43,9 @@ services:
     depends_on:
       - nldi_db
     build:
-      context: ./nldi-ci-db
-    volumes_from: 
+      context: .
+      dockerfile: Dockerfile.ci
+    volumes_from:
       - nldi_db_vol_container
     ports:
       - "5433:5432"

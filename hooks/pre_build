@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo Building base container...
-docker build -t nldidb_nldi_db `dirname $DOCKERFILE_PATH`/..
+docker build -f Dockerfile.base -t nldidb_nldi_db `dirname $DOCKERFILE_PATH`
