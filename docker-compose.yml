@@ -1,19 +1,10 @@
 version: '2'
 services:
-  nldi_db_vol_container:
-    image: alpine
-    volumes:
-      - /var/lib/postgresql
-    command: /bin/echo "Data only container for NLDI PostGRES"
-    labels:
-      - "gov.usgs.owi.nldi.container.volume=true"
-    container_name: NLDI_Database_Volume
   nldi_db:
     image: nldidb_nldi_db
     build:
       context: .
-    volumes_from: 
-      - nldi_db_vol_container
+      dockerfile: Dockerfile.base
     environment:
       - POSTGRES_PASSWORD=nldi
       - POSTGRES_DB=nldi
@@ -25,9 +16,8 @@ services:
     depends_on:
       - nldi_db
     build:
-      context: ./nldi-demo-db
-    volumes_from: 
-      - nldi_db_vol_container
+      context: .
+      dockerfile: Dockerfile.demo
     ports:
       - "5434:5432"
     environment:
@@ -41,9 +31,8 @@ services:
     depends_on:
       - nldi_db
     build:
-      context: ./nldi-ci-db
-    volumes_from: 
-      - nldi_db_vol_container
+      context: .
+      dockerfile: Dockerfile.ci
     ports:
       - "5433:5432"
     environment:
