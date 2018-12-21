@@ -29,3 +29,6 @@ The PostGIS database will be available on port 5433. This can be changed in the 
 ###Development Database
 
 The PostGIS database will be available on port 5434. This can be changed in the docker-compose.yml file. The default username and password are nldi/nldi. It includes data from the Yahara River (near Madison WI - upstream of comid 13297246).
+
+
+docker run -p 127.0.0.1:5435:5432/tcp --env-file=.env usgswma/nldi-db:ci
