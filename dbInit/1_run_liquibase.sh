@@ -14,7 +14,7 @@ java -jar ${LIQUIBASE_HOME}/liquibase.jar \
 	--defaultsFile=${LIQUIBASE_HOME}/liquibasePostgres.properties \
 	--classpath=${LIQUIBASE_HOME}/lib/postgresql-9.4.1212.jar \
 	--changeLogFile=${JENKINS_WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/postgres/changeLog.xml \
-	update > $LIQUIBASE_HOME/liquibasePostgres.log
+	update
 
 # remaining creation scripts
 java -DNLDI_DATA_PASSWORD=$NLDI_DATA_PASSWORD -DNLDI_USER_PASSWORD=$NLDI_USER_PASSWORD -jar ${LIQUIBASE_HOME}/liquibase.jar \
@@ -22,4 +22,4 @@ java -DNLDI_DATA_PASSWORD=$NLDI_DATA_PASSWORD -DNLDI_USER_PASSWORD=$NLDI_USER_PA
 	--classpath=${LIQUIBASE_HOME}/lib/postgresql-9.4.1212.jar \
 	--changeLogFile=${JENKINS_WORKSPACE}/nldi-liquibase/src/main/resources/liquibase/changeLog.xml \
 	--contexts=demo \
-	update > $LIQUIBASE_HOME/liquibase.log
+	update
