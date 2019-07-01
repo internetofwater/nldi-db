@@ -24,7 +24,7 @@ before_install:
           DB_CI_PORT=5445
           DB_DEMO_IPV4=172.26.0.5
           DB_DEMO_PORT=5446"
-        > ~/.env
+        > .env
 
 install:
   - docker-compose up -d
