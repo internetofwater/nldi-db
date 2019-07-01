@@ -3,8 +3,8 @@ language: bash
 services:
   - docker
 
-before_install:
-  - echo "POSTGRES_PASSWORD=changeMe
+install:
+  - POSTGRES_PASSWORD=changeMe
           NLDI_DATABASE_ADDRESS=nldi_database_address
           NLDI_DATABASE_NAME=nldi_db_name
           NLDI_DB_OWNER_USERNAME=nldi_db_owner
@@ -23,11 +23,8 @@ before_install:
           DB_CI_IPV4=172.26.0.4
           DB_CI_PORT=5445
           DB_DEMO_IPV4=172.26.0.5
-          DB_DEMO_PORT=5446"
-        > .env
-
-install:
-  - docker-compose up -d
+          DB_DEMO_PORT=5446
+        docker-compose up -d
 
 script:
   # Travis appears to only have 16 char container names.
