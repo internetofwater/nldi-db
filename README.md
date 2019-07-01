@@ -32,3 +32,5 @@ The PostGIS database will be available on port 5434. This can be changed in the 
 
 
 docker run -p 127.0.0.1:5435:5432/tcp --env-file=.env usgswma/nldi-db:ci
+
+docker network create --subnet=172.26.0.0/16 nldi

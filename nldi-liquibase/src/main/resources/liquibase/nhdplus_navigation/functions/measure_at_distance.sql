@@ -31,4 +31,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.measure_at_distance(p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_distance numeric, p_half character varying) owner to nhdplus;
+ALTER FUNCTION nhdplus_navigation.measure_at_distance(p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_distance numeric, p_half character varying) owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};

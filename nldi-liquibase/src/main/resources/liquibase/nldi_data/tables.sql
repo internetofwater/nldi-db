@@ -17,7 +17,7 @@ create table nldi_data.crawler_source
 ,constraint crawler_source_pk
   primary key (crawler_source_id)
 );
-alter table nldi_data.crawler_source owner to nldi_data;
+alter table nldi_data.crawler_source owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.crawler_source;
 
 --changeset drsteini:create.nldi_data.feature
@@ -33,21 +33,21 @@ create table nldi_data.feature
 ,reachcode						character varying(14)
 ,measure						numeric(38,10)
 );
-alter table nldi_data.feature owner to nldi_data;
+alter table nldi_data.feature owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature;
 
 --changeset drsteini:create.nldi_data.feature_wqp
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_wqp'
 create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
-alter table nldi_data.feature_wqp owner to nldi_data;
+alter table nldi_data.feature_wqp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_wqp;
 
 --changeset drsteini:create.nldi_data.feature_wqp_temp
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_wqp_temp'
 create table nldi_data.feature_wqp_temp (like nldi_data.feature);
-alter table nldi_data.feature_wqp_temp owner to nldi_data;
+alter table nldi_data.feature_wqp_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_wqp_temp;
 
 
@@ -55,21 +55,21 @@ alter table nldi_data.feature_wqp_temp owner to nldi_data;
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis'
 create table nldi_data.feature_np21_nwis ( ) inherits (nldi_data.feature);
-alter table nldi_data.feature_np21_nwis owner to nldi_data;
+alter table nldi_data.feature_np21_nwis owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_np21_nwis;
 
 --changeset drsteini:create.nldi_data.feature_np21_nwis_temp
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis_temp'
 create table nldi_data.feature_np21_nwis_temp (like nldi_data.feature);
-alter table nldi_data.feature_np21_nwis_temp owner to nldi_data;
+alter table nldi_data.feature_np21_nwis_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_np21_nwis_temp;
 
 --changeset drsteini:create.nldi_data.sqlinjection_test context:ci
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;'
 create table nldi_data."feature; select * from pg_class;" ( ) inherits (nldi_data.feature);
-alter table nldi_data."feature; select * from pg_class;"  owner to nldi_data;
+alter table nldi_data."feature; select * from pg_class;"  owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data."feature; select * from pg_class;";
 
 
@@ -77,7 +77,7 @@ alter table nldi_data."feature; select * from pg_class;"  owner to nldi_data;
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;_temp'
 create table nldi_data."feature; select * from pg_class;_temp" (like nldi_data.feature);
-alter table nldi_data."feature; select * from pg_class;_temp" owner to nldi_data;
+alter table nldi_data."feature; select * from pg_class;_temp" owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data."feature; select * from pg_class;_temp";
 
 
@@ -85,7 +85,7 @@ alter table nldi_data."feature; select * from pg_class;_temp" owner to nldi_data
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp'
 create table nldi_data.feature_huc12pp ( ) inherits (nldi_data.feature);
-alter table nldi_data.feature_huc12pp owner to nldi_data;
+alter table nldi_data.feature_huc12pp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_huc12pp;
 
 
@@ -93,7 +93,7 @@ alter table nldi_data.feature_huc12pp owner to nldi_data;
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp_temp'
 create table nldi_data.feature_huc12pp_temp (like nldi_data.feature);
-alter table nldi_data.feature_huc12pp_temp owner to nldi_data;
+alter table nldi_data.feature_huc12pp_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_huc12pp_temp;
 
 
@@ -110,6 +110,6 @@ create table nldi_data.web_service_log
 ,query_string					character varying(4000)
 ,http_status_code				integer
 );
-alter table nldi_data.web_service_log owner to nldi_data;
+alter table nldi_data.web_service_log owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.web_service_log;
 

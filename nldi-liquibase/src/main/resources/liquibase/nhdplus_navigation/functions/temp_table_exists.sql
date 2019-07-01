@@ -42,4 +42,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) owner to nhdplus;
+ALTER FUNCTION nhdplus_navigation.temp_table_exists(p_table_name character varying) owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};

@@ -529,4 +529,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.prepare_working_table(p_navigation_type character varying, p_num_max_distance numeric, p_num_max_time numeric, p_start_flowline nhdplus_navigation.flowline_rec, p_stop_flowline nhdplus_navigation.flowline_rec, p_start_path_length numeric, p_start_path_time numeric) owner to nhdplus;
+ALTER FUNCTION nhdplus_navigation.prepare_working_table(p_navigation_type character varying, p_num_max_distance numeric, p_num_max_time numeric, p_start_flowline nhdplus_navigation.flowline_rec, p_stop_flowline nhdplus_navigation.flowline_rec, p_start_path_length numeric, p_start_path_time numeric) owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};

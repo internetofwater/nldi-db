@@ -70,4 +70,4 @@ END;
 $$;
 
 
-ALTER FUNCTION nhdplus_navigation.start_path_length(p_navigation_type character varying, p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_measure numeric, p_path_length numeric, p_divergence numeric, p_up_hydro_seq numeric, p_type character varying) owner to nhdplus;
+ALTER FUNCTION nhdplus_navigation.start_path_length(p_navigation_type character varying, p_fmeasure numeric, p_tmeasure numeric, p_length numeric, p_measure numeric, p_path_length numeric, p_divergence numeric, p_up_hydro_seq numeric, p_type character varying) owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};

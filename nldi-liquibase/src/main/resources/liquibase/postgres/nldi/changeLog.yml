@@ -1,0 +1,133 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: postgres
+
+  - changeSet:
+      author: drsteini
+      id: "create.extension.postgis"
+      changes:
+        - sql: create extension if not exists postgis;
+        - rollback: drop extension if exists postgis;
+
+  - changeSet:
+      author: drsteini
+      id: "create.extension.postgis_topology"
+      changes:
+        - sql: create extension if not exists postgis_topology;
+        - rollback: drop extension if exists postgis_topology;
+
+  - changeSet:
+      author: drsteini
+      id: "create.extension.fuzzystrmatch"
+      changes:
+        - sql: create extension if not exists fuzzystrmatch;
+        - rollback: drop extension if exists fuzzystrmatch;
+
+  - changeSet:
+      author: drsteini
+      id: "create.extension.postgis_tiger_geocoder"
+      changes:
+        - sql: create extension if not exists postgis_tiger_geocoder;
+        - rollback: drop extension if exists postgis_tiger_geocoder;
+
+  - changeSet:
+      author: drsteini
+      id: "create.extension.plv8"
+      changes:
+        - sql: create extension if not exists plv8;
+        - rollback: drop extension if exists plv8;
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.schema.nhdplus"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_namespace where nspname = 'nhdplus';
+      changes:
+        - sql: create schema nhdplus authorization ${NHDPLUS_SCHEMA_OWNER_USERNAME};
+        - rollback: drop schema if exists nhdplus cascade;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.usage.nhdplus.to.${NLDI_SCHEMA_OWNER_USERNAME}"
+      changes:
+        - sql:
+            sql: grant usage on schema nhdplus to ${NLDI_SCHEMA_OWNER_USERNAME};
+        - rollback: revoke usage on schema nhdplus from ${NLDI_SCHEMA_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "grant.usage.nhdplus.to.${NLDI_READ_ONLY_USERNAME}"
+      changes:
+        - sql:
+            sql: grant usage on schema nhdplus to ${NLDI_READ_ONLY_USERNAME};
+        - rollback: revoke usage on schema nhdplus from ${NLDI_READ_ONLY_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.schema.nhdplus_navigation"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_namespace where nspname = 'nhdplus_navigation';
+      changes:
+        - sql: create schema nhdplus_navigation authorization ${NHDPLUS_SCHEMA_OWNER_USERNAME};
+        - rollback: drop schema if exists nhdplus_navigation cascade;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.usage.nhdplus_navigation.to.${NLDI_READ_ONLY_USERNAME}"
+      changes:
+        - sql:
+            sql: grant usage on schema nhdplus_navigation to ${NLDI_READ_ONLY_USERNAME};
+        - rollback: revoke usage on schema nhdplus_navigation from ${NLDI_READ_ONLY_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.schema.nldi_data"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_namespace where nspname = 'nldi_data';
+      changes:
+        - sql: create schema nldi_data authorization ${NLDI_SCHEMA_OWNER_USERNAME};
+        - rollback: drop schema if exists nldi_data cascade;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.usage.nldi_data.to.${NLDI_READ_ONLY_USERNAME}"
+      changes:
+        - sql:
+            sql: grant usage on schema nldi_data to ${NLDI_READ_ONLY_USERNAME};
+        - rollback: revoke usage on schema nldi_data from ${NLDI_READ_ONLY_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.schema.characteristic_data"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_namespace where nspname = 'characteristic_data';
+      changes:
+        - sql: create schema characteristic_data authorization ${NLDI_SCHEMA_OWNER_USERNAME};
+        - rollback: drop schema if exists characteristic_data cascade;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.usage.characteristic_data.to.${NLDI_READ_ONLY_USERNAME}"
+      changes:
+        - sql:
+            sql: grant usage on schema characteristic_data to ${NLDI_READ_ONLY_USERNAME};
+        - rollback: revoke usage on schema characteristic_data from ${NLDI_READ_ONLY_USERNAME};

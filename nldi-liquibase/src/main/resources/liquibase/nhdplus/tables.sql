@@ -10,7 +10,7 @@ create table nhdplus.megadiv_np21
 ,nhdplus_region					character varying(3) not null
 ,nhdplus_version				character varying(6) not null
 );
-alter table nhdplus.megadiv_np21 owner to nhdplus;
+alter table nhdplus.megadiv_np21 owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.megadiv_np21;
 
 --changeset drsteini:create.nhdplus.nhdflowline_np21
@@ -55,7 +55,7 @@ create table nhdplus.nhdflowline_np21
 ,constraint enforce_srid_shape
   check ((public.st_srid(shape) = 4269))
 );
-alter table nhdplus.nhdflowline_np21 owner to nhdplus;
+alter table nhdplus.nhdflowline_np21 owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.nhdflowline_np21;
 
 --changeset drsteini:create.nhdplus.nhdplusconnect_np21
@@ -75,7 +75,7 @@ create table nhdplus.nhdplusconnect_np21
 ,upmainhydroseq					integer
 ,dnmainhydroseq					integer
 );
-alter table nhdplus.nhdplusconnect_np21 owner to nhdplus;
+alter table nhdplus.nhdplusconnect_np21 owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.nhdplusconnect_np21;
 
 --changeset drsteini:create.nhdplus.plusflowlinevaa_np21
@@ -128,7 +128,7 @@ create table nhdplus.plusflowlinevaa_np21
 ,fmeasure						numeric(38,10) not null
 ,tmeasure						numeric(38,10) not null
 );
-alter table nhdplus.plusflowlinevaa_np21 owner to nhdplus;
+alter table nhdplus.plusflowlinevaa_np21 owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.plusflowlinevaa_np21;
 
 --changeset drsteini:create.nhdplus.plusflow_np21
@@ -152,7 +152,7 @@ create table nhdplus.plusflow_np21
 ,nhdplus_region					character varying(3) not null
 ,nhdplus_version				character varying(6) not null
 );
-alter table nhdplus.plusflow_np21 owner to nhdplus;
+alter table nhdplus.plusflow_np21 owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.plusflow_np21;
 
 --changeset drsteini:create.nhdplus.catchmentsp
@@ -170,5 +170,5 @@ create table nhdplus.catchmentsp
 ,constraint catchmentsp_pkey
   primary key (ogc_fid)
 );
-alter table nhdplus.catchmentsp owner to nhdplus;
+alter table nhdplus.catchmentsp owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus.catchmentsp;

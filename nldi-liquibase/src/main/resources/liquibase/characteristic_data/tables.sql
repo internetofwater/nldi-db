@@ -15,7 +15,7 @@ create table characteristic_data.characteristic_metadata
 ,constraint characteristic_metadata_pk
     primary key (characteristic_id)
 );
-alter table characteristic_data.characteristic_metadata owner to nldi_data;
+alter table characteristic_data.characteristic_metadata owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.characteristic_metadata
 
 
@@ -30,7 +30,7 @@ create table characteristic_data.divergence_routed_characteristics
 ,constraint divergence_routed_characteristics_pk
     primary key (comid, characteristic_id)
 );
-alter table characteristic_data.divergence_routed_characteristics owner to nldi_data;
+alter table characteristic_data.divergence_routed_characteristics owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.divergence_routed_characteristics
 
 
@@ -45,7 +45,7 @@ create table characteristic_data.total_accumulated_characteristics
 ,constraint total_accumulated_characteristics_pk
     primary key (comid, characteristic_id)
 );
-alter table characteristic_data.total_accumulated_characteristics owner to nldi_data;
+alter table characteristic_data.total_accumulated_characteristics owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.total_accumulated_characteristics
 
 
@@ -60,7 +60,7 @@ create table characteristic_data.local_catchment_characteristics
 ,constraint local_catchment_characteristics_pk
     primary key (comid, characteristic_id)
 );
-alter table characteristic_data.local_catchment_characteristics owner to nldi_data;
+alter table characteristic_data.local_catchment_characteristics owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.local_catchment_characteristics
 
 
@@ -75,7 +75,7 @@ create table characteristic_data.plusflowlinevaa_np21
 ,dnminorhyd                     numeric(11,0) not null
 ,pathlength                     numeric(11,0)
 );
-alter table characteristic_data.plusflowlinevaa_np21 owner to nldi_data;
+alter table characteristic_data.plusflowlinevaa_np21 owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.plusflowlinevaa_np21
 
 
@@ -87,5 +87,5 @@ create table characteristic_data.catchmentsp
 ,featureid	integer
 ,the_geom	geometry(MultiPolygon,4269)
 );
-alter table characteristic_data.catchmentsp owner to nldi_data;
+alter table characteristic_data.catchmentsp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table characteristic_data.catchmentsp

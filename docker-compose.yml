@@ -1,20 +1,33 @@
-version: '2'
+version: '3.7'
 services:
-  nldi_db:
-    image: nldidb_nldi_db
+
+  ciDB:
+    image: nldi_db_ci
     build:
       context: .
-      dockerfile: Dockerfile.base
+      dockerfile: ./database/ci/Dockerfile
+    networks:
+      nldi:
+        ipv4_address: ${DB_CI_IPV4}
     environment:
-      - POSTGRES_PASSWORD=nldi
-      - POSTGRES_DB=nldi
-      - NLDI_PASSWORD=nldi
-      - NLDI_DATA_PASSWORD=nldi
-      - NLDI_USER_PASSWORD=nldi
-    container_name: NLDI_Database
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+      - NLDI_DATABASE_NAME=${NLDI_DATABASE_NAME}
+      - NLDI_DB_OWNER_USERNAME=${NLDI_DB_OWNER_USERNAME}
+      - NLDI_DB_OWNER_PASSWORD=${NLDI_DB_OWNER_PASSWORD}
+      - NLDI_SCHEMA_OWNER_USERNAME=${NLDI_SCHEMA_OWNER_USERNAME}
+      - NLDI_SCHEMA_OWNER_PASSWORD=${NLDI_SCHEMA_OWNER_PASSWORD}
+      - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
+      - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
+      - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
+      - NLDI_DATABASE_ADDRESS=127.0.0.1
+    ports:
+      - ${DB_CI_PORT}:5432
+    container_name: ${NLDI_DATABASE_NAME}_CI
+
   nldi_db_demo:
-    depends_on:
-      - nldi_db
+#    depends_on:
+#      - nldi_db
     build:
       context: .
       dockerfile: Dockerfile.demo
@@ -27,18 +40,9 @@ services:
       - NLDI_DATA_PASSWORD=nldi
       - NLDI_USER_PASSWORD=nldi
     container_name: NLDI_Database_Demo
-  nldi_db_ci:
-    depends_on:
-      - nldi_db
-    build:
-      context: .
-      dockerfile: Dockerfile.ci
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_PASSWORD=nldi
-      - POSTGRES_DB=nldi
-      - NLDI_PASSWORD=nldi
-      - NLDI_DATA_PASSWORD=nldi
-      - NLDI_USER_PASSWORD=nldi
-    container_name: NLDI_Database_CI
+
+
+networks:
+  nldi:
+    external:
+      name: ${LOCAL_NETWORK_NAME}

@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: postgres
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.db.owner.role.${NLDI_DB_OWNER_USERNAME}"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = '${NLDI_DB_OWNER_USERNAME}';
+      changes:
+        - sql: create role ${NLDI_DB_OWNER_USERNAME} with login password '${NLDI_DB_OWNER_PASSWORD}';
+        - rollback: drop role if exists ${NLDI_DB_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NLDI_DB_OWNER_USERNAME}.to.postgres"
+      changes:
+        - sql: grant ${NLDI_DB_OWNER_USERNAME} to postgres;
+        - rollback: revoke ${NLDI_DB_OWNER_USERNAME} from postgres;
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.owner.role.${NLDI_SCHEMA_OWNER_USERNAME}"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = '${NLDI_SCHEMA_OWNER_USERNAME}';
+      changes:
+        - sql: create role ${NLDI_SCHEMA_OWNER_USERNAME} with login password '${NLDI_SCHEMA_OWNER_PASSWORD}';
+        - rollback: drop role if exists ${NLDI_SCHEMA_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NLDI_SCHEMA_OWNER_USERNAME}.to.postgres"
+      changes:
+        - sql: grant ${NLDI_SCHEMA_OWNER_USERNAME} to postgres;
+        - rollback: revoke ${NLDI_SCHEMA_OWNER_USERNAME} from postgres;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NLDI_SCHEMA_OWNER_USERNAME}.to.${NLDI_DB_OWNER_USERNAME}"
+      changes:
+        - sql: grant ${NLDI_SCHEMA_OWNER_USERNAME} to ${NLDI_DB_OWNER_USERNAME};
+        - rollback: revoke ${NLDI_SCHEMA_OWNER_USERNAME} from ${NLDI_DB_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.nhdplus.owner.role.${NHDPLUS_SCHEMA_OWNER_USERNAME}"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = '${NHDPLUS_SCHEMA_OWNER_USERNAME}';
+      changes:
+        - sql: create role ${NHDPLUS_SCHEMA_OWNER_USERNAME};
+        - rollback: drop role if exists ${NHDPLUS_SCHEMA_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NHDPLUS_SCHEMA_OWNER_USERNAME}.to.postgres"
+      changes:
+        - sql: grant ${NHDPLUS_SCHEMA_OWNER_USERNAME} to postgres;
+        - rollback: revoke ${NHDPLUS_SCHEMA_OWNER_USERNAME} from postgres;
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NHDPLUS_SCHEMA_OWNER_USERNAME}.to.${NLDI_DB_OWNER_USERNAME}"
+      changes:
+        - sql: grant ${NHDPLUS_SCHEMA_OWNER_USERNAME} to ${NLDI_DB_OWNER_USERNAME};
+        - rollback: revoke ${NHDPLUS_SCHEMA_OWNER_USERNAME} from ${NLDI_DB_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.user.role.${NLDI_READ_ONLY_USERNAME}"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = '${NLDI_READ_ONLY_USERNAME}';
+      changes:
+        - sql: create role ${NLDI_READ_ONLY_USERNAME} with login password '${NLDI_READ_ONLY_PASSWORD}';
+        - rollback: drop role if exists ${NLDI_READ_ONLY_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "grant.${NLDI_READ_ONLY_USERNAME}.to.${NLDI_DB_OWNER_USERNAME}"
+      changes:
+        - sql: grant ${NLDI_READ_ONLY_USERNAME} to ${NLDI_DB_OWNER_USERNAME};
+        - rollback: revoke ${NLDI_READ_ONLY_USERNAME} from ${NLDI_DB_OWNER_USERNAME};
+
+  - changeSet:
+      author: drsteini
+      id: "create.project.database.${NLDI_DATABASE_NAME}"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_database where datname = '${NLDI_DATABASE_NAME}';
+      runInTransaction: false
+      changes:
+        - sql: create database "${NLDI_DATABASE_NAME}" with owner = ${NLDI_DB_OWNER_USERNAME};
+        - rollback: drop database if exists "${NLDI_DATABASE_NAME}";

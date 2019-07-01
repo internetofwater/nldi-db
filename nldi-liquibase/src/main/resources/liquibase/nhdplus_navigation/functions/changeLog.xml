@@ -7,7 +7,7 @@
 
     <preConditions>
         <dbms type="postgresql" />
-        <runningAs username="postgres" />
+        <runningAs username="${NLDI_DB_OWNER_USERNAME}" />
     </preConditions>
 
     <changeSet author="drsteini" id="create.nhdplus_navigation.query_single_flowline">

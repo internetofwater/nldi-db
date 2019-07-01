@@ -1,5 +1,5 @@
 --liquibase formatted sql
 
---changeset drsteini:grant.select.all.tables.in.nhdplus.to.nldi_user runAlways:true
-grant select on all tables in schema nhdplus to nldi_user;
---rollback revoke select on all tables in schema nhdplus from nldi_user;
+--changeset drsteini:grant.select.all.tables.in.nhdplus.to.${NLDI_READ_ONLY_USERNAME} runAlways:true
+grant select on all tables in schema nhdplus to ${NLDI_READ_ONLY_USERNAME};
+--rollback revoke select on all tables in schema nhdplus from ${NLDI_READ_ONLY_USERNAME};

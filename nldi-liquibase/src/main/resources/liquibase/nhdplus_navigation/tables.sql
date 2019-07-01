@@ -16,7 +16,7 @@ create unlogged table nhdplus_navigation.navigation_cache_status
 ,constraint navigation_cache_status_pk
   primary key (session_id)
 );
-alter table nhdplus_navigation.navigation_cache_status owner to nhdplus;
+alter table nhdplus_navigation.navigation_cache_status owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus_navigation.navigation_cache_status;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dd
@@ -58,7 +58,7 @@ create table nhdplus_navigation.prep_connections_dd
 ,constraint prep_connections_dd_pk2
   unique (start_permanent_identifier, permanent_identifier)
 );
-alter table nhdplus_navigation.prep_connections_dd owner to nhdplus;
+alter table nhdplus_navigation.prep_connections_dd owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus_navigation.prep_connections_dd;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_dm
@@ -100,7 +100,7 @@ create table nhdplus_navigation.prep_connections_dm
 ,constraint prep_connections_dm_pk2
   unique (start_permanent_identifier, permanent_identifier)
 );
-alter table nhdplus_navigation.prep_connections_dm owner to nhdplus;
+alter table nhdplus_navigation.prep_connections_dm owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback  drop table nhdplus_navigation.prep_connections_dm;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_um
@@ -142,7 +142,7 @@ create table nhdplus_navigation.prep_connections_um
 ,constraint prep_connections_um_pk2
   unique (start_permanent_identifier, permanent_identifier)
 );
-alter table nhdplus_navigation.prep_connections_um owner to nhdplus;
+alter table nhdplus_navigation.prep_connections_um owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus_navigation.prep_connections_um;
 
 --changeset drsteini:create_nhdplus_navigation.prep_connections_ut
@@ -184,7 +184,7 @@ create table nhdplus_navigation.prep_connections_ut
 ,constraint prep_connections_ut_pk2
   unique (start_permanent_identifier, permanent_identifier)
 );
-alter table nhdplus_navigation.prep_connections_ut owner to nhdplus;
+alter table nhdplus_navigation.prep_connections_ut owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus_navigation.prep_connections_ut;
 
 
@@ -231,5 +231,5 @@ create unlogged table nhdplus_navigation.tmp_navigation_results
 ,constraint tmp_navigation_results_pk2
   unique (session_id, permanent_identifier)
 );
-alter table nhdplus_navigation.tmp_navigation_results owner to nhdplus;
+alter table nhdplus_navigation.tmp_navigation_results owner to ${NHDPLUS_SCHEMA_OWNER_USERNAME};
 --rollback drop table nhdplus_navigation.tmp_navigation_results;

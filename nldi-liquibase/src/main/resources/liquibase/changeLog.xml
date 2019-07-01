@@ -7,11 +7,8 @@
 
 	<preConditions>
 		<dbms type="postgresql"/>
-		<runningAs username="postgres"/>
+		<runningAs username="${NLDI_DB_OWNER_USERNAME}"/>
 	</preConditions>
-
-	<include file="roles.sql" relativeToChangelogFile="true"/>
-	<include file="schema.sql" relativeToChangelogFile="true"/>
 
 	<include file="nhdplus/changeLog.xml" relativeToChangelogFile="true"/>
 	<include file="nhdplus_navigation/changeLog.xml" relativeToChangelogFile="true"/>
