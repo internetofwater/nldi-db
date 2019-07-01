@@ -77,7 +77,7 @@ BEGIN
    --------------------------------------------------------------------------
    IF pSessionID IS NULL
    THEN
-      pSessionID := '{' || uuid_generate_v1() || '}';
+      pSessionID := '{' || gen_random_uuid() || '}';
 
       INSERT INTO
       nhdplus_navigation.navigation_cache_status(

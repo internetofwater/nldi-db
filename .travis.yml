@@ -12,7 +12,9 @@ install:
   - docker-compose up -d
 
 script:
-  # Travis appears to only have 16 char container names, so NLDI_Database_Volume gets truncated.
-  - docker-compose ps | grep "NLDI_Database\s.*Up"
-  - docker-compose ps | grep "NLDI_Database_De.*Up"
-  - docker-compose ps | grep "NLDI_Database_CI.*Up"
+  # Travis appears to only have 16 char container names.
+  - docker-compose ps | grep "nldi_Database\s.*Up"
+  - docker-compose ps | grep "nldi_Database_DE.*Up"
+  - docker-compose ps | grep "nldi_Database_CI.*Up"
+  - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
+  

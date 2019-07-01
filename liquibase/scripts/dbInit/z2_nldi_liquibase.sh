@@ -2,9 +2,9 @@
 
 ${LIQUIBASE_HOME}/liquibase \
 	--classpath=${LIQUIBASE_HOME}/lib/${JDBC_JAR} \
-	--changeLogFile=${LIQUIBASE_WORKSPACE}/changeLog.xml \
+	--changeLogFile=${LIQUIBASE_WORKSPACE}/nldi/changeLog.xml \
 	--driver=org.postgresql.Driver \
-	--url=jdbc:postgresql://${WQP_DATABASE_ADDRESS}:5432/${NLDI_DATABASE_NAME} \
+	--url=jdbc:postgresql://${NLDI_DATABASE_ADDRESS}:5432/${NLDI_DATABASE_NAME} \
 	--username=${NLDI_DB_OWNER_USERNAME} \
 	--password=${NLDI_DB_OWNER_PASSWORD} \
 	--contexts=${CONTEXTS} \

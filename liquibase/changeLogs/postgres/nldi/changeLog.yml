@@ -42,6 +42,13 @@ databaseChangeLog:
 
   - changeSet:
       author: drsteini
+      id: "create.extension.pgcrypto"
+      changes:
+        - sql: create extension if not exists pgcrypto;
+        - rollback: drop extension if exists pgcrypto;
+
+  - changeSet:
+      author: drsteini
       id: "create.project.schema.nhdplus"
       preConditions:
         - onFail: MARK_RAN

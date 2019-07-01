@@ -23,24 +23,72 @@ services:
       - NLDI_DATABASE_ADDRESS=127.0.0.1
     ports:
       - ${DB_CI_PORT}:5432
-    container_name: ${NLDI_DATABASE_NAME}_CI
+    container_name: ${NLDI_DATABASE_ADDRESS}_CI
 
-  nldi_db_demo:
-#    depends_on:
-#      - nldi_db
+  demoDB:
+    image: nldi_db_demo
     build:
       context: .
-      dockerfile: Dockerfile.demo
-    ports:
-      - "5434:5432"
+      dockerfile: ./database/demo/Dockerfile
+    networks:
+      nldi:
+        ipv4_address: ${DB_DEMO_IPV4}
     environment:
-      - POSTGRES_PASSWORD=nldi
-      - POSTGRES_DB=nldi
-      - NLDI_PASSWORD=nldi
-      - NLDI_DATA_PASSWORD=nldi
-      - NLDI_USER_PASSWORD=nldi
-    container_name: NLDI_Database_Demo
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+      - NLDI_DATABASE_NAME=${NLDI_DATABASE_NAME}
+      - NLDI_DB_OWNER_USERNAME=${NLDI_DB_OWNER_USERNAME}
+      - NLDI_DB_OWNER_PASSWORD=${NLDI_DB_OWNER_PASSWORD}
+      - NLDI_SCHEMA_OWNER_USERNAME=${NLDI_SCHEMA_OWNER_USERNAME}
+      - NLDI_SCHEMA_OWNER_PASSWORD=${NLDI_SCHEMA_OWNER_PASSWORD}
+      - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
+      - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
+      - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
+      - NLDI_DATABASE_ADDRESS=127.0.0.1
+    ports:
+      - ${DB_DEMO_PORT}:5432
+    container_name: ${NLDI_DATABASE_ADDRESS}_DEMO
 
+  db:
+    image: nldi_db
+    build:
+      context: .
+    networks:
+      nldi:
+        ipv4_address: ${DB_IPV4}
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+    ports:
+      - ${DB_PORT}:5432
+    container_name: ${NLDI_DATABASE_ADDRESS}
+
+  liquibase:
+    image: nldi_liquibase
+    build:
+      context: ./liquibase
+      args:
+        - LIQUIBASE_VERSION=${LIQUIBASE_VERSION}
+        - A_JDBC_JAR=${JDBC_JAR}
+    networks:
+      nldi:
+        ipv4_address: ${LIQUIBASE_IPV4}
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+      - NLDI_DATABASE_NAME=${NLDI_DATABASE_NAME}
+      - NLDI_DB_OWNER_USERNAME=${NLDI_DB_OWNER_USERNAME}
+      - NLDI_DB_OWNER_PASSWORD=${NLDI_DB_OWNER_PASSWORD}
+      - NLDI_SCHEMA_OWNER_USERNAME=${NLDI_SCHEMA_OWNER_USERNAME}
+      - NLDI_SCHEMA_OWNER_PASSWORD=${NLDI_SCHEMA_OWNER_PASSWORD}
+      - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
+      - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
+      - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
+      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
+    volumes:
+      - ./liquibase/changeLogs:/home/java/workspace/
+      - ./liquibase/scripts/dbInit:/docker-entrypoint-initdb.d
+    container_name: nldi_liquibase
 
 networks:
   nldi:
