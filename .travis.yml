@@ -28,7 +28,7 @@ env:
 install: true
 
 script:
-  - docker network create nldi
+  - docker network create --subnet=172.26.0.0/16 nldi
   - docker-compose up -d
   # Travis appears to only have 16 char container names.
   - docker-compose ps | grep "nldi_database\s.*Up"
