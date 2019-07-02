@@ -5,25 +5,25 @@ services:
 
 env:
   - POSTGRES_PASSWORD=changeMe
-  - NLDI_DATABASE_ADDRESS=nldi_database_address
-  - NLDI_DATABASE_NAME=nldi_db_name
-  - NLDI_DB_OWNER_USERNAME=nldi_db_owner
-  - NLDI_DB_OWNER_PASSWORD=changeMe
-  - NLDI_SCHEMA_OWNER_USERNAME=nldi_schema_owner
-  - NLDI_SCHEMA_OWNER_PASSWORD=changeMe
-  - NHDPLUS_SCHEMA_OWNER_USERNAME=nhdplus_schema_owner
-  - NLDI_READ_ONLY_USERNAME=read_only_user
-  - NLDI_READ_ONLY_PASSWORD=changeMe
-  - LOCAL_NETWORK_NAME=nldi
-  - DB_IPV4=172.26.0.2
-  - DB_PORT=5444
-  - LIQUIBASE_IPV4=172.26.0.3
-  - LIQUIBASE_VERSION=3.6.3
-  - JDBC_JAR=postgresql-42.2.5.jar
-  - DB_CI_IPV4=172.26.0.4
-  - DB_CI_PORT=5445
-  - DB_DEMO_IPV4=172.26.0.5
-  - DB_DEMO_PORT=5446
+    NLDI_DATABASE_ADDRESS=nldi_database_address
+    NLDI_DATABASE_NAME=nldi_db_name
+    NLDI_DB_OWNER_USERNAME=nldi_db_owner
+    NLDI_DB_OWNER_PASSWORD=changeMe
+    NLDI_SCHEMA_OWNER_USERNAME=nldi_schema_owner
+    NLDI_SCHEMA_OWNER_PASSWORD=changeMe
+    NHDPLUS_SCHEMA_OWNER_USERNAME=nhdplus_schema_owner
+    NLDI_READ_ONLY_USERNAME=read_only_user
+    NLDI_READ_ONLY_PASSWORD=changeMe
+    LOCAL_NETWORK_NAME=nldi
+    DB_IPV4=172.26.0.2
+    DB_PORT=5444
+    LIQUIBASE_IPV4=172.26.0.3
+    LIQUIBASE_VERSION=3.6.3
+    JDBC_JAR=postgresql-42.2.5.jar
+    DB_CI_IPV4=172.26.0.4
+    DB_CI_PORT=5445
+    DB_DEMO_IPV4=172.26.0.5
+    DB_DEMO_PORT=5446
 
 install:
   - docker-compose up -d
