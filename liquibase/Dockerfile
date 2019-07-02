@@ -13,6 +13,9 @@ ENV LIQUIBASE_HOME $HOME
 ENV LIQUIBASE_WORKSPACE $LIQUIBASE_HOME/workspace
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
 ADD https://github.com/liquibase/liquibase/releases/download/liquibase-parent-$LIQUIBASE_VERSION/liquibase-$LIQUIBASE_VERSION-bin.tar.gz $LIQUIBASE_HOME/
 
 ADD https://jdbc.postgresql.org/download/$JDBC_JAR $LIQUIBASE_HOME/lib/

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+bash /usr/local/bin/wait-for-it.sh $NLDI_DATABASE_ADDRESS:5432 -- echo "Postgres is up - executing command"
+
 for f in /docker-entrypoint-initdb.d/*; do
 	if [ -x "$f" ]; then
 		echo "$0: running $f"
