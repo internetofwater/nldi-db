@@ -25,14 +25,14 @@ env:
     DB_DEMO_IPV4=172.26.0.5
     DB_DEMO_PORT=5446
 
-install:
-  - docker-compose up -d
+install: true
 
 script:
+  - docker network create nldi
+  - docker-compose up -d
   # Travis appears to only have 16 char container names.
   - docker-compose ps | grep "nldi_Database\s.*Up"
   - docker-compose ps | grep "nldi_Database_DE.*Up"
   - docker-compose ps | grep "nldi_Database_CI.*Up"
   - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
-
- 
+  - docker network rm nldi
