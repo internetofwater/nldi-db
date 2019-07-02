@@ -30,9 +30,11 @@ install: true
 script:
   - docker network create --subnet=172.26.0.0/16 nldi
   - docker-compose up -d
+  - docker-compose ps
   # Travis appears to only have 16 char container names.
   - docker-compose ps | grep "nldi_database\s.*Up"
   - docker-compose ps | grep "nldi_database_DE.*Up"
   - docker-compose ps | grep "nldi_database_CI.*Up"
   - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
+  - docker-compose stop
   - docker network rm nldi
