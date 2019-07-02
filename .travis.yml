@@ -3,16 +3,38 @@ language: bash
 services:
   - docker
 
-before_install:
-  # double check the installed versions
-  - docker version
-  - docker-compose version
+env:
+  - POSTGRES_PASSWORD=changeMe
+    NLDI_DATABASE_ADDRESS=nldi_database_address
+    NLDI_DATABASE_NAME=nldi_db_name
+    NLDI_DB_OWNER_USERNAME=nldi_db_owner
+    NLDI_DB_OWNER_PASSWORD=changeMe
+    NLDI_SCHEMA_OWNER_USERNAME=nldi_schema_owner
+    NLDI_SCHEMA_OWNER_PASSWORD=changeMe
+    NHDPLUS_SCHEMA_OWNER_USERNAME=nhdplus_schema_owner
+    NLDI_READ_ONLY_USERNAME=read_only_user
+    NLDI_READ_ONLY_PASSWORD=changeMe
+    LOCAL_NETWORK_NAME=nldi
+    DB_IPV4=172.26.0.2
+    DB_PORT=5444
+    LIQUIBASE_IPV4=172.26.0.3
+    LIQUIBASE_VERSION=3.6.3
+    JDBC_JAR=postgresql-42.2.5.jar
+    DB_CI_IPV4=172.26.0.4
+    DB_CI_PORT=5445
+    DB_DEMO_IPV4=172.26.0.5
+    DB_DEMO_PORT=5446
 
-install:
-  - docker-compose up -d
+install: true
 
 script:
-  # Travis appears to only have 16 char container names, so NLDI_Database_Volume gets truncated.
-  - docker-compose ps | grep "NLDI_Database\s.*Up"
-  - docker-compose ps | grep "NLDI_Database_De.*Up"
-  - docker-compose ps | grep "NLDI_Database_CI.*Up"
+  - docker network create --subnet=172.26.0.0/16 nldi
+  - docker-compose up -d
+  - docker-compose ps
+  # Travis appears to only have 16 char container names.
+  - docker-compose ps | grep "nldi_database\s.*Up"
+  - docker-compose ps | grep "nldi_database_DE.*Up"
+  - docker-compose ps | grep "nldi_database_CI.*Up"
+  - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
+  - docker-compose stop
+  - docker network rm nldi
