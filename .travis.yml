@@ -31,8 +31,8 @@ script:
   - docker network create nldi
   - docker-compose up -d
   # Travis appears to only have 16 char container names.
-  - docker-compose ps | grep "nldi_Database\s.*Up"
-  - docker-compose ps | grep "nldi_Database_DE.*Up"
-  - docker-compose ps | grep "nldi_Database_CI.*Up"
+  - docker-compose ps | grep "nldi_database\s.*Up"
+  - docker-compose ps | grep "nldi_database_DE.*Up"
+  - docker-compose ps | grep "nldi_database_CI.*Up"
   - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
   - docker network rm nldi
