@@ -94,10 +94,10 @@ databaseChangeLog:
 
   - changeSet:
       author: drsteini
-      id: "grant.${NLDI_READ_ONLY_USERNAME}.to.${NLDI_DB_OWNER_USERNAME}"
+      id: "grant.${NLDI_READ_ONLY_USERNAME}.to.${NLDI_SCHEMA_OWNER_USERNAME}"
       changes:
-        - sql: grant ${NLDI_READ_ONLY_USERNAME} to ${NLDI_DB_OWNER_USERNAME};
-        - rollback: revoke ${NLDI_READ_ONLY_USERNAME} from ${NLDI_DB_OWNER_USERNAME};
+        - sql: grant ${NLDI_READ_ONLY_USERNAME} to ${NLDI_SCHEMA_OWNER_USERNAME};
+        - rollback: revoke ${NLDI_READ_ONLY_USERNAME} from ${NLDI_SCHEMA_OWNER_USERNAME};
 
   - changeSet:
       author: drsteini
