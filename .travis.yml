@@ -35,6 +35,6 @@ script:
   - docker-compose ps | grep "nldi_db_addr\s.*Up"
   - docker-compose ps | grep "nldi_db_addr_DEM.*Up"
   - docker-compose ps | grep "nldi_db_addr_CI\s.*Up"
-  - docker-compose ps | grep "nldi_liquibase\s.*Exit 0"
+  - docker-compose ps | grep "nldi_liquibase\s.*Exit 0\|nldi_liquibase\s.*Up"
   - docker-compose stop
   - docker network rm nldi
