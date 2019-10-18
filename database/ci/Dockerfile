@@ -1,4 +1,4 @@
-FROM usgswma/iow_test_db:postgis10-11.0.3
+FROM usgswma/iow_test_db:postgis11-jre11
 
 LABEL maintainer=gs-w_eto_eb_federal_employees@usgs.gov
 
