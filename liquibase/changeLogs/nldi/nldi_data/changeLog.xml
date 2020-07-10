@@ -14,4 +14,20 @@
 	<include file="functions/changeLog.xml" relativeToChangelogFile="true"/>
 	<include file="grants.sql" relativeToChangelogFile="true"/>
 
+
+	<changeSet id="1" author="kkehl">
+		<comment>Clear any existing legacy data in the tables</comment>
+		<sql splitStatements="true">
+			TRUNCATE TABLE NLDI_DATA.CRAWLER_SOURCE;
+		</sql>
+		<loadData  encoding="UTF-8"
+				   file="crawler_source.csv"
+				   quotchar="'"
+				   relativeToChangelogFile="true"
+				   schemaName="nldi_data"
+				   separator=","
+				   tableName="crawler_source">
+		</loadData>
+	</changeSet>
+
 </databaseChangeLog>

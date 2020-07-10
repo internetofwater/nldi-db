@@ -1,0 +1,2 @@
+'crawler_source_id','source_name','source_suffix','source_uri','feature_id','feature_name','feature_uri','feature_reach','feature_measure','ingest_type'
+6,'Water Data Exchange 2.0 Sites','wade','https://www.hydroshare.org/resource/5f665b7b82d74476930712f7e423a0d2/data/contents/wade.geojson','feature_id','feature_name','feature_uri',NULL,NULL,'point'
