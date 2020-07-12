@@ -17,7 +17,7 @@
 
 	<changeSet id="1" author="kkehl">
 		<comment>Clear any existing legacy data in the tables</comment>
-		<sql splitStatements="true">
+		<sql>
 			TRUNCATE TABLE NLDI_DATA.CRAWLER_SOURCE;
 		</sql>
 		<loadData  encoding="UTF-8"
@@ -28,6 +28,9 @@
 				   separator=","
 				   tableName="crawler_source">
 		</loadData>
+		<rollback>
+			<sql>select 'no rollback - you must restore previous crawler_source.csv and rerun manually';</sql>
+		</rollback>
 	</changeSet>
 
 </databaseChangeLog>
