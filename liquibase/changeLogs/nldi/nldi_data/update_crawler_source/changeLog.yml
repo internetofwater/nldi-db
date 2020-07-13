@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: PostgreSQL
+      - runningAs:
+          username: ${NLDI_DB_OWNER_USERNAME}
+
+  - changeSet:
+      author: kkehl
+      id: "load.nldi_data.update_crawler_source"
+      runOnChange: true
+      changes:
+        - delete:
+            schemaName: nldi_data
+            tableName: crawler_source
+        - loadData:
+            encoding: UTF-8
+            file: crawler_source.tsv
+            relativeToChangelogFile: true
+            separator: \t
+            schemaName: nldi_data
+            tableName: crawler_source
+        - rollback: select 'no rollback - you must restore previous aqToNwisParm.tsv and rerun manually'
