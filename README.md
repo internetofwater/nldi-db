@@ -121,7 +121,7 @@ It will be available on your localhost's port $DB_DEMO_PORT
 You can also pull the image from Docker Hub and run it with
 
 ```
-docker run -it --env-file ./.env -p 127.0.0.1:5446:5432 usgswma/wqp_db:demo
+docker run -it --env-file ./.env -p 127.0.0.1:5446:5432/tcp usgswma/nldi-db:demo
 ```
 
 where __./.env__ is the environment variable file you have locally and __5446__ can be changed to the port you wish to access it via.
