@@ -12,6 +12,7 @@ COPY ./liquibase/scripts/dbInit /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbCi /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbDemo /docker-entrypoint-initdb.d/
 
+
 RUN curl "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
 RUN curl "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
 RUN curl "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nldi_data.crawler_source.pgdump.gz" -o $LIQUIBASE_HOME/nldi_data.crawler_source.pgdump.gz
