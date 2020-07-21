@@ -13,9 +13,9 @@ COPY ./liquibase/scripts/dbCi /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbDemo /docker-entrypoint-initdb.d/
 
 
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nldi_data.crawler_source.pgdump.gz" -o $LIQUIBASE_HOME/nldi_data.crawler_source.pgdump.gz
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_wqp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_wqp_yahara.backup.gz
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_huc12pp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_huc12pp_yahara.backup.gz
-RUN curl --verbose --retry 3 "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_np21_nwis_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_np21_nwis_yahara.backup.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/nldi_data.crawler_source.pgdump.gz" -o $LIQUIBASE_HOME/nldi_data.crawler_source.pgdump.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_wqp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_wqp_yahara.backup.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_huc12pp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_huc12pp_yahara.backup.gz
+RUN curl --verbose "https://artifactory.wma.usgs.gov/artifactory/wma-binaries/iow/nldi/feature_np21_nwis_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_np21_nwis_yahara.backup.gz
