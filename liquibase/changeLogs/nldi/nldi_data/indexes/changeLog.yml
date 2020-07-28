@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+    -runningAs:
+      username: ${NLDI_SCHEMA_OWNER_USERNAME}
+
+  - include:
+      - file: webServiceLogId.yml
+      - relativeToChangelogFile: true
