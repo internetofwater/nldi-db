@@ -8,3 +8,4 @@
 9	USGS Geospatial Fabric V1.1 Points of Interest	gfv11_pois	https://www.sciencebase.gov/catalogMaps/mapping/ows/609c8a63d34ea221ce3acfd3?service=WFS&version=1.0.0&request=GetFeature&srsName=EPSG:4326&typeName=sb::gfv11&outputFormat=json	prvdr_d	name	uri	n2_REACHC	n2_REACH_	reach	hydrolocation
 10	Vigil Network Data	vigil	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?f=__disk__61%2Ffe%2F5a%2F61fe5af067994d490656d4082bf539fef218af0c	SBID	Site Name	SBURL	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
 11	NWIS Groundwater Sites	nwisgw	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?f=__disk__a2%2F62%2Fab%2Fa262ab8d31ed40de94170abdae5493db17f7976b	provider_id	name	subjectOf	NULL	NULL	point	point
+12  New Mexico Bureau of Geology and Mineral Resources Wells nmwdi-st https://locations.newmexicowaterdata.org/collections/Things/items?limit=100000 
