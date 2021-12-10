@@ -14,6 +14,7 @@ create table nldi_data.crawler_source
 ,feature_reach					character varying(500)
 ,feature_measure				character varying(500)
 ,ingest_type					character varying(5)
+,feature_type					character varying(100)
 ,constraint crawler_source_pk
   primary key (crawler_source_id)
 );
