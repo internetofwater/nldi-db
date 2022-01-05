@@ -95,7 +95,7 @@ BEGIN
          ,pstartcomid
          ,pMaxDistanceKm
          ,pstopcomid
-         ,(abstime(('now'::text)::timestamp(6) with time zone))
+         ,now()
       );
 
    END IF;
