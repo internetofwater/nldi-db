@@ -34,8 +34,13 @@ databaseChangeLog:
         - rollback: drop extension if exists postgis_tiger_geocoder;
 
   - changeSet:
-      author: drsteini
+      author: egrahn
       id: "create.extension.plv8"
+      preConditions: # check if the plv8 extension is available to install
+        - onFail: CONTINUE
+        - sqlCheck:
+            expectedResult: 1
+            sql: select count(*) from pg_available_extensions where name = 'plv8'
       changes:
         - sql: create extension if not exists plv8;
         - rollback: drop extension if exists plv8;
