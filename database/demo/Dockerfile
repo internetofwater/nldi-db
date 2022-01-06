@@ -1,6 +1,18 @@
-FROM usgswma/iow_test_db:postgis11-jre11
+ARG LIQUIBASE_DOCKER_VERSION=3.10
+ARG POSTGIS_DOCKER_VERSION=12-3.0
+
+FROM liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION} as Liquibase
+
+FROM postgis/postgis:${POSTGIS_DOCKER_VERSION} AS Postgres
 
 LABEL maintainer=gs-w_eto_eb_federal_employees@usgs.gov
+
+ENV LIQUIBASE_HOME /liquibase
+ENV LIQUIBASE_WORKSPACE /liquibase
+COPY --from=Liquibase ${LIQUIBASE_WORKSPACE} ${LIQUIBASE_WORKSPACE}
+ENV JAVA_HOME /usr/local/openjdk-11
+COPY --from=Liquibase ${JAVA_HOME} ${JAVA_HOME}
+RUN apt-get update && apt-get install -y curl
 
 ############################################
 # Grab files for initializing the database
