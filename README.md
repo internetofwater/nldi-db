@@ -1,13 +1,11 @@
 # NLDI Database Setup
 
-[![Build Status](https://travis-ci.org/ACWI-SSWD/nldi-db.svg?branch=master)](https://travis-ci.org/ACWI-SSWD/nldi-db)
-
 This repository contains Liquibase scripts for creating the NLDI PostGIS database.
 
 ## Docker
 Also included are Docker Compose scripts to:
 * Create PostgreSQL and Liquibase containers for testing the scripts.
-* Create a continuous integration PostgreSQL database container.
+* Create a continuous integration (CI) PostgreSQL database container.
 * Create a PostgreSQL database container for local development containing a sampling of data.
 
 ### Docker Network
@@ -18,9 +16,7 @@ docker network create --subnet=172.26.0.0/16 nldi
 ```
 
 ### Environment variables
-In order to use the docker compose scripts, you will need to create a .env file in the project directory containing
-
-the following (shown are example values):
+In order to use the docker compose scripts, you will need to create a .env file in the project directory containing the following (shown are example values):
 
 ```
 POSTGRES_PASSWORD=<changeMe>
@@ -98,30 +94,30 @@ The PostGIS database will be available on your localhost's port $DB_PORT, allowi
 
 ### CI Database
 ```
-docker-compose up ciDB
+docker-compose up ci
 ```
 It will be available on you localhost's port $DB_CI_PORT
 
-You can also pull the image from Docker Hub and run it with
+You can also pull the image from the GitHub Package Repository and run it with
 
 ```
-docker run -it --env-file ./.env -p 127.0.0.1:5445:5432 usgswma/wqp_db:ci
+docker run -it --env-file ./.env -p 5445:5432 ghcr.io/acwi-sswd/nldi-db:ci-latest
 ```
 where __./.env__ is the environment variable file you have locally and __5445__ can be changed to the port you wish to access it via.
 
 ### Demo Database
 
 ```
-docker-compose up demoDB
+docker-compose up demo
 ```
 
 It will be available on your localhost's port $DB_DEMO_PORT
 
 
-You can also pull the image from Docker Hub and run it with
+You can also pull the image from the GitHub Package Repository and run it with
 
 ```
-docker run -it --env-file ./.env -p 127.0.0.1:5446:5432/tcp usgswma/nldi-db:demo
+docker run -it --env-file ./.env -p 5446:5432/tcp ghcr.io/acwi-sswd/nldi-db:demo-latest
 ```
 
 where __./.env__ is the environment variable file you have locally and __5446__ can be changed to the port you wish to access it via.
