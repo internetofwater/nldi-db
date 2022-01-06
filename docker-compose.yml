@@ -50,9 +50,7 @@ services:
     container_name: nldi-db-demo
 
   db:
-    image: nldi-db
-    build:
-      context: .
+    image: postgis/postgis:12-3.0
     networks:
       nldi:
         ipv4_address: ${DB_IPV4}
