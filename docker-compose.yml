@@ -53,7 +53,8 @@ services:
     image: postgis/postgis:12-3.0
     networks:
       nldi:
-        ipv4_address: ${DB_IPV4}
+        aliases:
+          - nldi-db
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -67,12 +68,10 @@ services:
       - db
     build:
       context: ./liquibase
-      args:
-        - LIQUIBASE_VERSION=${LIQUIBASE_VERSION}
-        - A_JDBC_JAR=${JDBC_JAR}
     networks:
       nldi:
-        ipv4_address: ${LIQUIBASE_IPV4}
+        aliases:
+          - nldi-liquibase
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -84,9 +83,9 @@ services:
       - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
-      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
+      - NLDI_DATABASE_ADDRESS=nldi-db # using the network alias from the db service
     volumes:
-      - ./liquibase/changeLogs:/home/java/workspace/
+      - ./liquibase/changeLogs:/liquibase/workspace/
       - ./liquibase/scripts/dbInit:/docker-entrypoint-initdb.d
     container_name: nldi-liquibase
 
