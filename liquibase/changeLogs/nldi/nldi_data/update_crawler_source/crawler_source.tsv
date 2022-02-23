@@ -1,7 +1,7 @@
 ﻿crawler_source_id	source_name	source_suffix	source_uri	feature_id	feature_name	feature_uri	feature_reach	feature_measure	ingest_type	feature_type
 2	HUC12 Pour Points	huc12pp	https://www.sciencebase.gov/catalogMaps/mapping/ows/57336b02e4b0dae0d5dd619a?service=WFS&version=1.0.0&request=GetFeature&srsName=EPSG:4326&typeName=sb:fpp&outputFormat=json	HUC_12	HUC_12	HUC_12	NULL	NULL	point	hydrolocation
 1	Water Quality Portal	WQP	https://www.waterqualitydata.us/data/Station/search?mimeType=geojson&minactivities=1&counts=no	MonitoringLocationIdentifier	MonitoringLocationName	siteUrl	NULL	NULL	point	varies
-5	NWIS Surface Water Sites	nwissite	https://github.com/dblodgett-usgs/ref_gages/releases/download/v0.5/usgs_nldi_gages.geojson	provider_id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
+5	NWIS Surface Water Sites	nwissite	https://github.com/internetofwater/ref_gages/releases/download/v0.5/usgs_nldi_gages.geojson	provider_id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
 6	Water Data Exchange 2.0 Sites	wade	https://www.hydroshare.org/resource/5f665b7b82d74476930712f7e423a0d2/data/contents/wade.geojson	feature_id	feature_name	feature_uri	NULL	NULL	point	varies
 7	geoconnex.us reference gages	ref_gage	https://www.hydroshare.org/resource/4a22e88e689949afa1cf71ae009eaf1b/data/contents/nldi_gages.geojson	id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
 8	Streamgage catalog for CA SB19	ca_gages	https://sb19.linked-data.internetofwater.dev/collections/ca_gages/items?f=json&limit=10000	site_id	sitename	uri	rchcd_medres	reach_measure	reach	hydrolocation
