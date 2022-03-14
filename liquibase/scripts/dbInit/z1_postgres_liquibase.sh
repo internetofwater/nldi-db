@@ -15,7 +15,7 @@ ${LIQUIBASE_HOME}/liquibase \
 	--username=postgres \
 	--password=${POSTGRES_PASSWORD} \
 	--contexts=${CONTEXTS} \
-	--logLevel=debug \
+	--logLevel=${LOG_LEVEL:-info} \
 	--liquibaseCatalogName=public \
 	--liquibaseSchemaName=public \
 	update \
@@ -37,7 +37,7 @@ ${LIQUIBASE_HOME}/liquibase \
 	--username=postgres \
 	--password=${POSTGRES_PASSWORD} \
 	--contexts=demo \
-	--logLevel=debug \
+	--logLevel=${LOG_LEVEL:-info} \
 	--liquibaseCatalogName=public \
 	--liquibaseSchemaName=public \
 	update \
