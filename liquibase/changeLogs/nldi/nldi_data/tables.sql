@@ -44,27 +44,12 @@ create table nldi_data.feature_wqp ( ) inherits (nldi_data.feature);
 alter table nldi_data.feature_wqp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_wqp;
 
---changeset drsteini:create.nldi_data.feature_wqp_temp
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_wqp_temp'
-create table nldi_data.feature_wqp_temp (like nldi_data.feature);
-alter table nldi_data.feature_wqp_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
---rollback drop table nldi_data.feature_wqp_temp;
-
-
 --changeset drsteini:create.nldi_data.feature_np21_nwis
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis'
 create table nldi_data.feature_np21_nwis ( ) inherits (nldi_data.feature);
 alter table nldi_data.feature_np21_nwis owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_np21_nwis;
-
---changeset drsteini:create.nldi_data.feature_np21_nwis_temp
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_np21_nwis_temp'
-create table nldi_data.feature_np21_nwis_temp (like nldi_data.feature);
-alter table nldi_data.feature_np21_nwis_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
---rollback drop table nldi_data.feature_np21_nwis_temp;
 
 --changeset drsteini:create.nldi_data.sqlinjection_test context:ci
 --preconditions onFail:MARK_RAN onError:HALT
@@ -73,30 +58,12 @@ create table nldi_data."feature; select * from pg_class;" ( ) inherits (nldi_dat
 alter table nldi_data."feature; select * from pg_class;"  owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data."feature; select * from pg_class;";
 
-
---changeset drsteini:create.nldi_data.sqlinjection_test_temp context:ci
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature; select * from pg_class;_temp'
-create table nldi_data."feature; select * from pg_class;_temp" (like nldi_data.feature);
-alter table nldi_data."feature; select * from pg_class;_temp" owner to ${NLDI_SCHEMA_OWNER_USERNAME};
---rollback drop table nldi_data."feature; select * from pg_class;_temp";
-
-
 --changeset drsteini:create.nldi_data.feature_huc12pp
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp'
 create table nldi_data.feature_huc12pp ( ) inherits (nldi_data.feature);
 alter table nldi_data.feature_huc12pp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.feature_huc12pp;
-
-
---changeset drsteini:create.nldi_data.feature_huc12pp_temp
---preconditions onFail:MARK_RAN onError:HALT
---precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature_huc12pp_temp'
-create table nldi_data.feature_huc12pp_temp (like nldi_data.feature);
-alter table nldi_data.feature_huc12pp_temp owner to ${NLDI_SCHEMA_OWNER_USERNAME};
---rollback drop table nldi_data.feature_huc12pp_temp;
-
 
 --changeset drsteini:create.nldi_data.web_service_log
 --preconditions onFail:MARK_RAN onError:HALT
@@ -114,3 +81,22 @@ create table nldi_data.web_service_log
 alter table nldi_data.web_service_log owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.web_service_log;
 
+--changeset egrahn:drop.nldi_data.feature_wqp_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:t select to_regclass('nldi_data.feature_wqp_temp') is not null
+drop table nldi_data.feature_wqp_temp;
+
+--changeset egrahn:drop.nldi_data.feature_np21_nwis_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:t select to_regclass('nldi_data.feature_np21_nwis_temp') is not null
+drop table nldi_data.feature_np21_nwis_temp;
+
+--changeset egrahn:drop.nldi_data.sqlinjection_test_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:t select to_regclass('nldi_data."feature; select * from pg_class;_temp"') is not null
+drop table nldi_data."feature; select * from pg_class;_temp";
+
+--changeset egrahn:drop.nldi_data.feature_huc12pp_temp
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:t select to_regclass('nldi_data.feature_huc12pp_temp') is not null
+drop table nldi_data.feature_huc12pp_temp;

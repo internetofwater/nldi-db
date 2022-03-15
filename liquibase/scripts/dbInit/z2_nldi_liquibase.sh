@@ -8,7 +8,7 @@ ${LIQUIBASE_HOME}/liquibase \
 	--username=${NLDI_DB_OWNER_USERNAME} \
 	--password=${NLDI_DB_OWNER_PASSWORD} \
 	--contexts=${CONTEXTS} \
-	--logLevel=debug\
+	--logLevel=${LOG_LEVEL:-info} \
 	--liquibaseCatalogName=nldi_data \
 	--liquibaseSchemaName=nldi_data \
 	update \

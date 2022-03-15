@@ -6,9 +6,10 @@ services:
     build:
       context: .
       dockerfile: ./database/ci/Dockerfile
-    networks:
-      nldi:
-        ipv4_address: ${DB_CI_IPV4}
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+        POSTGIS_DOCKER_VERSION: ${POSTGIS_DOCKER_VERSION}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -20,7 +21,7 @@ services:
       - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
-      - NLDI_DATABASE_ADDRESS=127.0.0.1
+      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
     ports:
       - ${DB_CI_PORT}:5432
     container_name: nldi-db-ci
@@ -30,9 +31,10 @@ services:
     build:
       context: .
       dockerfile: ./database/demo/Dockerfile
-    networks:
-      nldi:
-        ipv4_address: ${DB_DEMO_IPV4}
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+        POSTGIS_DOCKER_VERSION: ${POSTGIS_DOCKER_VERSION}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -44,17 +46,13 @@ services:
       - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
-      - NLDI_DATABASE_ADDRESS=127.0.0.1
+      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
     ports:
       - ${DB_DEMO_PORT}:5432
     container_name: nldi-db-demo
 
   db:
     image: postgis/postgis:12-3.0
-    networks:
-      nldi:
-        aliases:
-          - nldi-db
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -68,10 +66,10 @@ services:
       - db
     build:
       context: ./liquibase
-    networks:
-      nldi:
-        aliases:
-          - nldi-liquibase
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+    network_mode: "host"
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -83,13 +81,8 @@ services:
       - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
-      - NLDI_DATABASE_ADDRESS=nldi-db # using the network alias from the db service
+      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
     volumes:
       - ./liquibase/changeLogs:/liquibase/workspace/
       - ./liquibase/scripts/dbInit:/docker-entrypoint-initdb.d
     container_name: nldi-liquibase
-
-networks:
-  nldi:
-    external:
-      name: ${LOCAL_NETWORK_NAME}
