@@ -1,11 +1,14 @@
-ARG LIQUIBASE_DOCKER_VERSION=3.10
-ARG POSTGIS_DOCKER_VERSION=12-3.0
+ARG DOCKER_MIRROR
+ARG LIQUIBASE_DOCKER_VERSION
+ARG POSTGIS_DOCKER_VERSION
 
-FROM liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION} as Liquibase
+FROM ${DOCKER_MIRROR:-""}liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION:-"3.10"} as Liquibase
 
-FROM postgis/postgis:${POSTGIS_DOCKER_VERSION} AS Postgres
+FROM ${DOCKER_MIRROR:-""}postgis/postgis:${POSTGIS_DOCKER_VERSION:-"12-3.0"} AS Postgres
 
-LABEL maintainer=gs-w_eto_eb_federal_employees@usgs.gov
+LABEL org.opencontainers.image.authors="gs-w_eto_eb_federal_employees@usgs.gov"
+LABEL org.opencontainers.image.title="NLDI Demo Database"
+LABEL org.opencontainers.image.description="A demo of the NLDI database containing sample data."
 
 ENV LIQUIBASE_HOME /liquibase
 ENV LIQUIBASE_WORKSPACE /liquibase

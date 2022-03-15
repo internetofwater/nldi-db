@@ -6,7 +6,10 @@ services:
     build:
       context: .
       dockerfile: ./database/ci/Dockerfile
-    network_mode: "host"
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+        POSTGIS_DOCKER_VERSION: ${POSTGIS_DOCKER_VERSION}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -28,7 +31,10 @@ services:
     build:
       context: .
       dockerfile: ./database/demo/Dockerfile
-    network_mode: "host"
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+        POSTGIS_DOCKER_VERSION: ${POSTGIS_DOCKER_VERSION}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -47,7 +53,6 @@ services:
 
   db:
     image: postgis/postgis:12-3.0
-    network_mode: "host"
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -61,6 +66,9 @@ services:
       - db
     build:
       context: ./liquibase
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
     network_mode: "host"
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

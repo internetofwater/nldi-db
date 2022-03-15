@@ -1,8 +1,11 @@
-ARG LIQUIBASE_DOCKER_VERSION=3.10
+ARG DOCKER_MIRROR
+ARG LIQUIBASE_DOCKER_VERSION
 
-FROM liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION}
+FROM ${DOCKER_MIRROR:-""}liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION:-"3.10"}
 
-LABEL maintainer="[gs-w_eto_eb_federal_employees@usgs.gov](mailto:gs-w_eto_eb_federal_employees@usgs.gov)"
+LABEL org.opencontainers.image.authors="gs-w_eto_eb_federal_employees@usgs.gov"
+LABEL org.opencontainers.image.title="NLDI Liquibase"
+LABEL org.opencontainers.image.description="Liquibase container for configuring the NLDI database."
 
 ENV LIQUIBASE_HOME /liquibase
 ENV LIQUIBASE_WORKSPACE $LIQUIBASE_HOME/workspace
@@ -23,7 +26,7 @@ COPY ./docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 USER liquibase
 
-COPY ./changeLogs/* /liquibase/workspace/
+COPY ./changeLogs /liquibase/workspace/.
 COPY ./scripts/dbInit/* /docker-entrypoint-initdb.d/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
