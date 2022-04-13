@@ -9,4 +9,4 @@ crawler_source_id	source_name	source_suffix	source_uri	feature_id	feature_name	f
 10	Vigil Network Data	vigil	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=vigil.geojson	SBID	Site Name	SBURL	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
 11	NWIS Groundwater Sites	nwisgw	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nwis_wells.geojson	provider_id	name	subjectOf	NULL	NULL	point	point
 12	New Mexico Water Data Initative Sites	nmwdi-st	https://locations.newmexicowaterdata.org/collections/Things/items?f=json&limit=100000	id	name	geoconnex	NULL	NULL	point	point
-12	New Mexico Water Data Initative Sites	nmwdi-st	https://locations.newmexicowaterdata.org/collections/Things/items?f=json&limit=100000	id	name	geoconnex	NULL	NULL	point	point
+13	geoconnex contribution demo sites	geoconnex-demo	https://geoconnex-demo-pages.internetofwater.dev/collections/demo-gpkg/items?f=json&limit=10000	id	GNIX_NAME	uri	NHDPv2ReachCode	NHDPv2Measure	reach	hydrolocation
