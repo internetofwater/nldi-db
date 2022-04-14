@@ -5,10 +5,9 @@ databaseChangeLog:
     preConditions:
       - onFail: MARK_RAN
       - onError: HALT
-      - not:
-          - indexExists:
-              NLDI_SCHEMA_NAME: nldi_data
-              indexName: web_service_log_id_identifier
+      - sqlCheck:
+          expectedResult: 0
+          sql: select count(*) from pg_catalog.pg_indexes where schemaname = 'nldi_data' and indexname = 'web_service_log_id_identifier'
     changes:
       - sql: create index web_service_log_id_identifier on nldi_data.web_service_log(web_service_log_id);
       - rollback: drop index if exists nldi_data.web_service_log_id_identifier;
