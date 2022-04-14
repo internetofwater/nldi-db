@@ -21,6 +21,12 @@ create table nldi_data.crawler_source
 alter table nldi_data.crawler_source owner to ${NLDI_SCHEMA_OWNER_USERNAME};
 --rollback drop table nldi_data.crawler_source;
 
+--changeset egrahn:alter.nldi_data.crawler_source.source_suffic
+--preconditions onFail:MARK_RAN onError:HALT
+--preconditions-sql-check expectedResult:10 select character_maximum_length from information_schema.columns where table_name = 'crawler_source' and table_schema = 'nldi_data' and column_name = 'source_suffix'
+alter table nldi_data.crawler_source alter column source_suffix type varchar(1000);
+--rollback alter table nldi_data.crawler_source alter column source_suffix type varchar(10);
+
 --changeset drsteini:create.nldi_data.feature
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'feature'
