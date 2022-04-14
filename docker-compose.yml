@@ -27,7 +27,7 @@ services:
     container_name: nldi-db-ci
 
   demo:
-    image: nldi-db-demo
+    image: ghcr.io/acwi-sswd/nldi-db:demo-2022-03-15 #nldi-db-demo
     build:
       context: .
       dockerfile: ./database/demo/Dockerfile
@@ -62,8 +62,6 @@ services:
 
   liquibase:
     image: nldi-liquibase
-    depends_on:
-      - db
     build:
       context: ./liquibase
       args:
