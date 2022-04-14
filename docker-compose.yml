@@ -27,7 +27,7 @@ services:
     container_name: nldi-db-ci
 
   demo:
-    image: ghcr.io/acwi-sswd/nldi-db:demo-2022-03-15 #nldi-db-demo
+    image: nldi-db-demo
     build:
       context: .
       dockerfile: ./database/demo/Dockerfile
