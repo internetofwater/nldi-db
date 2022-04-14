@@ -62,8 +62,6 @@ services:
 
   liquibase:
     image: nldi-liquibase
-    depends_on:
-      - db
     build:
       context: ./liquibase
       args:
