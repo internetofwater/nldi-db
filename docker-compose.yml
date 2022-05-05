@@ -1,8 +1,9 @@
 version: '3.3'
+
 services:
 
   ci:
-    image: nldi-db-ci
+    image: ghcr.io/internetofwater/nldi-db:ci
     build:
       context: .
       dockerfile: ./database/ci/Dockerfile
@@ -27,7 +28,7 @@ services:
     container_name: nldi-db-ci
 
   demo:
-    image: nldi-db-demo
+    image: ghcr.io/internetofwater/nldi-db:demo
     build:
       context: .
       dockerfile: ./database/demo/Dockerfile
@@ -52,7 +53,7 @@ services:
     container_name: nldi-db-demo
 
   db:
-    image: postgis/postgis:12-3.0
+    image: ${DOCKER_MIRROR}postgis/postgis:12-3.0
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
@@ -61,7 +62,7 @@ services:
     container_name: nldi-db
 
   liquibase:
-    image: nldi-liquibase
+    image: ghcr.io/internetofwater/nldi-db:liquibase
     build:
       context: ./liquibase
       args:
@@ -83,4 +84,4 @@ services:
     volumes:
       - ./liquibase/changeLogs:/liquibase/workspace/
       - ./liquibase/scripts/dbInit:/docker-entrypoint-initdb.d
-    container_name: nldi-liquibase
+    container_name: nldi-db-liquibase
