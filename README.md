@@ -101,7 +101,7 @@ It will be available on you localhost's port $DB_CI_PORT
 You can also pull the image from the GitHub Package Repository and run it with
 
 ```
-docker run -it --env-file ./.env -p 5445:5432 ghcr.io/acwi-sswd/nldi-db:ci-latest
+docker run -it --env-file ./.env -p 5445:5432 ghcr.io/internetofwater/nldi-db:ci
 ```
 where __./.env__ is the environment variable file you have locally and __5445__ can be changed to the port you wish to access it via.
 
@@ -117,7 +117,7 @@ It will be available on your localhost's port $DB_DEMO_PORT
 You can also pull the image from the GitHub Package Repository and run it with
 
 ```
-docker run -it --env-file ./.env -p 5446:5432/tcp ghcr.io/acwi-sswd/nldi-db:demo-latest
+docker run -it --env-file ./.env -p 5446:5432/tcp ghcr.io/internetofwater/nldi-db:demo
 ```
 
 where __./.env__ is the environment variable file you have locally and __5446__ can be changed to the port you wish to access it via.
