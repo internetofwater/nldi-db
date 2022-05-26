@@ -106,3 +106,9 @@ drop table nldi_data."feature; select * from pg_class;_temp";
 --preconditions onFail:MARK_RAN onError:HALT
 --precondition-sql-check expectedResult:t select to_regclass('nldi_data.feature_huc12pp_temp') is not null
 drop table nldi_data.feature_huc12pp_temp;
+
+--changeset egrahn:add.nldi_data.feature.shape
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(column_name) from information_schema."columns" where table_schema = 'nldi_data' and table_name = 'feature' and column_name = 'shape'
+alter table nldi_data.feature add column shape geometry(geometry,4269);
+--rollback alter table nldi_data.feature drop column if exists shape;
