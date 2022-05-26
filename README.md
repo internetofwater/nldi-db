@@ -3,6 +3,7 @@
 This repository contains Liquibase changelogs for creating and managing the NLDI PostGIS database. The [package registry](https://github.com/internetofwater/nldi-db/pkgs/container/nldi-db) has three pre-built Docker images that are ready to use. The demo image contains a subset of data to use for testing. The Liquibase image can be used to run the Liquibase changelogs against any PostGIS database. Finally, the CI database is a blank database (schema only) that is used for integration tests in the [NLDI Services](https://github.com/internetofwater/nldi-services) and [NLDI Crawler](https://github.com/internetofwater/nldi-crawler) projects.
 
 ## Table of Contents
+- [Contributing](#contributing)
 - [Development](#development)
 - [Configuration](#configuration)
 	- [Environment Variables](#environment-variables)
@@ -12,6 +13,10 @@ This repository contains Liquibase changelogs for creating and managing the NLDI
 	- [CI](#ci)
 	- [Demo Database](#demo-database)
 - [Docker Compose](#docker-compose)
+
+## Contributing
+
+To contribute a new data source to the NLDI, add a new line to [this TSV file](liquibase/changeLogs/nldi/nldi_data/update_crawler_source/crawler_source.tsv) and submit a new pull request.
 
 ## Development
 
