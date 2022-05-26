@@ -1,137 +1,122 @@
-# NLDI Database Setup
+# NLDI Database
 
-This repository contains Liquibase scripts for creating the NLDI PostGIS database.
+This repository contains Liquibase changelogs for creating and managing the NLDI PostGIS database. The [package registry](https://github.com/internetofwater/nldi-db/pkgs/container/nldi-db) has three pre-built Docker images that are ready to use. The demo image contains a subset of data to use for testing. The Liquibase image can be used to run the Liquibase changelogs against any PostGIS database. Finally, the CI database is a blank database (schema only) that is used for integration tests in the [NLDI Services](https://github.com/internetofwater/nldi-services) and [NLDI Crawler](https://github.com/internetofwater/nldi-crawler) projects.
 
-## Docker
-Also included are Docker Compose scripts to:
-* Create PostgreSQL and Liquibase containers for testing the scripts.
-* Create a continuous integration (CI) PostgreSQL database container.
-* Create a PostgreSQL database container for local development containing a sampling of data.
+## Table of Contents
+- [Contributing](#contributing)
+- [Development](#development)
+- [Configuration](#configuration)
+	- [Environment Variables](#environment-variables)
+		- [Definitions](#definitions)
+- [Running](#running)
+	- [Liquibase](#liquibase)
+	- [CI](#ci)
+	- [Demo Database](#demo-database)
+- [Docker Compose](#docker-compose)
 
-### Docker Network
-A named Docker Network is required for local running of the containers. Creating this network allows you to run all of the NLDI locally in individual containers without having to maintain a massive Docker Compose script encompassing all of the required pieces. (It is also possible to run portions of the system locally against remote services.) The name of this network is provided by the __LOCAL_NETWORK_NAME__ environment variable. The following is a sample command for creating your own local network. In this example the name is nldi and the ip addresses will be 172.26.0.x
+## Contributing
 
-```
-docker network create --subnet=172.26.0.0/16 nldi
-```
+To contribute a new data source to the NLDI, add a new line to [this TSV file](liquibase/changeLogs/nldi/nldi_data/update_crawler_source/crawler_source.tsv) and submit a new pull request.
 
-### Environment variables
-In order to use the docker compose scripts, you will need to create a .env file in the project directory containing the following (shown are example values):
+## Development
 
-```
-POSTGRES_PASSWORD=<changeMe>
+The only requirement to set up a development environment is to have [Docker](https://docs.docker.com/get-docker/) installed on your system. Changes to any scripts or Liquibase changelogs can be tested with Docker as outline in the [running](#running) section below.
 
-NLDI_DATABASE_ADDRESS=<nldi_database_address>
-NLDI_DATABASE_NAME=<nldi_database_name>
-NLDI_DB_OWNER_USERNAME=<nldi_db_owner_username>
-NLDI_DB_OWNER_PASSWORD=<changeMe>
+## Configuration
 
-NLDI_SCHEMA_OWNER_USERNAME=<nldi_schema_owner_username>
-NLDI_SCHEMA_OWNER_PASSWORD=<changeMe>
+The database and Liquibase Docker containers utilize various environment variables for passwords and connections.
 
-NHDPLUS_SCHEMA_OWNER_USERNAME=<nhdplus_schema_owner_username>
+### Environment Variables
 
-NLDI_READ_ONLY_USERNAME=<read_only_username>
-NLDI_READ_ONLY_PASSWORD=<changeMe>
+Docker Compose will automatically grab an `.env` file at the top level of this project. This file is ignored in `.gitignore` and **SHOULD NOT** be commited to the git repository. Below is an example of the contents for the `.env` file.
 
-LOCAL_NETWORK_NAME=<nldi>
-
-DB_IPV4=<172.26.0.2>
-DB_PORT=<5444>
-LIQUIBASE_IPV4=<172.26.0.3>
-
-LIQUIBASE_VERSION=<3.6.3>
-JDBC_JAR=<postgresql-42.2.5.jar>
-
-DB_CI_IPV4=<172.26.0.4>
-DB_CI_PORT=<5445>
-
-DB_DEMO_IPV4=<172.26.0.5>
-DB_DEMO_PORT=<5446>
+```sh
+POSTGRES_PASSWORD=changeMe
+NLDI_DATABASE_ADDRESS=127.0.0.1
+NLDI_DATABASE_NAME=nldi
+NLDI_DB_OWNER_USERNAME=nldi
+NLDI_DB_OWNER_PASSWORD=changeMe
+NLDI_SCHEMA_OWNER_USERNAME=nldi_schema_owner
+NLDI_SCHEMA_OWNER_PASSWORD=changeMe
+NHDPLUS_SCHEMA_OWNER_USERNAME=nhdplus
+NLDI_READ_ONLY_USERNAME=read_only_user
+NLDI_READ_ONLY_PASSWORD=changeMe
+DB_CI_PORT=5445
+DB_DEMO_PORT=5432
+DB_PORT=5432
+DOCKER_MIRROR=mirror.url.com/
 ```
 
-#### Environment variable definitions
+#### Definitions
 
-* **POSTGRES_PASSWORD** - Password for the postgres user.
+Descriptions for each environment variable. The "Require For" column indicates which container images utilize and require that variable.
 
-* **NLDI_DATABASE_ADDRESS** - Host name or IP address of the PostgreSQL database.
-* **NLDI_DATABASE_NAME** - Name of the PostgreSQL database to create for containing the schema.
-* **NLDI_DB_OWNER_USERNAME** - Role which will own the database.
-* **NLDI_DB_OWNER_PASSWORD** - Password for the **NLDI_DB_OWNER_USERNAME** role.
+L = Liquibase\
+D = Demo\
+C = CI (continuous integration)\
+G = Generic PostGIS database\
+N = None (optional)
 
-* **NLDI_SCHEMA_OWNER_USERNAME** - Role which will own the NLDI database objects.
-* **NLDI_SCHEMA_OWNER_PASSWORD** - Password for the **NLDI_SCHEMA_OWNER_USERNAME** role.
+| Name | Description | Required For |
+|---|---|:---:|
+| POSTGRES_PASSWORD | Password for the postgres user. | L,D,C,G |
+| NLDI_DATABASE_ADDRESS | Host name or IP address of the PostgreSQL database. | L,D,C |
+| NLDI_DATABASE_NAME | Name of the PostgreSQL database to create for containing the schema. | L,D,C |
+| NLDI_DB_OWNER_USERNAME | Role which will own the database. | L,D,C |
+| NLDI_DB_OWNER_PASSWORD | Password for the `NLDI_DB_OWNER_USERNAME` role. | L,D,C |
+| NLDI_SCHEMA_OWNER_USERNAME | Role which will own the NLDI database objects. | L,D,C |
+| NLDI_SCHEMA_OWNER_PASSWORD | Password for the `NLDI_SCHEMA_OWNER_USERNAME` role. | L,D,C |
+| NHDPLUS_SCHEMA_OWNER_USERNAME | Role which will own the NHDPLUS database objects. | L,D,C |
+| NLDI_READ_ONLY_USERNAME | The limited privilege role used by applications to access this schema. | L,D,C |
+| NLDI_READ_ONLY_PASSWORD | Password for the `NLDI_READ_ONLY_USERNAME` role. | L,D,C |
+| DB_CI_PORT | The localhost port on which to expose the CI database. | C |
+| DB_DEMO_PORT | The localhost port on which to expose the Demo database. | D |
+| DB_PORT | The localhost port on which to expose the script testing database container. | G |
+| DOCKER_MIRROR | Optional mirror URL that is prefixed when pulling Docker images. | N |
 
-* **NHDPLUS_SCHEMA_OWNER_USERNAME** - Role which will own the NHDPLUS database objects.
+## Running
 
-* **NLDI_READ_ONLY_USERNAME** - The limited privilege role used by applications to access this schema.
-* **NLDI_READ_ONLY_PASSWORD** - Password for the **NLDI_READ_ONLY_USERNAME** role.
+Each Docker image can be built and run using the provided Docker Compose yaml file. If you run the images without building first, the latest image will be pulled from the GitHub registry.
 
-* **LOCAL_NETWORK_NAME** - The name of the local Docker Network you have created for using these images/containers.
-* **DB_IPV4** - The IP address in your Docker Network you would like assigned to the database container used for testing the Liquibase scripts.
-* **DB_PORT** - The localhost port on which to expose the script testing database container.
-* **LIQUIBASE_IPV4** - The IP address you would like assigned to the Liquibase runner container.
+### Liquibase
 
-* **LIQUIBASE_VERSION** - The version of Liquibase to install.
-* **JDBC_JAR** - The jdbc driver to install.
+The Liquibase changelogs can be tested locally by spinning up the generic PostGIS database (db) and the Liquibase container.
 
-* **DB_CI_PORT** - The localhost port on which to expose the CI database.
-* **DB_CI_IPV4** - The IP address for the CI database container.
-
-* **DB_DEMO_PORT** - The localhost port on which to expose the Demo database.
-* **DB_DEMO_IPV4** - The IP address for the Demo database container.
-
-### Testing Liquibase scripts
-The Liquibase scripts can be tested locally by spinning up the generic database (db) and the liquibase container.
-
+```shell
+docker-compose up -d db
+docker-compose run liquibase
 ```
-% docker-compose up -d db
-% docker-compose up liquibase
-```
+
 The local file system is mounted into the liquibase container. This allows you to change the liquibase and shell scripts and run the changes by just re-launching the liquibase container. Note that all standard Liquibase caveats apply.
 
-The PostGIS database will be available on your localhost's port $DB_PORT, allowing for visual inspection of the results.
+The PostGIS database will be available on your localhost's port `$DB_PORT`, allowing for visual inspection of the results.
 
-### CI Database
-```
+### CI
+
+```shell
 docker-compose up ci
 ```
-It will be available on you localhost's port $DB_CI_PORT
 
-You can also pull the image from the GitHub Package Repository and run it with
+It will be available on you localhost's port `$DB_CI_PORT`.
 
-```
-docker run -it --env-file ./.env -p 5445:5432 ghcr.io/internetofwater/nldi-db:ci
-```
-where __./.env__ is the environment variable file you have locally and __5445__ can be changed to the port you wish to access it via.
+This database does not contain any data and is used to insert mock data for testing the NLDI services and NLDI Crawler.
 
 ### Demo Database
 
-```
+```shell
 docker-compose up demo
 ```
 
-It will be available on your localhost's port $DB_DEMO_PORT
+It will be available on your localhost's port `$DB_DEMO_PORT`.
 
+## Docker Compose
 
-You can also pull the image from the GitHub Package Repository and run it with
+It is highly recommended to use Docker Compose to run the included Docker images, although they may also be run with typical Docker commands and additonal parameters.
 
-```
-docker run -it --env-file ./.env -p 5446:5432/tcp ghcr.io/internetofwater/nldi-db:demo
-```
+There are several commands that you will find useful during your testing.
 
-where __./.env__ is the environment variable file you have locally and __5446__ can be changed to the port you wish to access it via.
+If you have started a container with `docker-compose up -d <container name>`, it can be stopped by pressing ctrl+C, or your machines equivalent, in the terminal that it was started from. Alternatively, you can run `docker-compose stop <container name>` from a separate terminal.
 
-### Other Helpful commands include:
-* __docker-compose up__ to create and start the containers
-* __docker-compose ps__ to list the containers
-* __docker-compose stop__ or __docker-compose kill__ to stop the containers
-* __docker-compose start__ to start the containers
-* __docker-compose rm__ to remove all containers
-* __docker network ls__ to get a list of local docker network names
-* __docker network inspect XXX__ to get the ip addresses of the running containers
-* __docker-compose ps -q__ to get the Docker Compose container ids
-* __docker ps -a__ to list all the Docker containers
-* __docker rm <containerId>__ to remove a container
-* __docker rmi <imageId>__ to remove an image
-* __docker logs <containerID>__ to view the Docker Compose logs in a container
+Using `docker-compose run <container name>` is useful for running containers that will not remain running after execution.
+
+See the [Docker Compose documentation](https://docs.docker.com/compose/reference/) for other commands.
