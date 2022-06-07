@@ -10,6 +10,7 @@ LABEL org.opencontainers.image.authors="gs-w_eto_eb_federal_employees@usgs.gov"
 LABEL org.opencontainers.image.title="NLDI Demo Database"
 LABEL org.opencontainers.image.description="A demo of the NLDI database containing sample data."
 
+ENV CONTEXTS=demo
 ENV LIQUIBASE_HOME /liquibase
 ENV LIQUIBASE_WORKSPACE /liquibase
 COPY --from=Liquibase ${LIQUIBASE_WORKSPACE} ${LIQUIBASE_WORKSPACE}
@@ -32,3 +33,8 @@ RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/downl
 RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_wqp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_wqp_yahara.backup.gz
 RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_huc12pp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_huc12pp_yahara.backup.gz
 RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_np21_nwis_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_np21_nwis_yahara.backup.gz
+
+ARG MAINSTEM_COMMIT="9052cbaeccbaa88f91317f8ec9891a90d378371f"
+RUN curl -L "https://code.usgs.gov/wma/nhgf/gfv2.0/-/raw/${MAINSTEM_COMMIT}/workspace/data/mainstem_lookup.csv.gz?inline=false" \
+	-o ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
+RUN gunzip ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz

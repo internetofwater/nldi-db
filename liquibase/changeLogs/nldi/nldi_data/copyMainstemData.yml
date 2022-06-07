@@ -9,6 +9,7 @@ databaseChangeLog:
       author: egrahn
       id: "load.nldi_data.mainstem_lookup"
       runOnChange: true
+      context: "!ci"
       changes:
         - delete:
             schemaName: nldi_data

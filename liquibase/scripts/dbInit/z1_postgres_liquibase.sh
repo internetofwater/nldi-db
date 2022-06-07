@@ -1,11 +1,5 @@
 #!/bin/bash 
 
-# create the nldi project user and database
-#psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-#	create role nldi with login createrole password '${NLDI_PASSWORD}';
-#	alter database nldi owner to nldi;
-#EOSQL
-
 # postgres to postgres db scripts
 ${LIQUIBASE_HOME}/liquibase \
 	--classpath=${LIQUIBASE_HOME}/lib/${JDBC_JAR} \
