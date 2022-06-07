@@ -117,3 +117,15 @@ drop table nldi_data.feature_huc12pp_temp;
 --precondition-sql-check expectedResult:0 select count(column_name) from information_schema."columns" where table_schema = 'nldi_data' and table_name = 'feature' and column_name = 'shape'
 alter table nldi_data.feature add column shape geometry(geometry,4269);
 --rollback alter table nldi_data.feature drop column if exists shape;
+
+--changeset egrahn:create.nldi_data.mainstem_lookup
+--preconditions onFail:MARK_RAN onError:HALT
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_schema = 'nldi_data' and table_name = 'mainstem_lookup'
+create table nldi_data.mainstem_lookup
+(
+  nhdpv2_comid integer,
+  mainstem_id integer,
+  uri text
+);
+alter table nldi_data.mainstem_lookup owner to ${NLDI_SCHEMA_OWNER_USERNAME};
+--rollback drop table nldi_data.mainstem_lookup;

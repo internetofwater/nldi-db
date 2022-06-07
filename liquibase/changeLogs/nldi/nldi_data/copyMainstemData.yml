@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: PostgreSQL
+      - runningAs:
+          username: ${NLDI_DB_OWNER_USERNAME}
+
+  - changeSet:
+      author: egrahn
+      id: "load.nldi_data.mainstem_lookup"
+      runOnChange: true
+      changes:
+        - delete:
+            schemaName: nldi_data
+            tableName: mainstem_lookup
+        - loadData:
+            encoding: UTF-8
+            file: "${LIQUIBASE_HOME}/mainstem_lookup.csv"
+            relativeToChangelogFile: false
+            separator: ","
+            schemaName: nldi_data
+            tableName: mainstem_lookup
+            columns:
+                - column:
+                    index: 0
+                    name: nhdpv2_comid
+                    type: NUMERIC
+                - column:
+                    index: 1
+                    name: mainstem_id
+                    type: NUMERIC
+                - column:
+                    index: 2
+                    name: uri
+                    type: STRING
+          
