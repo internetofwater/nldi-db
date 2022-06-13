@@ -9,6 +9,7 @@ databaseChangeLog:
       author: kkehl
       id: "load.nldi_data.update_crawler_source"
       runOnChange: true
+      context: "!ci"
       changes:
         - delete:
             schemaName: nldi_data

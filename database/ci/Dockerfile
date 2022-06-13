@@ -10,6 +10,7 @@ LABEL org.opencontainers.image.authors="gs-w_eto_eb_federal_employees@usgs.gov"
 LABEL org.opencontainers.image.title="NLDI CI Database"
 LABEL org.opencontainers.image.description="A sample NLDI database used for continuous integration testing."
 
+ENV CONTEXTS=ci
 ENV LIQUIBASE_HOME /liquibase
 ENV LIQUIBASE_WORKSPACE /liquibase
 COPY --from=Liquibase ${LIQUIBASE_WORKSPACE} ${LIQUIBASE_WORKSPACE}
@@ -24,4 +25,3 @@ RUN apt-get update && apt-get install -y curl
 COPY ./liquibase/changeLogs $LIQUIBASE_WORKSPACE
 COPY ./liquibase/scripts/*.sh /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbInit /docker-entrypoint-initdb.d/
-COPY ./liquibase/scripts/dbCi /docker-entrypoint-initdb.d/
