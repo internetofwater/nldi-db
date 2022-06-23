@@ -36,6 +36,7 @@ COPY ./scripts/dbInit/* /docker-entrypoint-initdb.d/
 ARG MAINSTEM_COMMIT="9052cbaeccbaa88f91317f8ec9891a90d378371f"
 RUN curl -L "https://code.usgs.gov/wma/nhgf/gfv2.0/-/raw/${MAINSTEM_COMMIT}/workspace/data/mainstem_lookup.csv.gz?inline=false" \
 	-o ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
-RUN gunzip ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
+RUN gunzip ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz && \
+	rm ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
 
 ENTRYPOINT ["docker-entrypoint.sh"]
