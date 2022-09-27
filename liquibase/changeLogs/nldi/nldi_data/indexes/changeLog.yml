@@ -6,5 +6,8 @@ databaseChangeLog:
       username: ${NLDI_SCHEMA_OWNER_USERNAME}
 
   - include:
-      - file: webServiceLogId.yml
-      - relativeToChangelogFile: true
+    - file: webServiceLogId.yml
+    - relativeToChangelogFile: true
+  - include:
+    - file: featureId.yml
+    - relativeToChangelogFile: true
