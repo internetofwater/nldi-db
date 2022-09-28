@@ -15,7 +15,7 @@ databaseChangeLog:
       author: egrahn
       id: "create.index.nldi_data.feature_"
       preConditions:
-        - onFail: MARK_RAN
+        - onFail: CONTINUE
         - onError: HALT
         - sqlCheck:
             expectedResult: f
