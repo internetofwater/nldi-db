@@ -11,17 +11,18 @@ Full scale data is available from an open, requester pays, s3 bucket and can be 
 
 Details of how to install this project for small scale (demo) or large scale are included below.
 
-### Table of Contents  
-	- [Contributing](#contributing)
-	- [Development](#development)
-		- [Configuration](#configuration)
-		- [Running](#running)
-			- [Liquibase](#liquibase)
-			- [CI](#ci)
-			- [Demo Database](#demo-database)
-		- [Docker Compose](#docker-compose)
-		- [Environment Variables](#environment-variables)
-			- [Definitions](#definitions)
+### Table of Contents
+
+- [Contributing](#contributing)
+- [Development](#development)
+	- [Configuration](#configuration)
+	- [Running](#running)
+		- [Liquibase](#liquibase)
+		- [CI](#ci)
+		- [Demo Database](#demo-database)
+	- [Docker Compose](#docker-compose)
+	- [Environment Variables](#environment-variables)
+		- [Definitions](#definitions)
 
 
 ## Contributing
