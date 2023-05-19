@@ -11,3 +11,6 @@ databaseChangeLog:
   - include:
     - file: featureId.yml
     - relativeToChangelogFile: true
+  - include:
+    - file: comid.yml
+    - relativeToChangelogFile: true

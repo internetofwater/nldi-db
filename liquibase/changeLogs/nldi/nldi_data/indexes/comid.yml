@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet: # create primary feature table index on comid
+      author: egrahn
+      id: "create.index.nldi_data.feature_comid_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_catalog.pg_indexes where schemaname = 'nldi_data' and indexname = 'feature_comid_idx'
+      changes:
+        - sql: create index feature_comid_idx on nldi_data.feature(comid);
+        - rollback: drop index if exists nldi_data.feature_comid_idx;
+  - changeSet: # create index for any existing inherited feature tables
+      author: egrahn
+      id: "create.index.nldi_data.feature_"
+      preConditions:
+        - onFail: CONTINUE
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: f
+            sql: >
+              with
+                idx_count as (
+                  select count(*)
+                  from pg_catalog.pg_indexes
+                  where schemaname = 'nldi_data'
+                  and indexname like 'feature_%_comid%'
+                ),
+                table_count as (
+                  select count(*)
+                  from pg_catalog.pg_tables
+                  where schemaname= 'nldi_data'
+                  and tablename like 'feature_%'
+                )
+              select idx_count.count = table_count.count
+              from idx_count, table_count
+      changes:
+        - sql:
+            relativeToChangelogFile: true
+            splitStatements: false
+            sql: >
+              do
+              $$
+              declare
+                rec record;
+              begin
+                for rec in 
+                  select table_name
+                  from information_schema.tables
+                  where table_schema = 'nldi_data'
+                  and table_name like 'feature_%'
+                loop
+                  execute format('create index if not exists %I_comid_idx on nldi_data.%I(comid);', rec.table_name, rec.table_name);
+                end loop;
+              end;
+              $$ language plpgsql
+        - rollback:
+            - sql:
+                relativeToChangelogFile: true
+                splitStatements: false
+                sql: >
+                  do
+                  $$
+                  declare
+                    rec record
+                  begin
+                    for rec in 
+                      select table_name
+                      from information_schema.tables
+                      where table_schema = 'nldi_data'
+                      and table_name like 'feature_%'
+                    loop
+                      execute format('drop index if exists %I_comid_idx;', rec.table_name)
+                    end loop
+                  end
+                  $$ language plpgsql
