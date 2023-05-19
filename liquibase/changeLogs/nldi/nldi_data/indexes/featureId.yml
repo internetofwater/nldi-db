@@ -13,7 +13,7 @@ databaseChangeLog:
         - rollback: drop index if exists nldi_data.feature_identifier_idx;
   - changeSet: # create index for any existing inherited feature tables
       author: egrahn
-      id: "create.index.nldi_data.feature_"
+      id: "create.index.nldi_data.all_feature_identifier_idx"
       preConditions:
         - onFail: CONTINUE
         - onError: HALT

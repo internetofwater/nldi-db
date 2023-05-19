@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet: # create primary feature table index on comid
-      author: egrahn
+      author: dblodgett
       id: "create.index.nldi_data.feature_comid_idx"
       preConditions:
         - onFail: MARK_RAN
@@ -12,8 +12,8 @@ databaseChangeLog:
         - sql: create index feature_comid_idx on nldi_data.feature(comid);
         - rollback: drop index if exists nldi_data.feature_comid_idx;
   - changeSet: # create index for any existing inherited feature tables
-      author: egrahn
-      id: "create.index.nldi_data.feature_"
+      author: dblodgett
+      id: "create.index.nldi_data.all_feature_comid_idx"
       preConditions:
         - onFail: CONTINUE
         - onError: HALT
