@@ -11,18 +11,21 @@ Full scale data is available from an open, requester pays, s3 bucket and can be 
 
 Details of how to install this project for small scale (demo) or large scale are included below.
 
-### Table of Contents
+## Table of Contents
 
-- [Contributing](#contributing)
-- [Development](#development)
-	- [Configuration](#configuration)
-	- [Running](#running)
-		- [Liquibase](#liquibase)
-		- [CI](#ci)
-		- [Demo Database](#demo-database)
-	- [Docker Compose](#docker-compose)
-	- [Environment Variables](#environment-variables)
-		- [Definitions](#definitions)
+- [NLDI Database](#nldi-database)
+	- [Table of Contents](#table-of-contents)
+	- [Contributing](#contributing)
+	- [Development](#development)
+		- [Configuration](#configuration)
+		- [Running](#running)
+			- [Liquibase](#liquibase)
+			- [CI](#ci)
+			- [Demo Database](#demo-database)
+			- [At Scale Database](#at-scale-database)
+		- [Docker Compose](#docker-compose)
+		- [Environment Variables](#environment-variables)
+			- [Definitions](#definitions)
 
 
 ## Contributing
@@ -74,6 +77,14 @@ docker-compose up demo
 
 It will be available on your localhost's port `$DB_DEMO_PORT`.
 
+#### At Scale Database
+
+While not necessary for development, it can be useful to load and run the NLDI with full production data. The full production table data is available in this requester pays S3 bucket. `s3://nhgf-development.s3.amazonaws.com/dev/nldi-database-load/full-scale/`
+
+The `load-data.sh` script reads environment variables from a `.env` file accoring the the specification below, downloads production artifacts with the `aws` CLI, and uses `pg_restore` to load them. The script expects the postgres user's password to be available in a location like a .pgpass file.
+
+TODO: get the `load-data.sh` script to run via `docker-compose run load-data` rather than it being run in a developers environment.
+
 ### Docker Compose
 
 It is highly recommended to use Docker Compose to run the included Docker images, although they may also be run with typical Docker commands and additonal parameters.
@@ -106,6 +117,7 @@ DB_CI_PORT=5445
 DB_DEMO_PORT=5432
 DB_PORT=5432
 DOCKER_MIRROR=mirror.url.com/
+NLDI_BUCKET_NAME=nhgf-development.s3.amazonaws.com/dev/nldi-database-load/full-scale
 ```
 
 #### Definitions
@@ -134,3 +146,4 @@ N = None (optional)
 | DB_DEMO_PORT | The localhost port on which to expose the Demo database. | D |
 | DB_PORT | The localhost port on which to expose the script testing database container. | G |
 | DOCKER_MIRROR | Optional mirror URL that is prefixed when pulling Docker images. | N |
+| NLDI_BUCKET_NAME | Optional bucket where data tables can be downloaded. | N |
