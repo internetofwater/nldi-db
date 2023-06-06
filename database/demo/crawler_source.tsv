@@ -1,0 +1,4 @@
+crawler_source_id	source_name	source_suffix	source_uri	feature_id	feature_name	feature_uri	feature_reach	feature_measure	ingest_type	feature_type
+1	Water Quality Portal	WQP	https://www.waterqualitydata.us/data/Station/search?mimeType=geojson&minactivities=1&counts=no	MonitoringLocationIdentifier	MonitoringLocationName	siteUrl	NULL	NULL	point	varies
+3	NWIS Surface Water Sites	nwissite	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=usgs_nldi_gages.geojson	provider_id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
+4	HUC12 Pour Points	huc12pp	https://www.sciencebase.gov/catalogMaps/mapping/ows/57336b02e4b0dae0d5dd619a?service=WFS&version=1.0.0&request=GetFeature&srsName=EPSG:4326&typeName=sb:fpp&outputFormat=json	HUC_12	HUC_12	HUC_12	NULL	NULL	point	hydrolocation
