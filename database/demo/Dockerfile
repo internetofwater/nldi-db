@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y curl
 ############################################
 
 COPY ./liquibase/changeLogs $LIQUIBASE_WORKSPACE
+COPY ./database/demo/crawler_source.tsv $LIQUIBASE_WORKSPACE/nldi/nldi_data/update_crawler_source/crawler_source.tsv
 COPY ./liquibase/scripts/*.sh /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbInit/*.sh /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbDemo/*.sh /docker-entrypoint-initdb.d/
