@@ -83,6 +83,50 @@ While not necessary for development, it can be useful to load and run the NLDI w
 
 The `load-data.sh` script reads environment variables from a `.env` file accoring the the specification below, downloads production artifacts with the `aws` CLI, and uses `pg_restore` to load them. The script expects the postgres user's password to be available in a location like a .pgpass file.
 
+To run the services with an at scale database, starting from a stand alone database from the this project can be accomplished with minor alterations to the docker-compose.yml to allow the two docker-compose projects to communicate on the same network. 
+
+Adding the following to docker-compse.yml allows connection to a pre-existing external docker network.
+```
+networks:
+  nldi:
+    external: true
+```
+
+Each service that needs to use that network then needs a `networks` element as in:
+
+```
+---
+  version: '3.3'
+
+  services:
+    nldi-services:
+		.
+		.
+		.
+      networks:
+        - nldi
+```
+
+With `networks` configured in docker-compose, the environment for the services need to match that of the database and things will connect. For the current (6/8/23) compose environment, that looks like the following.
+
+NOTE: nldiDbHost is the name of the docker-compose service in the nldi-db project. nldidbUsername and Password need to be synced between the two projects. 
+
+```
+      environment:
+        serverContextPath: /nldi
+        serverPort: 8080
+        nldiProtocol: http
+        nldiHost: "localhost:8080"
+        nldiPath: /nldi
+        springFrameworkLogLevel: debug
+        nldiDbHost: db
+        nldiDbPort: 5432
+        nldiDbUsername: nldi_data
+        nldiDbPassword: changeMe
+        nldiDbName: nldi
+        pygeoapiUrl: "https://labs.waterdata.usgs.gov/api/nldi/pygeoapi/"
+```
+
 TODO: get the `load-data.sh` script to run via `docker-compose run load-data` rather than it being run in a developers environment.
 
 ### Docker Compose
