@@ -12,4 +12,4 @@ crawler_source_id	source_name	source_suffix	source_uri	feature_id	feature_name	f
 13	geoconnex contribution demo sites	geoconnex-demo	https://geoconnex-demo-pages.internetofwater.dev/collections/demo-gpkg/items?f=json&limit=10000	id	GNIS_NAME	uri	NHDPv2ReachCode	NHDPv2Measure	reach	hydrolocation
 14	EPA National Rivers and Streams Assessment	epa_nrsa	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nrsa_nldi.geojson	featureid	feature_name	feature_uri	feature_reach	feature_measure	reach	hydrolocation
 15	2020 Census Block - NHDPlusV2 Catchment Intersections	census2020-nhdpv2	https://storage.googleapis.com/nhgf/2020pts.geojson	id	name	uri	NULL	NULL	point	point
-16	NPDES Facilities that Discharge to Water	npdes	https://www.hydroshare.org/resource/495b65e56e994289baaa5feeb401358e/data/contents/npdes/NPDES_pts.geojson	id	name	FEATUREDET	REACHCODE	MEASURE	reach	hydrolocation
+16	NPDES Facilities that Discharge to Water	npdes	https://www.hydroshare.org/resource/495b65e56e994289baaa5feeb401358e/data/contents/npdes/NPDES_pts.geojson	id	name	uri	REACHCODE	MEASURE	reach	hydrolocation
