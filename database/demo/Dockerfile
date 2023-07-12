@@ -23,19 +23,16 @@ RUN apt-get update && apt-get install -y curl
 ############################################
 
 COPY ./liquibase/changeLogs $LIQUIBASE_WORKSPACE
-COPY ./database/demo/crawler_source.tsv $LIQUIBASE_WORKSPACE/nldi/nldi_data/update_crawler_source/crawler_source.tsv
 COPY ./liquibase/scripts/*.sh /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbInit/*.sh /docker-entrypoint-initdb.d/
 COPY ./liquibase/scripts/dbDemo/*.sh /docker-entrypoint-initdb.d/
 
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/nldi_data.crawler_source.pgdump.gz" -o $LIQUIBASE_HOME/nldi_data.crawler_source.pgdump.gz
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_wqp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_wqp_yahara.backup.gz
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_huc12pp_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_huc12pp_yahara.backup.gz
-RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-1.0.0/feature_np21_nwis_yahara.backup.gz" -o $LIQUIBASE_HOME/feature_np21_nwis_yahara.backup.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/crawler_source.yahara.tsv" -o $LIQUIBASE_HOME/nldi/nldi_data/update_crawler_source/crawler_source.tsv
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/mainstem_lookup.yahara.csv" -o $LIQUIBASE_HOME/mainstem_lookup.csv
 
-ARG MAINSTEM_COMMIT="9052cbaeccbaa88f91317f8ec9891a90d378371f"
-RUN curl -L "https://code.usgs.gov/wma/nhgf/gfv2.0/-/raw/${MAINSTEM_COMMIT}/workspace/data/mainstem_lookup.csv.gz?inline=false" \
-	-o ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
-RUN gunzip ${LIQUIBASE_HOME}/mainstem_lookup.csv.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/nhdplus.yahara.pgdump.gz" -o $LIQUIBASE_HOME/nhdplus.yahara.pgdump.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/characteristic_data.yahara.pgdump.gz" -o $LIQUIBASE_HOME/characteristic_data.yahara.pgdump.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/feature_wqp.yahara.pgdump.gz" -o $LIQUIBASE_HOME/feature_wqp.yahara.pgdump.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/feature_huc12pp.yahara.pgdump.gz" -o $LIQUIBASE_HOME/feature_huc12pp.yahara.pgdump.gz
+RUN curl -L --verbose "https://github.com/internetofwater/nldi-db/releases/download/artifacts-2.0.0/feature_nwissite.yahara.pgdump.gz" -o $LIQUIBASE_HOME/feature_nwissite.yahara.pgdump.gz
+
