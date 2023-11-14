@@ -1,16 +1,16 @@
 crawler_source_id	source_name	source_suffix	source_uri	feature_id	feature_name	feature_uri	feature_reach	feature_measure	ingest_type	feature_type
-1	HUC12 Pour Points NHDPlusV2	huc12pp	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=fpp.geojson	HUC_12	HUC_12	HUC_12	NULL	NULL	point	hydrolocation
-2	Water Quality Portal	WQP	https://www.waterqualitydata.us/data/Station/search?mimeType=geojson&minactivities=1&counts=no	MonitoringLocationIdentifier	MonitoringLocationName	siteUrl	NULL	NULL	point	varies
-3	NWIS Surface Water Sites	nwissite	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=usgs_nldi_gages.geojson	provider_id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
-4	Water Data Exchange 2.0 Sites	wade	https://www.hydroshare.org/resource/5f665b7b82d74476930712f7e423a0d2/data/contents/wade.geojson	feature_id	feature_name	feature_uri	NULL	NULL	point	varies
-5	geoconnex.us reference gages	ref_gage	https://www.hydroshare.org/resource/3295a17b4cc24d34bd6a5c5aaf753c50/data/contents/nldi_gages.geojson	id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
-6	Streamgage catalog for CA SB19	ca_gages	https://sb19.linked-data.internetofwater.dev/collections/ca_gages/items?f=json&limit=10000	site_id	sitename	uri	rchcd_medres	reach_measure	reach	hydrolocation
-7	USGS Geospatial Fabric V1.1 Points of Interest	gfv11_pois	https://www.sciencebase.gov/catalogMaps/mapping/ows/609c8a63d34ea221ce3acfd3?service=WFS&version=1.0.0&request=GetFeature&srsName=EPSG:4326&typeName=sb::gfv11&outputFormat=json	prvdr_d	name	uri	n2_REACHC	n2_REACH_	reach	hydrolocation
-8	Vigil Network Data	vigil	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=vigil.geojson	SBID	Site Name	SBURL	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
-9	NWIS Groundwater Sites	nwisgw	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nwis_wells.geojson	provider_id	name	subjectOf	NULL	NULL	point	point
-10	New Mexico Water Data Initative Sites	nmwdi-st	https://locations.newmexicowaterdata.org/collections/Things/items?f=json&limit=100000	id	name	geoconnex	NULL	NULL	point	point
-11	geoconnex contribution demo sites	geoconnex-demo	https://geoconnex-demo-pages.internetofwater.dev/collections/demo-gpkg/items?f=json&limit=10000	id	GNIS_NAME	uri	NHDPv2ReachCode	NHDPv2Measure	reach	hydrolocation
-12	EPA National Rivers and Streams Assessment	epa_nrsa	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nrsa_nldi.geojson	featureid	feature_name	feature_uri	feature_reach	feature_measure	reach	hydrolocation
-13	2020 Census Block - NHDPlusV2 Catchment Intersections	census2020-nhdpv2	https://storage.googleapis.com/nhgf/census/2020pts.geojson	id	name	uri	NULL	NULL	point	point
-14	NPDES Facilities that Discharge to Water	npdes	https://www.hydroshare.org/resource/495b65e56e994289baaa5feeb401358e/data/contents/npdes/NPDES_pts.geojson	id	name	uri	REACHCODE	MEASURE	reach	hydrolocation
-15	HUC12 Pour Points circa 10-2020	huc12pp_102020	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=102020wbd_outlets.geojson	HUC12	HUC12	HUC12	REACHCODE	REACH_meas	reach	hydrolocation
+2	HUC12 Pour Points NHDPlusV2	huc12pp	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=fpp.geojson	HUC_12	HUC_12	HUC_12	NULL	NULL	point	hydrolocation
+1	Water Quality Portal	WQP	https://www.waterqualitydata.us/data/Station/search?mimeType=geojson&minactivities=1&counts=no	MonitoringLocationIdentifier	MonitoringLocationName	siteUrl	NULL	NULL	point	varies
+5	NWIS Surface Water Sites	nwissite	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=usgs_nldi_gages.geojson	provider_id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
+6	Water Data Exchange 2.0 Sites	wade	https://www.hydroshare.org/resource/5f665b7b82d74476930712f7e423a0d2/data/contents/wade.geojson	feature_id	feature_name	feature_uri	NULL	NULL	point	varies
+7	geoconnex.us reference gages	ref_gage	https://www.hydroshare.org/resource/3295a17b4cc24d34bd6a5c5aaf753c50/data/contents/nldi_gages.geojson	id	name	subjectOf	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
+8	Streamgage catalog for CA SB19	ca_gages	https://sb19.linked-data.internetofwater.dev/collections/ca_gages/items?f=json&limit=10000	site_id	sitename	uri	rchcd_medres	reach_measure	reach	hydrolocation
+9	USGS Geospatial Fabric V1.1 Points of Interest	gfv11_pois	https://www.sciencebase.gov/catalogMaps/mapping/ows/609c8a63d34ea221ce3acfd3?service=WFS&version=1.0.0&request=GetFeature&srsName=EPSG:4326&typeName=sb::gfv11&outputFormat=json	prvdr_d	name	uri	n2_REACHC	n2_REACH_	reach	hydrolocation
+10	Vigil Network Data	vigil	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=vigil.geojson	SBID	Site Name	SBURL	nhdpv2_REACHCODE	nhdpv2_REACH_measure	reach	hydrolocation
+11	NWIS Groundwater Sites	nwisgw	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nwis_wells.geojson	provider_id	name	subjectOf	NULL	NULL	point	point
+12	New Mexico Water Data Initative Sites	nmwdi-st	https://locations.newmexicowaterdata.org/collections/Things/items?f=json&limit=100000	id	name	geoconnex	NULL	NULL	point	point
+13	geoconnex contribution demo sites	geoconnex-demo	https://geoconnex-demo-pages.internetofwater.dev/collections/demo-gpkg/items?f=json&limit=10000	id	GNIS_NAME	uri	NHDPv2ReachCode	NHDPv2Measure	reach	hydrolocation
+14	EPA National Rivers and Streams Assessment	epa_nrsa	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=nrsa_nldi.geojson	featureid	feature_name	feature_uri	feature_reach	feature_measure	reach	hydrolocation
+15	2020 Census Block - NHDPlusV2 Catchment Intersections	census2020-nhdpv2	https://storage.googleapis.com/nhgf/census/2020pts.geojson	id	name	uri	NULL	NULL	point	point
+16	NPDES Facilities that Discharge to Water	npdes	https://www.hydroshare.org/resource/495b65e56e994289baaa5feeb401358e/data/contents/npdes/NPDES_pts.geojson	id	name	uri	REACHCODE	MEASURE	reach	hydrolocation
+17	HUC12 Pour Points circa 10-2020	huc12pp_102020	https://www.sciencebase.gov/catalog/file/get/60c7b895d34e86b9389b2a6c?name=102020wbd_outlets.geojson	HUC12	HUC12	HUC12	REACHCODE	REACH_meas	reach	hydrolocation
