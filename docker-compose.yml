@@ -23,6 +23,7 @@ services:
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
       - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
+    network_mode: "host"
     ports:
       - ${DB_CI_PORT}:5432
     container_name: nldi-db-ci
@@ -48,6 +49,7 @@ services:
       - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
       - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
       - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
+    network_mode: "host"
     ports:
       - ${DB_DEMO_PORT}:5432
     container_name: nldi-db-demo
@@ -57,6 +59,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
+    network_mode: "host"
     ports:
       - ${DB_PORT}:5432
     container_name: nldi-db
