@@ -60,6 +60,7 @@ services:
     ports:
       - ${DB_PORT}:5432
     container_name: nldi-db
+    network_mode: "host"
 
   liquibase:
     image: ghcr.io/internetofwater/nldi-db:liquibase
