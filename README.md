@@ -51,8 +51,8 @@ Each Docker image can be built and run using the provided Docker Compose yaml fi
 The Liquibase changelogs can be tested locally by spinning up the generic PostGIS database (db) and the Liquibase container.
 
 ```shell
-docker-compose up -d db
-docker-compose run liquibase
+docker compose up -d db
+docker compose run liquibase
 ```
 
 The local file system is mounted into the liquibase container. This allows you to change the liquibase and shell scripts and run the changes by just re-launching the liquibase container. Note that all standard Liquibase caveats apply.
@@ -62,7 +62,7 @@ The PostGIS database will be available on your localhost's port `$DB_PORT`, allo
 #### CI
 
 ```shell
-docker-compose up ci
+docker compose up ci
 ```
 
 It will be available on you localhost's port `$DB_CI_PORT`.
@@ -72,7 +72,7 @@ This database does not contain any data and is used to insert mock data for test
 #### Demo Database
 
 ```shell
-docker-compose up demo
+docker compose up demo
 ```
 
 It will be available on your localhost's port `$DB_DEMO_PORT`.
@@ -101,7 +101,7 @@ To run the services with an at scale database, starting from a stand alone datab
         pygeoapiUrl: "https://labs.waterdata.usgs.gov/api/nldi/pygeoapi/"
 ```
 
-TODO: get the `load-data.sh` script to run via `docker-compose run load-data` rather than it being run in a developers environment.
+TODO: get the `load-data.sh` script to run via `docker compose run load-data` rather than it being run in a developers environment.
 
 ### Docker Compose
 
@@ -109,9 +109,9 @@ It is highly recommended to use Docker Compose to run the included Docker images
 
 There are several commands that you will find useful during your testing.
 
-If you have started a container with `docker-compose up -d <container name>`, it can be stopped by pressing ctrl+C, or your machines equivalent, in the terminal that it was started from. Alternatively, you can run `docker-compose stop <container name>` from a separate terminal.
+If you have started a container with `docker compose up -d <container name>`, it can be stopped by pressing ctrl+C, or your machines equivalent, in the terminal that it was started from. Alternatively, you can run `docker compose stop <container name>` from a separate terminal.
 
-Using `docker-compose run <container name>` is useful for running containers that will not remain running after execution.
+Using `docker compose run <container name>` is useful for running containers that will not remain running after execution.
 
 See the [Docker Compose documentation](https://docs.docker.com/compose/reference/) for other commands.
 
