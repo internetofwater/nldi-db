@@ -4,7 +4,7 @@ ARG POSTGIS_DOCKER_VERSION
 
 FROM ${DOCKER_MIRROR:-""}liquibase/liquibase:${LIQUIBASE_DOCKER_VERSION:-"3.10"} as Liquibase
 
-FROM ${DOCKER_MIRROR:-""}postgis/postgis:${POSTGIS_DOCKER_VERSION:-"12-3.0"} AS Postgres
+FROM ${DOCKER_MIRROR:-""}postgis/postgis:${POSTGIS_DOCKER_VERSION:-"16-3.5"} AS Postgres
 
 LABEL org.opencontainers.image.authors="gs-w_eto_eb_federal_employees@usgs.gov"
 LABEL org.opencontainers.image.title="NLDI CI Database"
