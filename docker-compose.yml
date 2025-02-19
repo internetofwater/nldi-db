@@ -55,7 +55,7 @@ services:
     container_name: nldi-db-demo
 
   db:
-    image: ${DOCKER_MIRROR}postgis/postgis:12-3.0
+    image: ${DOCKER_MIRROR}postgis/postgis:16-3.5
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${NLDI_DATABASE_NAME}
