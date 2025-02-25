@@ -7,7 +7,7 @@ This repository contains Liquibase changelogs for creating and managing the NLDI
 1. The CI database is a blank database (schema only) that is used for integration tests in the [NLDI Services](https://github.com/internetofwater/nldi-services) and [NLDI Crawler](https://github.com/internetofwater/nldi-crawler) projects.  
 
 Full scale data is available from an open, requester pays, s3 bucket and can be loaded using the same pattern as the demo image but using different table artifacts:  
-`s3://nhgf-development.s3.amazonaws.com/dev/nldi-database-load/`
+`s3://nhgf-development/dev/nldi-database-load/`
 
 Details of how to install this project for small scale (demo) or large scale are included below.
 
