@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  db:
+    image: ${DOCKER_MIRROR}postgis/postgis:16-3.5
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+    ports:
+      - ${DB_PORT}:5432
+    container_name: nldi-db
+
+  liquibase:
+    image: ghcr.io/internetofwater/nldi-db:liquibase
+    build:
+      context: ./liquibase
+      args:
+        DOCKER_MIRROR: ${DOCKER_MIRROR}
+        LIQUIBASE_DOCKER_VERSION: ${LIQUIBASE_DOCKER_VERSION}
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${NLDI_DATABASE_NAME}
+      - NLDI_DATABASE_NAME=${NLDI_DATABASE_NAME}
+      - NLDI_DB_OWNER_USERNAME=${NLDI_DB_OWNER_USERNAME}
+      - NLDI_DB_OWNER_PASSWORD=${NLDI_DB_OWNER_PASSWORD}
+      - NLDI_SCHEMA_OWNER_USERNAME=${NLDI_SCHEMA_OWNER_USERNAME}
+      - NLDI_SCHEMA_OWNER_PASSWORD=${NLDI_SCHEMA_OWNER_PASSWORD}
+      - NHDPLUS_SCHEMA_OWNER_USERNAME=${NHDPLUS_SCHEMA_OWNER_USERNAME}
+      - NLDI_READ_ONLY_USERNAME=${NLDI_READ_ONLY_USERNAME}
+      - NLDI_READ_ONLY_PASSWORD=${NLDI_READ_ONLY_PASSWORD}
+      - NLDI_DATABASE_ADDRESS=${NLDI_DATABASE_ADDRESS}
+    volumes:
+      - ./liquibase/changeLogs:/liquibase/workspace/
+      - ./liquibase/scripts/dbInit:/docker-entrypoint-initdb.d
+    container_name: nldi-db-liquibase
+    depends_on:
+      - db
