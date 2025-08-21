@@ -9,6 +9,8 @@ services:
     ports:
       - ${DB_PORT}:5432
     container_name: nldi-db
+    networks:
+      - nldi-pygeoapi
 
   liquibase:
     image: ghcr.io/internetofwater/nldi-db:liquibase
@@ -35,3 +37,12 @@ services:
     container_name: nldi-db-liquibase
     depends_on:
       - db
+    networks:
+      - nldi-pygeoapi
+
+networks:
+  nldi-pygeoapi:
+    name: nldi-pygeoapi
+    driver: bridge
+    #this will enable pygeoapi containers to attached to this network and connect to our database
+    attachable: true
