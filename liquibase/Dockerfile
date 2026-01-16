@@ -24,6 +24,17 @@ ENV POSTGRES_PASSWORD=missing_postgres_password
 USER root
 RUN mkdir -p ${LIQUIBASE_WORKSPACE}
 
+RUN set -eux; \
+  printf '%s\n' \
+    'deb http://archive.debian.org/debian buster main contrib non-free' \
+    'deb http://archive.debian.org/debian-security buster/updates main contrib non-free' \
+    > /etc/apt/sources.list; \
+  printf '%s\n' 'Acquire::Check-Valid-Until "false";' \
+    > /etc/apt/apt.conf.d/99no-check-valid-until; \
+  apt-get -o Acquire::Check-Valid-Until=false update; \
+  apt-get install -y --no-install-recommends curl ca-certificates; \
+  rm -rf /var/lib/apt/lists/*
+
 RUN apt-get --allow-releaseinfo-change update && apt-get install -y curl
 COPY ./docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
