@@ -1,10 +1,10 @@
 # NLDI Database
 
-This repository contains Liquibase changelogs for creating and managing the NLDI PostGIS database. The [package registry](https://github.com/internetofwater/nldi-db/pkgs/container/nldi-db) has three pre-built Docker images that are ready to use.  
+This repository contains Liquibase changelogs for creating and managing the NLDI PostGIS database. The [package registry](https://github.com/internetofwater/nldi-db/pkgs/container/nldi-db) has three pre-built Docker images that are ready to use.
 
-1. The demo image contains a subset of data to use for small scale testing.  
-1. The Liquibase image can be used to run the Liquibase changelogs against any PostGIS database.  
-1. The CI database is a blank database (schema only) that is used for integration tests in the [NLDI Services](https://github.com/internetofwater/nldi-services) and [NLDI Crawler](https://github.com/internetofwater/nldi-crawler) projects.  
+1. The demo image contains a subset of data to use for small scale testing.
+1. The Liquibase image can be used to run the Liquibase changelogs against any PostGIS database.
+1. The CI database is a blank database (schema only) that is used for integration tests in the [NLDI Services](https://github.com/internetofwater/nldi-services) and [NLDI Crawler](https://github.com/internetofwater/nldi-crawler) projects.
 
 Full scale data is available from an open, requester pays, s3 bucket and can be loaded using the same pattern as the demo image but using different table artifacts:  
 `s3://nhgf-development/dev/nldi-database-load/`
@@ -14,19 +14,18 @@ Details of how to install this project for small scale (demo) or large scale are
 ## Table of Contents
 
 - [NLDI Database](#nldi-database)
-	- [Table of Contents](#table-of-contents)
-	- [Contributing](#contributing)
-	- [Development](#development)
-		- [Configuration](#configuration)
-		- [Running](#running)
-			- [Liquibase](#liquibase)
-			- [CI](#ci)
-			- [Demo Database](#demo-database)
-			- [At Scale Database](#at-scale-database)
-		- [Docker Compose](#docker-compose)
-		- [Environment Variables](#environment-variables)
-			- [Definitions](#definitions)
-
+  - [Table of Contents](#table-of-contents)
+  - [Contributing](#contributing)
+  - [Development](#development)
+    - [Configuration](#configuration)
+    - [Running](#running)
+      - [Liquibase](#liquibase)
+      - [CI](#ci)
+      - [Demo Database](#demo-database)
+      - [At Scale Database](#at-scale-database)
+    - [Docker Compose](#docker-compose)
+    - [Environment Variables](#environment-variables)
+      - [Definitions](#definitions)
 
 ## Contributing
 
@@ -83,7 +82,7 @@ While not necessary for development, it can be useful to load and run the NLDI w
 
 The `load-data.sh` script reads environment variables from a `.env` file accoring the the specification below, downloads production artifacts with the `aws` CLI, and uses `pg_restore` to load them. The script expects the postgres user's password to be available in a location like a .pgpass file.
 
-To run the services with an at scale database, starting from a stand alone database from the this project can be accomplished with minor alterations to the docker-compose.yml to allow the two docker-compose projects to communicate on the same network. 
+To run the services with an at scale database, starting from a stand alone database from the this project can be accomplished with minor alterations to the docker-compose.yml to allow the two docker-compose projects to communicate on the same network.
 
 ```
       environment:
@@ -114,7 +113,6 @@ If you have started a container with `docker compose up -d <container name>`, it
 Using `docker compose run <container name>` is useful for running containers that will not remain running after execution.
 
 See the [Docker Compose documentation](https://docs.docker.com/compose/reference/) for other commands.
-
 
 ### Environment Variables
 
@@ -148,20 +146,20 @@ C = CI (continuous integration)\
 G = Generic PostGIS database\
 N = None (optional)
 
-| Name | Description | Required For |
-|---|---|:---:|
-| POSTGRES_PASSWORD | Password for the postgres user. | L,D,C,G |
-| NLDI_DATABASE_ADDRESS | Host name or IP address of the PostgreSQL database. | L,D,C |
-| NLDI_DATABASE_NAME | Name of the PostgreSQL database to create for containing the schema. | L,D,C |
-| NLDI_DB_OWNER_USERNAME | Role which will own the database. | L,D,C |
-| NLDI_DB_OWNER_PASSWORD | Password for the `NLDI_DB_OWNER_USERNAME` role. | L,D,C |
-| NLDI_SCHEMA_OWNER_USERNAME | Role which will own the NLDI database objects. | L,D,C |
-| NLDI_SCHEMA_OWNER_PASSWORD | Password for the `NLDI_SCHEMA_OWNER_USERNAME` role. | L,D,C |
-| NHDPLUS_SCHEMA_OWNER_USERNAME | Role which will own the NHDPLUS database objects. | L,D,C |
-| NLDI_READ_ONLY_USERNAME | The limited privilege role used by applications to access this schema. | L,D,C |
-| NLDI_READ_ONLY_PASSWORD | Password for the `NLDI_READ_ONLY_USERNAME` role. | L,D,C |
-| DB_CI_PORT | The localhost port on which to expose the CI database. | C |
-| DB_DEMO_PORT | The localhost port on which to expose the Demo database. | D |
-| DB_PORT | The localhost port on which to expose the script testing database container. | G |
-| DOCKER_MIRROR | Optional mirror URL that is prefixed when pulling Docker images. | N |
-| NLDI_BUCKET_NAME | Optional bucket where data tables can be downloaded. | N |
+| Name                          | Description                                                                  | Required For |
+| ----------------------------- | ---------------------------------------------------------------------------- | :----------: |
+| POSTGRES_PASSWORD             | Password for the postgres user.                                              |   L,D,C,G    |
+| NLDI_DATABASE_ADDRESS         | Host name or IP address of the PostgreSQL database.                          |    L,D,C     |
+| NLDI_DATABASE_NAME            | Name of the PostgreSQL database to create for containing the schema.         |    L,D,C     |
+| NLDI_DB_OWNER_USERNAME        | Role which will own the database.                                            |    L,D,C     |
+| NLDI_DB_OWNER_PASSWORD        | Password for the `NLDI_DB_OWNER_USERNAME` role.                              |    L,D,C     |
+| NLDI_SCHEMA_OWNER_USERNAME    | Role which will own the NLDI database objects.                               |    L,D,C     |
+| NLDI_SCHEMA_OWNER_PASSWORD    | Password for the `NLDI_SCHEMA_OWNER_USERNAME` role.                          |    L,D,C     |
+| NHDPLUS_SCHEMA_OWNER_USERNAME | Role which will own the NHDPLUS database objects.                            |    L,D,C     |
+| NLDI_READ_ONLY_USERNAME       | The limited privilege role used by applications to access this schema.       |    L,D,C     |
+| NLDI_READ_ONLY_PASSWORD       | Password for the `NLDI_READ_ONLY_USERNAME` role.                             |    L,D,C     |
+| DB_CI_PORT                    | The localhost port on which to expose the CI database.                       |      C       |
+| DB_DEMO_PORT                  | The localhost port on which to expose the Demo database.                     |      D       |
+| DB_PORT                       | The localhost port on which to expose the script testing database container. |      G       |
+| DOCKER_MIRROR                 | Optional mirror URL that is prefixed when pulling Docker images.             |      N       |
+| NLDI_BUCKET_NAME              | Optional bucket where data tables can be downloaded.                         |      N       |
